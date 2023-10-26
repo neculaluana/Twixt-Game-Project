@@ -4,9 +4,12 @@ class Bridge
 {
 public:
 	Bridge(Point firstPoint, Point secondPoint);
+	enum getColor() const;
+
+	~Bridge() = default;
 
 private:
 	Point m_firstPoint;
 	Point m_secondPoint;
-	std::string m_color;
+	Color m_color;
 };
