@@ -2,6 +2,13 @@ class Board {
 
 public:
 
-private: 
+	Board();
+	
+	Board(int size);
 
+	~Board() = default;
+
+private: 
+	int m_size;
+	std::vector<std::vector<int>>m_board;
 };
