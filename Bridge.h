@@ -1,0 +1,7 @@
+class Bridge
+{
+public:
+
+private:
+
+};
