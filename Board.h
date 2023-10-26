@@ -1,0 +1,7 @@
+class Board {
+
+public:
+
+private: 
+
+};
