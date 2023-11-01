@@ -1,4 +1,6 @@
 module Point;
+import <math.h>;
+import <iostream>;
 
 using namespace twixt;
 Point::Point(int x, int y, Color color)
@@ -6,18 +8,21 @@ Point::Point(int x, int y, Color color)
 	,m_color(color)
 {}
 
-bool Point::isBridgePossible(const Point& b) const
+bool Point::isBridgePossible(const Point& p1, const Point& p2) const
 {
-	
+	if ((std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 1 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 2) ||
+		(std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 2 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 1)) {
+		return true;
+	}
 	return false;
 }
 
-Color Point::getColor() const
+const Point::Color& Point::getColor() const
 {
 	return m_color;
 }
 
-std::pair<int, int> Point::getCoordinates() const
+const std::pair<uint8_t, uint8_t>& Point::getCoordinates() const
 {
 	return m_coordinates;
 }
