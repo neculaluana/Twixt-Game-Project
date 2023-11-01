@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="board.cppm" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
