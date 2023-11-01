@@ -1,6 +1,6 @@
 module;
-#include<cstdint>
 export module Player;
+#include<cstdint>
 import<vector>;
 import<string>;
 import Point;

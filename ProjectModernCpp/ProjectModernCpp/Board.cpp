@@ -29,3 +29,8 @@ Board::Status Board::getStatus(std::pair<int,int>coordinate)const
 	return m_board[coordinate.first][coordinate.second];
 	
 }
+
+int Board::getBoardSize()const
+{
+	return m_boardSize;
+}

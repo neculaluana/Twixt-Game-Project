@@ -1,6 +1,6 @@
 module;
 export module Board;
-#include <vector>
+import <vector>;
 
 
 namespace twixt {
@@ -21,7 +21,8 @@ namespace twixt {
 		void boardResize(int boardSize);
 		Status getStatus(std::pair<int,int>coordinate)const;
 		void setBases(int boardSize);
-		
+		int getBoardSize()const;
+
 	private:
 		int m_boardSize;
 		std::vector<std::vector<Status>>m_board;
