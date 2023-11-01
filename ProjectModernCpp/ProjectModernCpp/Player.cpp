@@ -8,6 +8,13 @@ Color Player::getColor() const
 {
 	return m_color;
 }
+void Player::changeColor()
+{
+	if (m_color == Color::Red)
+		m_color = Color::Black;
+	else
+		m_color = Color::Red;
+}
 std::vector<Point> Player::getPoints() const
 {
 	return m_points;

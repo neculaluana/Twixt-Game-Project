@@ -2,6 +2,8 @@ module;
 #include<cstdint>
 export module Player;
 import<vector>;
+import Point;
+import Bridge;
 
 namespace twixt {
 	export class Player
@@ -10,6 +12,7 @@ namespace twixt {
 		Player(Color color);
 		~Player() = default;
 		Color getColor()const;
+		void changeColor();
 		std::vector<Point> getPoints()const;
 		std::vector<Bridge> getBridges()const;
 	private:
