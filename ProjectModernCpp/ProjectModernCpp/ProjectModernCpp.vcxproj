@@ -18,6 +18,20 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Bridge.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Point.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="Bridge.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Point.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -126,20 +140,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Board.cpp" />
-    <ClCompile Include="..\..\Bridge.cpp" />
-    <ClCompile Include="..\..\Game.cpp" />
-    <ClCompile Include="..\..\Player.cpp" />
-    <ClCompile Include="..\..\Point.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Board.h" />
-    <ClInclude Include="..\..\Bridge.h" />
-    <ClInclude Include="..\..\Game.h" />
-    <ClInclude Include="..\..\Player.h" />
-    <ClInclude Include="..\..\Point.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
