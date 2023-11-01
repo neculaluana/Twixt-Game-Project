@@ -8,8 +8,8 @@ public:
 	Color getColor() const;
 	Point getStartPoint() const;
 	Point getEndPoint() const;
-	void setStartPoint();
-	void setEndPoint();
+	void setStartPoint(Point p);
+	void setEndPoint(Point p);
 
 	~Bridge() = default;
 
