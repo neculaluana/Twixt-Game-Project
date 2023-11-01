@@ -1,5 +1,5 @@
 #pragma once
-#include"Player.h"
+#include"Player.h";
 Player::Player(Color color) :
 	m_color(color) {
 }
@@ -15,4 +15,3 @@ std::vector<Bridge> Player::getBridges() const
 {
 	return m_bridges;
 }
-;
