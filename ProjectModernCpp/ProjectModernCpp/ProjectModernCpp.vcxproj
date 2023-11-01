@@ -24,6 +24,7 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="bridge.cppm" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game.cppm" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="player.cppm" />
