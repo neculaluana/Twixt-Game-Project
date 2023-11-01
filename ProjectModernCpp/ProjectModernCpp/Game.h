@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "Player.h"
 #include "Point.h"

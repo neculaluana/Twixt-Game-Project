@@ -1,10 +1,11 @@
-#include "Point.h"
+#pragma once
+#include"Point.h"
 #include <string>
 class Bridge
 {
 public:
 	Bridge(Point firstPoint, Point secondPoint);
-	enum getColor() const;
+	Color getColor() const;
 
 	~Bridge() = default;
 
