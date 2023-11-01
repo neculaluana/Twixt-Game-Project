@@ -22,13 +22,16 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="board.cppm" />
     <ClCompile Include="Bridge.cpp" />
+    <ClCompile Include="bridge.cppm" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="player.cppm" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Point.cppm" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bridge.h" />
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
@@ -136,6 +139,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
