@@ -1,4 +1,5 @@
-#include"Player.h"
+module Player;
+using namespace twixt;
 
 Player::Player(Color color) :
 	m_color(color) {
