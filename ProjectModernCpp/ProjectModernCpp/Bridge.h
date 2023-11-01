@@ -4,13 +4,17 @@
 class Bridge
 {
 public:
-	Bridge(Point firstPoint, Point secondPoint);
+	Bridge(Point startPoint, Point endPoint);
 	Color getColor() const;
+	Point getStartPoint() const;
+	Point getEndPoint() const;
+	void setStartPoint();
+	void setEndPoint();
 
 	~Bridge() = default;
 
 private:
-	Point m_firstPoint;
-	Point m_secondPoint;
+	Point m_startPoint;
+	Point m_endPoint;
 	Color m_color;
 };
