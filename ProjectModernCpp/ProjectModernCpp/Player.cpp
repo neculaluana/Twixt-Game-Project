@@ -15,6 +15,16 @@ void Player::changeColor()
 	else
 		m_color = Color::Red;
 }
+
+std::string getName()const
+{
+	return m_name;
+}
+
+void setName(std::string name)
+{
+	m_name = name;
+}
 std::vector<Point> Player::getPoints() const
 {
 	return m_points;
