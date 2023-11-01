@@ -1,1 +1,3 @@
-#include "Game.h"
+module Game;
+
+using namespace twixt;
