@@ -1,11 +1,13 @@
-#include "Bridge.h"
+module Bridge;
+
+using namespace twixt;
 
 Bridge::Bridge(Point startPoint, Point endPoint)
 	:m_startPoint{startPoint}
 	,m_endPoint{endPoint}
 {}
 
-Color Bridge::getColor() const
+Point::Color Bridge::getColor() const
 {
 	return m_color;
 }
