@@ -25,7 +25,7 @@ void Board::setBases(int boardSize)
 
 }
 
-Board::Status Board::getStatus(std::pair<int,int>coordinate)const
+Board::Status Board::getStatus(std::pair<uint8_t, uint8_t>coordinate)const
 {
 	return m_board[coordinate.first][coordinate.second];
 	
@@ -63,4 +63,12 @@ bool Board::isBridgePossible(const Point& p1, const Point& p2)const
 	}
 	return false;
 
+}
+
+bool Board::isPointPossible(std::pair<uint8_t, uint8_t> coordinate) const
+{
+	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)
+		return true;
+	else
+		return false;
 }
