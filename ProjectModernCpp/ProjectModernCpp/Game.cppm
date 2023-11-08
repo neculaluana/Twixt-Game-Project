@@ -14,9 +14,7 @@ namespace twixt {
 		Game() = default;
 		void startNewGame();
 		void loadGame();
-		bool isPointPossible(uint8_t x, uint8_t y);
 		void makePoint();
-		void makeBridges();
 		void changeCurrentPlayer();
 		bool wonGame() const;
 		bool drawGame() const;
