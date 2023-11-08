@@ -10,10 +10,12 @@ namespace twixt {
 	export class Player
 	{
 	public:
-		Player(Point::Color color);
+		Player(std::string name, Point::Color color);
 		~Player() = default;
 		Point::Color getColor()const;
 		void changeColor();
+		void addPoint(const Point& p);
+		void removePoint(const Point& p);
 		std::vector<Point> getPoints()const;
 		std::vector<Bridge> getBridges()const;
 		std::string	getName()const;
