@@ -1,9 +1,9 @@
-import Board;
+import Game;
 using namespace twixt;
 int main()
 {
-	Board b;
-	b.printBoard();
+	Game game;
+	game.startNewGame();
 
 	return 0;
 }
