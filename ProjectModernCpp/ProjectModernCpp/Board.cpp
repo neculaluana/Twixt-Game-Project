@@ -6,7 +6,7 @@ void Board::boardResize(int boardSize)
 	m_board.resize(boardSize, std::vector<Status>(boardSize, Status::Empty));
 }
 
-Board::Board(int boardSize=24) :
+Board::Board(int boardSize) :
 	m_boardSize{ boardSize }
 {
 	boardResize(boardSize);

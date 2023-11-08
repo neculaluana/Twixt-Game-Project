@@ -36,31 +36,17 @@
     <ClCompile Include="Point.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="board.cppm">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="bridge.cppm">
       <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cppm">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Player.h">
+    <ClCompile Include="board.cppm">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
+    </ClCompile>
+    <ClCompile Include="player.cppm">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>
