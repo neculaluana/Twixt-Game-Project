@@ -19,7 +19,7 @@ namespace twixt {
 		~Point() = default;
 
 	private:
-		Color m_color : 1;
+		Point::Color m_color : 1;
 		std::pair<uint8_t, uint8_t> m_coordinates;
 	};
 }

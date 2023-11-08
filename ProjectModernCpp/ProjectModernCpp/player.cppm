@@ -10,9 +10,9 @@ namespace twixt {
 	export class Player
 	{
 	public:
-		Player(Color color);
+		Player(Point::Color color);
 		~Player() = default;
-		Color getColor()const;
+		Point::Color getColor()const;
 		void changeColor();
 		std::vector<Point> getPoints()const;
 		std::vector<Bridge> getBridges()const;
@@ -21,7 +21,7 @@ namespace twixt {
 
 	private:
 
-		Color m_color;
+		Point::Color m_color;
 		std::vector<Point> m_points;
 		std::vector<Bridge> m_bridges;
 		std::string m_name;

@@ -27,7 +27,7 @@
     <ClCompile Include="Game.cppm" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="player.cppm" />
+    <ClCompile Include="Player.cppm" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Point.cppm" />
   </ItemGroup>
