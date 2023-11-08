@@ -39,3 +39,17 @@ void Player::addPoint(const Point& p)
 	m_points.push_back(p);
 }
 
+void Player::removePoint(const Point& p)
+{
+	for (std::vector<Point>::iterator it = m_points.begin(); it != m_points.end();)
+	{
+		if (it->getCoordinates().first == p.getCoordinates().first && it->getCoordinates().second == p.getCoordinates().second)
+		{
+			it = m_points.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
