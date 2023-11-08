@@ -1,18 +1,20 @@
 module;
 export module Board;
 import <vector>;
-
+import <iostream>;
+import Point;
 
 namespace twixt {
 	export class Board
 	{
 	public:
 		enum class Status {
-			PlayerRed,
-			PlayerBlack,
-			BaseRed,
-			BaseBlack,
-			Empty
+			Empty=0,
+			PlayerRed=1,
+			PlayerBlack=2,
+			BaseRed=-1,
+			BaseBlack=-2
+			
 		};
 
 		Board(int boardSize=24);
@@ -22,6 +24,7 @@ namespace twixt {
 		Status getStatus(std::pair<int,int>coordinate)const;
 		void setBases(int boardSize);
 		int getBoardSize()const;
+		void printBoard();
 
 	private:
 		int m_boardSize;

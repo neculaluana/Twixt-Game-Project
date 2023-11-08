@@ -34,3 +34,14 @@ int Board::getBoardSize()const
 {
 	return m_boardSize;
 }
+
+void Board::printBoard()
+{
+	for (const auto& lin : m_board)
+	{
+		for (const auto& col : lin)
+			std::cout << static_cast<int>(col) << " ";
+		std::cout << std::endl;
+	}
+
+}
