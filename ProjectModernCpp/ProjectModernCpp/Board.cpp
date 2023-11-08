@@ -4,6 +4,7 @@ using namespace twixt;
 void Board::boardResize(int boardSize)
 {
 	m_board.resize(boardSize, std::vector<Status>(boardSize, Status::Empty));
+	setBases(boardSize);
 }
 
 Board::Board(int boardSize) :
@@ -33,4 +34,33 @@ Board::Status Board::getStatus(std::pair<int,int>coordinate)const
 int Board::getBoardSize()const
 {
 	return m_boardSize;
+}
+
+void Board::printBoard()
+{
+	for (const auto& lin : m_board)
+	{
+		for (const auto& col : lin)
+			std::cout << static_cast<char>(col)<<" ";
+		std::cout << std::endl;
+	}
+
+}
+void Board::addPoint(const Point& p)
+{
+	if (p.getColor() == Point::Color::Red)
+		m_board[p.getCoordinates().first][p.getCoordinates().second] = Board::Status::PlayerRed;
+	else 
+		m_board[p.getCoordinates().first][p.getCoordinates().second] = Board::Status::PlayerBlack;
+
+}
+
+bool Board::isBridgePossible(const Point& p1, const Point& p2)const
+{
+	if ((std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 1 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 2) ||
+		(std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 2 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 1)) {
+		return true;
+	}
+	return false;
+
 }
