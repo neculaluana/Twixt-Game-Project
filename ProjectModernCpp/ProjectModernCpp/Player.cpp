@@ -1,27 +1,27 @@
 module Player;
 using namespace twixt;
 
-Player::Player(Color color) :
+Player::Player(Point::Color color):
 	m_color(color) {
 }
-Color Player::getColor() const
+Point::Color Player::getColor() const
 {
 	return m_color;
 }
 void Player::changeColor()
 {
-	if (m_color == Color::Red)
-		m_color = Color::Black;
+	if (m_color == Point::Color::Red)
+		m_color = Point::Color::Black;
 	else
-		m_color = Color::Red;
+		m_color = Point::Color::Red;
 }
 
-std::string getName()const
+std::string Player::getName()const
 {
 	return m_name;
 }
 
-void setName(std::string name)
+void Player::setName(std::string name)
 {
 	m_name = name;
 }

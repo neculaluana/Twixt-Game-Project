@@ -3,7 +3,7 @@ import <math.h>;
 import <iostream>;
 
 using namespace twixt;
-Point::Point(int x, int y, Color color)
+Point::Point(int x, int y, Point::Color color)
 	:m_coordinates(std::make_pair(x, y))
 	,m_color(color)
 {}
