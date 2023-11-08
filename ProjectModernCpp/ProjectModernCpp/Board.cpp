@@ -4,6 +4,7 @@ using namespace twixt;
 void Board::boardResize(int boardSize)
 {
 	m_board.resize(boardSize, std::vector<Status>(boardSize, Status::Empty));
+	setBases(boardSize);
 }
 
 Board::Board(int boardSize) :
@@ -40,8 +41,16 @@ void Board::printBoard()
 	for (const auto& lin : m_board)
 	{
 		for (const auto& col : lin)
-			std::cout << static_cast<int>(col) << " ";
+			std::cout << static_cast<char>(col)<<" ";
 		std::cout << std::endl;
 	}
+
+}
+void Board::addPoint(const Point& p)
+{
+	if (p.getColor() == Point::Color::Red)
+		m_board[p.getCoordinates().first][p.getCoordinates().second] = Board::Status::PlayerRed;
+	else 
+		m_board[p.getCoordinates().first][p.getCoordinates().second] = Board::Status::PlayerBlack;
 
 }

@@ -9,11 +9,11 @@ namespace twixt {
 	{
 	public:
 		enum class Status {
-			Empty=0,
-			PlayerRed=1,
-			PlayerBlack=2,
-			BaseRed=-1,
-			BaseBlack=-2
+			Empty='.',
+			PlayerRed='r',
+			PlayerBlack='b',
+			BaseRed='-',
+			BaseBlack='|'
 			
 		};
 
@@ -25,6 +25,7 @@ namespace twixt {
 		void setBases(int boardSize);
 		int getBoardSize()const;
 		void printBoard();
+		void addPoint(const Point& p);
 
 	private:
 		int m_boardSize;
