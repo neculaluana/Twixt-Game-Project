@@ -54,3 +54,13 @@ void Board::addPoint(const Point& p)
 		m_board[p.getCoordinates().first][p.getCoordinates().second] = Board::Status::PlayerBlack;
 
 }
+
+bool Board::isBridgePossible(const Point& p1, const Point& p2)const
+{
+	if ((std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 1 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 2) ||
+		(std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 2 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 1)) {
+		return true;
+	}
+	return false;
+
+}

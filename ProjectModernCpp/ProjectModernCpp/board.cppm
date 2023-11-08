@@ -26,7 +26,7 @@ namespace twixt {
 		int getBoardSize()const;
 		void printBoard();
 		void addPoint(const Point& p);
-
+		bool isBridgePossible(const Point& p1, const Point& p2)const;
 	private:
 		int m_boardSize;
 		std::vector<std::vector<Status>>m_board;
