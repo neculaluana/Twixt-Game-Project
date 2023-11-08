@@ -10,6 +10,8 @@ namespace twixt
 	{
 	public:
 		Bridge(Point startPoint, Point endPoint);
+		Bridge(const Bridge& other);
+
 		Point::Color getColor() const;
 		Point getStartPoint() const;
 		Point getEndPoint() const;
