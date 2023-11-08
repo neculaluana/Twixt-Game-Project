@@ -3,6 +3,8 @@ module;
 
 export module Game;
 
+import <fstream>;
+import <vector>;
 import Player;
 import Board;
 import Point;
