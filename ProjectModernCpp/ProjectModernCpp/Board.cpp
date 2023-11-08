@@ -57,15 +57,32 @@ void Board::addPoint(const Point& p)
 
 bool Board::isBridgePossible(const Point& p1, const Point& p2)const
 {
-	if ((std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 1 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 2) ||
-		(std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 2 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 1)) {
+	if (((std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 1 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 2) ||
+		(std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 2 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 1)) && 
+		(p1.getColor() == p2.getColor()))
+	{
 		return true;
 	}
 	return false;
 
 }
 
-bool Board::isPointPossible(std::pair<uint8_t, uint8_t> coordinate) const
+
+void Board::makeBridges(const Point& point, Player& player )
+{
+	std::vector<Point> points = player.getPoints();
+	for (const auto& pnt : points)
+	{
+		
+		if (Board::isBridgePossible(point,pnt))
+		{
+			Bridge bridge(point,pnt);
+			player.addBridge(bridge);
+		}
+	}
+}
+
+bool Board::isPointPossible(const std::pair<uint8_t, uint8_t>& coordinate) const
 {
 	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)
 		return true;
