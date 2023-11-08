@@ -1,7 +1,7 @@
 module Player;
 using namespace twixt;
 
-Player::Player(Point::Color color):
+Player::Player(std::string name, Point::Color color):
 	m_color(color) {
 }
 Point::Color Player::getColor() const
@@ -33,3 +33,9 @@ std::vector<Bridge> Player::getBridges() const
 {
 	return m_bridges;
 }
+
+void Player::addPoint(const Point& p)
+{
+	m_points.push_back(p);
+}
+
