@@ -1,6 +1,5 @@
-module Bridge;
+#include "Bridge.h"
 
-using namespace twixt;
 
 Bridge::Bridge(Point startPoint, Point endPoint)
 	:m_startPoint{startPoint}
@@ -13,6 +12,17 @@ Bridge::Bridge(const Bridge & other)
 	,m_endPoint(other.getEndPoint())
 	,m_color(other.getColor())
 {}
+
+Bridge& Bridge::operator=(Bridge & other)
+{
+	if (this != &other) 
+	{ 
+		m_startPoint = other.m_startPoint; 
+		m_endPoint = other.m_endPoint;     
+		m_color = other.m_color;           
+	}
+	return *this;
+}
 
 Point::Color Bridge::getColor() const
 {
