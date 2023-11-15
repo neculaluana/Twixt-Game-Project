@@ -1,6 +1,6 @@
 #include "Board.h"
 
-void Board::boardResize(int boardSize)
+void Board::boardResize(size_t boardSize)
 {
 	m_board.resize(boardSize, std::vector<Status>(boardSize, Status::Empty));
 	setBases(boardSize);
@@ -24,7 +24,7 @@ void Board::setBases(int boardSize)
 
 }
 
-Board::Status Board::getStatus(const Position& coordinate)const
+Board::Status Board::getStatus(const std::pair<size_t, size_t>&coordinate)const
 {
 	return m_board[coordinate.first][coordinate.second];
 	
@@ -81,10 +81,20 @@ void Board::makeBridges(const Point& point, Player& player )
 	}
 }
 
-bool Board::isPointPossible(const Position& coordinate) const
+bool Board::isPointPossible(const std::pair<ui_t, uint8_t>& coordinate) const
 {
 	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)
 		return true;
 	else
 		return false;
+}
+
+std::ostream& operator<<(std::ostream& os, const Board& board) {
+	for (int i = 0; i < board.m_board.size(); ++i) {
+		for (int j = 0; j < board.m_board[0].size(); ++j) {
+			os << board.m_board[i][j] << " ";  // Assuming grid[i][j] is serializable directly
+		}
+		os << std::endl;
+	}
+	return os;
 }

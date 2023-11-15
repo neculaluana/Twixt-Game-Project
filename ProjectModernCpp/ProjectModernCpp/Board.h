@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <optional>
+#include <array>
 #include "Point.h"
 #include "Bridge.h"
 #include "Player.h"
@@ -18,24 +20,27 @@ public:
 
 	};
 
-	Board(int boardSize = 24);
-	~Board() = default;
-
 	using Position = std::pair<size_t, size_t>;
 
-	static const size_t kWidth{ 24 }, kHeight{ 24 };
-	static const size_t kSize{ kWidth * kHeight };
 
-	void boardResize(int boardSize);
+	Board(size_t boardSize = 24);
+	~Board() = default;
+
+
 	Status getStatus(const Position& coordinate)const;
-	void setBases(int boardSize);
+	void setBases(size_t boardSize);
+	void boardResize(size_t boardSize);
 	int getBoardSize()const noexcept;
 	void printBoard()const;
 	void addPoint(const Point& p);
 	bool isBridgePossible(const Point& p1, const Point& p2)const;
 	bool isPointPossible(const Position& coordinate)const;
 	void makeBridges(const Point& point, Player& player);
+
+	friend std::ostream& operator<<(std::ostream& os, const Board& board);
+	friend std::istream& operator>>(std::istream& is, Board& board);
 private:
-	int m_boardSize;
-	std::vector<std::vector<Status>> m_board;
+	size_t boardSize;
+	std::vector<std::vector < Status >> m_board;
+
 };
