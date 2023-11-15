@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 class Point {
 public:
 	enum class Color : uint8_t

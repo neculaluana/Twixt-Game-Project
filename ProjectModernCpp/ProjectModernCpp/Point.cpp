@@ -1,9 +1,8 @@
-module Point;
-import <math.h>;
-import <iostream>;
+#include "Point.h"
+#include <math.h>
+#include <iostream>
 
-using namespace twixt;
-Point::Point(int x, int y, Point::Color color)
+Point::Point(int x, int y, Color color)
 	:m_coordinates(std::make_pair(x, y))
 	,m_color(color)
 {}
