@@ -1,5 +1,4 @@
-module Player;
-using namespace twixt;
+#include "Player.h"
 
 Player::Player(std::string name, Point::Color color):
 	m_color(color) {
