@@ -30,6 +30,7 @@
     <ClCompile Include="Point.cppm" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bridge.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Game.h" />
   </ItemGroup>
