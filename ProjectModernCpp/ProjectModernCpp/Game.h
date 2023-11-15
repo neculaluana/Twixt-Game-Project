@@ -1,6 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "board.h"
+#include "Board.h"
 class Game {
 public:
 	Game() = default;
