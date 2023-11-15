@@ -1,6 +1,5 @@
-module Game;
-
-using namespace twixt;
+#include "Game.h"
+#include <fstream>
 
 void Game::startNewGame() {
 	m_board.printBoard();
