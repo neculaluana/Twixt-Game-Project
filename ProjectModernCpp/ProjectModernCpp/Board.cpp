@@ -1,28 +1,26 @@
 #include "Board.h"
 
 Board::Board(size_t boardSize) :
-	m_boardSize{ boardSize }
+	m_boardSize(boardSize), m_board(boardSize, std::vector<Status>(boardSize, Status::Empty))
 {
-	boardResize(boardSize);
-}
-void Board::boardResize(size_t boardSize)
-{
-	m_board.resize(boardSize, std::vector<Status>(boardSize, Status::Empty));
 	setBases(boardSize);
 }
 
+void Board::setBases(size_t boardSize) {
+	boardSize = std::min(boardSize, m_boardSize);
 
-
-void Board::setBases(size_t boardSize)
-{
-	for (int indexBoard = 0; indexBoard < boardSize; ++indexBoard)
-	{
-		m_board[indexBoard][0] = Board::Status::BaseBlack;
-		m_board[indexBoard][boardSize - 1] = Board::Status::BaseBlack;
-		m_board[0][indexBoard] = Board::Status::BaseRed;
-		m_board[boardSize - 1][indexBoard] = Board::Status::BaseRed;
+	for (size_t i = 0; i < boardSize; ++i) {
+		m_board[i][0] = Status::BaseBlack;
+		m_board[i][boardSize - 1] = Status::BaseBlack;
+		m_board[0][i] = Status::BaseRed;
+		m_board[boardSize - 1][i] = Status::BaseRed;
 	}
+}
 
+void Board::boardResize(size_t boardSize){
+	m_boardSize = boardSize;
+	m_board.resize(boardSize, std::vector<Status>(boardSize, Status::Empty));
+	setBases(boardSize);
 }
 
 Board::Status Board::getStatus(const std::pair<size_t, size_t>&coordinate)const
@@ -31,14 +29,14 @@ Board::Status Board::getStatus(const std::pair<size_t, size_t>&coordinate)const
 	
 }
 
-size_t Board::getBoardSize()const
+size_t Board::getBoardSize()const noexcept
 {
 	return m_boardSize;
 }
 
 void Board::printBoard()const
 {
-	
+	std::cout << *this;
 
 }
 void Board::addPoint(const Point& p)
@@ -86,7 +84,7 @@ bool Board::isPointPossible(const Position& coordinate) const
 }
 
 std::ostream& operator<<(std::ostream& os, const Board& board) {
-	for (size_t y = 0; y < board.getBoardSize(); ++y) {
+	for (size_t y= 0; y < board.getBoardSize(); ++y) {
 		for (size_t x = 0; x < board.getBoardSize(); ++x) {
 			Board::Status status = board.getStatus({ x, y });
 			os << static_cast<char>(status) << ' ';
@@ -96,24 +94,21 @@ std::ostream& operator<<(std::ostream& os, const Board& board) {
 	return os;
 }
 
-std::istream& operator>>(std::istream& is, Board& board)
-{
+std::istream& operator>>(std::istream& is, Board& board) {
 	char ch;
-	for (size_t i = 0; i < board.getBoardSize(); ++i) {
-		for (size_t j = 0; j < board.getBoardSize(); ++j) {
+	for (size_t y = 0; y < board.getBoardSize(); ++y) {
+		for (size_t x = 0; x < board.getBoardSize(); ++x) {
 			is >> ch;
-			Board::Status status;
+			Board::Position pos = { x, y };
 			switch (ch) {
-			case '.': status = Board::Status::Empty; break;
-			case 'r': status = Board::Status::PlayerRed; break;
-			case 'b': status = Board::Status::PlayerBlack; break;
-			case '-': status = Board::Status::BaseRed; break;
-			case '|': status = Board::Status::BaseBlack; break;
-			default: status = Board::Status::Empty; break;
+			case '.': board.m_board[x][y] = Board::Status::Empty; break;
+			case 'r': board.m_board[x][y] = Board::Status::PlayerRed; break;
+			case 'b': board.m_board[x][y] = Board::Status::PlayerBlack; break;
+			case '-': board.m_board[x][y] = Board::Status::BaseRed; break;
+			case '|': board.m_board[x][y] = Board::Status::BaseBlack; break;
+			default: board.m_board[x][y] = Board::Status::Empty; break;
 			}
-			board.m_board[i][j] = status;
 		}
 	}
 	return is;
-
 }

@@ -1,9 +1,8 @@
-import Game;
-using namespace twixt;
+#include "Board.h"
 int main()
 {
-	Game game;
-	game.startNewGame();
+	Board b;
+	std::cout << b;
 
 	return 0;
 }
