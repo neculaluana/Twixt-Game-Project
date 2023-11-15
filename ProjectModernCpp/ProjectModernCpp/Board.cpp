@@ -24,7 +24,7 @@ void Board::setBases(int boardSize)
 
 }
 
-Board::Status Board::getStatus(std::pair<uint8_t, uint8_t>coordinate)const
+Board::Status Board::getStatus(const Position& coordinate)const
 {
 	return m_board[coordinate.first][coordinate.second];
 	
@@ -35,7 +35,7 @@ int Board::getBoardSize()const
 	return m_boardSize;
 }
 
-void Board::printBoard()
+void Board::printBoard()const
 {
 	for (const auto& lin : m_board)
 	{
@@ -81,7 +81,7 @@ void Board::makeBridges(const Point& point, Player& player )
 	}
 }
 
-bool Board::isPointPossible(const std::pair<uint8_t, uint8_t>& coordinate) const
+bool Board::isPointPossible(const Position& coordinate) const
 {
 	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)
 		return true;

@@ -21,14 +21,19 @@ public:
 	Board(int boardSize = 24);
 	~Board() = default;
 
+	using Position = std::pair<size_t, size_t>;
+
+	static const size_t kWidth{ 24 }, kHeight{ 24 };
+	static const size_t kSize{ kWidth * kHeight };
+
 	void boardResize(int boardSize);
-	Status getStatus(std::pair<uint8_t, uint8_t>coordinate)const;
+	Status getStatus(const Position& coordinate)const;
 	void setBases(int boardSize);
-	int getBoardSize()const;
-	void printBoard();
+	int getBoardSize()const noexcept;
+	void printBoard()const;
 	void addPoint(const Point& p);
 	bool isBridgePossible(const Point& p1, const Point& p2)const;
-	bool isPointPossible(const std::pair<uint8_t, uint8_t>& coordinate)const;
+	bool isPointPossible(const Position& coordinate)const;
 	void makeBridges(const Point& point, Player& player);
 private:
 	int m_boardSize;
