@@ -15,15 +15,17 @@ void Player::changeColor()
 		m_color = Point::Color::Red;
 }
 
-std::string Player::getName()const
+std::string	Player::getName()const
 {
 	return m_name;
 }
+
 
 void Player::setName(std::string name)
 {
 	m_name = name;
 }
+
 std::vector<Point> Player::getPoints() const
 {
 	return m_points;
