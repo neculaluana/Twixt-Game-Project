@@ -42,9 +42,11 @@
     <ClCompile Include="Game.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cppm">
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
