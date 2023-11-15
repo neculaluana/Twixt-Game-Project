@@ -24,7 +24,7 @@ void Game::makePoint() {
 	if (m_board.isPointPossible(coord)) {
 		Point p(coord.first, coord.second, m_currentPlayer.getColor());
 		m_board.addPoint(p);
-		m_board.makeBridge(p, m_currentPlayer);
+		m_board.makeBridges(p, m_currentPlayer);
 		m_currentPlayer.addPoint(p);
 	}
 }
