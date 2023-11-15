@@ -1,5 +1,4 @@
-module Board;
-using namespace twixt;
+#include "Board.h"
 
 void Board::boardResize(int boardSize)
 {

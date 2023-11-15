@@ -42,11 +42,13 @@
     <ClCompile Include="Game.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="board.cppm">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="player.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
