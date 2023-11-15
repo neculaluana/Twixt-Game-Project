@@ -1,25 +1,26 @@
 #include "Board.h"
 
+Board::Board(size_t boardSize) :
+	m_boardSize{ boardSize }
+{
+	boardResize(boardSize);
+}
 void Board::boardResize(size_t boardSize)
 {
 	m_board.resize(boardSize, std::vector<Status>(boardSize, Status::Empty));
 	setBases(boardSize);
 }
 
-Board::Board(int boardSize) :
-	m_boardSize{ boardSize }
-{
-	boardResize(boardSize);
-}
 
-void Board::setBases(int boardSize)
+
+void Board::setBases(size_t boardSize)
 {
-	for (int index = 0; index < boardSize; ++index)
+	for (int indexBoard = 0; indexBoard < boardSize; ++indexBoard)
 	{
-		m_board[index][0] = Board::Status::BaseBlack;
-		m_board[index][boardSize - 1] = Board::Status::BaseBlack;
-		m_board[0][index] = Board::Status::BaseRed;
-		m_board[boardSize - 1][index] = Board::Status::BaseRed;
+		m_board[indexBoard][0] = Board::Status::BaseBlack;
+		m_board[indexBoard][boardSize - 1] = Board::Status::BaseBlack;
+		m_board[0][indexBoard] = Board::Status::BaseRed;
+		m_board[boardSize - 1][indexBoard] = Board::Status::BaseRed;
 	}
 
 }
@@ -30,19 +31,14 @@ Board::Status Board::getStatus(const std::pair<size_t, size_t>&coordinate)const
 	
 }
 
-int Board::getBoardSize()const
+size_t Board::getBoardSize()const
 {
 	return m_boardSize;
 }
 
 void Board::printBoard()const
 {
-	for (const auto& lin : m_board)
-	{
-		for (const auto& col : lin)
-			std::cout << static_cast<char>(col)<<" ";
-		std::cout << std::endl;
-	}
+	
 
 }
 void Board::addPoint(const Point& p)
@@ -81,7 +77,7 @@ void Board::makeBridges(const Point& point, Player& player )
 	}
 }
 
-bool Board::isPointPossible(const std::pair<ui_t, uint8_t>& coordinate) const
+bool Board::isPointPossible(const Position& coordinate) const
 {
 	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)
 		return true;
@@ -90,11 +86,34 @@ bool Board::isPointPossible(const std::pair<ui_t, uint8_t>& coordinate) const
 }
 
 std::ostream& operator<<(std::ostream& os, const Board& board) {
-	for (int i = 0; i < board.m_board.size(); ++i) {
-		for (int j = 0; j < board.m_board[0].size(); ++j) {
-			os << board.m_board[i][j] << " ";  // Assuming grid[i][j] is serializable directly
+	for (size_t y = 0; y < board.getBoardSize(); ++y) {
+		for (size_t x = 0; x < board.getBoardSize(); ++x) {
+			Board::Status status = board.getStatus({ x, y });
+			os << static_cast<char>(status) << ' ';
 		}
-		os << std::endl;
+		os << '\n';
 	}
-	return os;
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, Board& board)
+{
+	char ch;
+	for (size_t i = 0; i < board.getBoardSize(); ++i) {
+		for (size_t j = 0; j < board.getBoardSize(); ++j) {
+			is >> ch;
+			Board::Status status;
+			switch (ch) {
+			case '.': status = Board::Status::Empty; break;
+			case 'r': status = Board::Status::PlayerRed; break;
+			case 'b': status = Board::Status::PlayerBlack; break;
+			case '-': status = Board::Status::BaseRed; break;
+			case '|': status = Board::Status::BaseBlack; break;
+			default: status = Board::Status::Empty; break;
+			}
+			board.m_board[i][j] = status;
+		}
+	}
+	return is;
+
 }
