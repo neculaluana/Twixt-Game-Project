@@ -20,19 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="board.cppm" />
     <ClCompile Include="Bridge.cpp" />
-    <ClCompile Include="bridge.cppm" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Point.cppm" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Bridge.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Point.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
