@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<iostream>
 #include<cstdint>
 #include<string>
 #include"Point.h"
@@ -16,7 +17,10 @@ public:
 	std::vector<Point> getPoints()const;
 	std::vector<Bridge> getBridges()const;
 	std::string	getName()const;
-	void setName(std::string name);
+	void setName(std::string name); 
+	friend std::ostream& operator<<(std::ostream& os, const Player& player);
+	friend std::istream& operator>>(std::istream& is, Player& player);
+
 
 private:
 
