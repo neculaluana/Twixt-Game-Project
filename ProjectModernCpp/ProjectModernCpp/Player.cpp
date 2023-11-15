@@ -15,15 +15,17 @@ void Player::changeColor()
 		m_color = Point::Color::Red;
 }
 
-std::string Player::getName()const
+std::string	Player::getName()const
 {
 	return m_name;
 }
+
 
 void Player::setName(std::string name)
 {
 	m_name = name;
 }
+
 std::vector<Point> Player::getPoints() const
 {
 	return m_points;
@@ -52,3 +54,30 @@ void Player::removePoint(const Point& p)
 		}
 	}
 }
+
+std::ostream& operator<<(std::ostream& os, const Player& player) {
+	os << player.m_name << std::endl;
+	os << player.m_points.size() << std::endl;
+	for (const auto& point : player.m_points) {
+		os << point.getCoordinates().first << " " << point.getCoordinates().second << std::endl;
+	}
+
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, Player& player) {
+	std::getline(is, player.m_name);
+	size_t numberOfPoints;
+	is >> numberOfPoints;
+	is.ignore(); 
+	player.m_points.clear(); 
+	for (size_t i = 0; i < numberOfPoints; ++i) {
+		uint8_t x, y;
+		is >> x >>y;
+		Point p(x, y, player.getColor());
+		player.m_points.push_back(p);
+	}
+
+	return is;
+}
+
