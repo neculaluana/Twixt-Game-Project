@@ -1,6 +1,5 @@
-module Bridge;
+#include "Bridge.h"
 
-using namespace twixt;
 
 Bridge::Bridge(Point startPoint, Point endPoint)
 	:m_startPoint{startPoint}
@@ -13,6 +12,32 @@ Bridge::Bridge(const Bridge & other)
 	,m_endPoint(other.getEndPoint())
 	,m_color(other.getColor())
 {}
+
+Bridge& Bridge::operator=(Bridge & other)
+{
+	if (this != &other) 
+	{ 
+		m_startPoint = other.m_startPoint; 
+		m_endPoint = other.m_endPoint;     
+		m_color = other.m_color;           
+	}
+	return *this;
+}
+
+
+bool operator==(const Bridge& b1, const Bridge& b2)
+{
+	return (((b1.getStartPoint() == b2.getStartPoint()) &&
+		(b1.getEndPoint() == b2.getEndPoint())) || ((b1.getStartPoint() == b2.getEndPoint()) &&
+			(b1.getEndPoint() == b2.getStartPoint()))) &&
+		(b1.getColor() == b2.getColor());
+}
+
+bool operator!=(const Bridge& b1, const Bridge& b2)
+{
+	return !(b1 == b2);
+}
+
 
 Point::Color Bridge::getColor() const
 {
