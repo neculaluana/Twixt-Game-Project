@@ -8,10 +8,14 @@ public:
 		Black
 	};
 	Point(int x, int y, Color color);
+	Point(const Point& p) = default;
 	bool isBridgePossible(const Point& p1, const Point& p2) const;
 	const Color& getColor() const;
 	const std::pair<uint8_t, uint8_t>& getCoordinates() const;
 	~Point() = default;
+
+	friend bool operator==(const Point& p1, const Point& p2);
+	friend bool operator!=(const Point& p1, const Point& p2);
 
 private:
 	Point::Color m_color : 1;

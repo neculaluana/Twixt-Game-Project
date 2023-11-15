@@ -25,3 +25,13 @@ const std::pair<uint8_t, uint8_t>& Point::getCoordinates() const
 {
 	return m_coordinates;
 }
+
+bool operator==(const Point& p1, const Point& p2)
+{
+	return (p1.getColor() == p2.getColor() && p1.getCoordinates() == p2.getCoordinates());
+}
+
+bool operator!=(const Point& p1, const Point& p2)
+{
+	return !(p1 == p2);
+}
