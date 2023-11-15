@@ -24,12 +24,14 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="bridge.cppm" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Game.cppm" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.cppm" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Point.cppm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
