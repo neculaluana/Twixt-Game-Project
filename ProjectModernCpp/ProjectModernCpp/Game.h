@@ -12,6 +12,10 @@ public:
 	Game(Game&& other) noexcept;
 	Game& operator= (Game&& p) noexcept;
 
+	const Player& getPlayerRed() const;
+	const Player& getPlayerBlack() const;
+	const Board& getBoard() const;
+
 	void startNewGame();
 	void saveGame(const std::string& filename);
 	void loadGame(const std::string& filename);

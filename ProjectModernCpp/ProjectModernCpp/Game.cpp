@@ -1,6 +1,31 @@
 #include "Game.h"
 #include <fstream>
 
+Game::Game(std::string name1, std::string name2)
+	:m_board{ Board() }
+	, m_playerRed{ Player(name1, Point::Color::Red) }
+	, m_playerBlack{ Player(name2, Point::Color::Black) }
+{}
+
+Game::Game(const Game& other)
+{
+}
+
+const Player& Game::getPlayerRed() const
+{
+	return m_playerRed;
+}
+
+const Player& Game::getPlayerBlack() const
+{
+	return m_playerBlack;
+}
+
+const Board& Game::getBoard() const
+{
+	return m_board;
+}
+
 void Game::startNewGame() {
 	m_board.printBoard();
 	std::string name;
