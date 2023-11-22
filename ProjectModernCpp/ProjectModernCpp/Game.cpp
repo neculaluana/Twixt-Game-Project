@@ -8,7 +8,41 @@ Game::Game(std::string name1, std::string name2)
 {}
 
 Game::Game(const Game& other)
+	:m_playerRed{ other.getPlayerRed() }
+	, m_playerBlack{ other.getPlayerBlack() }
+	, m_board{ other.getBoard() }
 {
+}
+
+Game& Game::operator=(const Game& g)
+{
+	if (this != &g)
+	{
+		m_playerRed = g.getPlayerRed();
+		m_playerBlack = g.getPlayerBlack();
+		m_board = g.getBoard();
+	}
+
+	return *this;
+}
+
+Game::Game(Game&& other) noexcept
+	: m_playerRed{ std::move(other.m_playerRed) }
+	, m_playerBlack{ std::move(other.m_playerBlack) }
+	, m_board{ std::move(other.m_board) }
+{
+}
+
+Game& Game::operator=(Game&& g) noexcept
+{
+	if (this != &g)
+	{
+		m_playerRed = std::move(g.m_playerRed);
+		m_playerBlack = std::move(g.m_playerBlack);
+		m_board = std::move(g.m_board);
+	}
+
+	return *this;
 }
 
 const Player& Game::getPlayerRed() const

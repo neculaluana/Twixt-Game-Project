@@ -7,10 +7,10 @@ public:
 
 	Game(std::string name1, std::string name2);
 	Game(const Game& other);
-	Game& operator= (const Game& p);
+	Game& operator= (const Game& g);
 
 	Game(Game&& other) noexcept;
-	Game& operator= (Game&& p) noexcept;
+	Game& operator= (Game&& g) noexcept;
 
 	const Player& getPlayerRed() const;
 	const Player& getPlayerBlack() const;
