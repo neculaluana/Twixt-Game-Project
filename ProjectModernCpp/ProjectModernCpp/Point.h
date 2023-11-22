@@ -22,8 +22,8 @@ public:
 	
 	bool isBridgePossible(const Point& p1, const Point& p2) const;
 	
-	friend bool operator==(const Point& p1, const Point& p2);
-	friend bool operator!=(const Point& p1, const Point& p2);
+	bool operator==(const Point& p);
+	bool operator!=(const Point& p);
 
 private:
 	Point::Color m_color : 1;
