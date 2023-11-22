@@ -13,6 +13,7 @@ public:
 	Point::Color getColor()const;
 	void changeColor();
 	void addPoint(const Point& p);
+	void addBridge(const Bridge& bridge);
 	void removePoint(const Point& p);
 	std::vector<Point> getPoints()const;
 	std::vector<Bridge> getBridges()const;

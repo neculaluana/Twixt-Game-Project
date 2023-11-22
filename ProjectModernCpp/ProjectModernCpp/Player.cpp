@@ -40,6 +40,11 @@ void Player::addPoint(const Point& p)
 	m_points.push_back(p);
 }
 
+void Player::addBridge(const Bridge& bridge)
+{
+	m_bridges.push_back(bridge);
+}
+
 void Player::removePoint(const Point& p)
 {
 	for (std::vector<Point>::iterator it = m_points.begin(); it != m_points.end();)
