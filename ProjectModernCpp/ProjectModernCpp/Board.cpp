@@ -1,7 +1,7 @@
 #include "Board.h"
 
 Board::Board(size_t boardSize) :
-	m_boardSize(boardSize), m_board(boardSize, std::vector<Status>(boardSize, Status::Empty))
+	m_boardSize{ boardSize }, m_board{ boardSize, std::vector<Status>{boardSize, Status::Empty} }
 {
 	setBases(boardSize);
 }
@@ -24,7 +24,7 @@ Board& Board::operator=(const Board& other)
 }
 
 Board::Board(Board&& other)noexcept
-	: m_boardSize(std::exchange(other.m_boardSize, 0)), m_board(std::move(other.m_board))
+	: m_boardSize{ std::exchange(other.m_boardSize, 0) }, m_board{ std::move(other.m_board) }
 {
 
 }
@@ -59,10 +59,15 @@ void Board::boardResize(size_t boardSize){
 	setBases(boardSize);
 }
 
-Board::Status Board::getStatus(const std::pair<size_t, size_t>&coordinate)const
+
+Board::Status Board::getStatus(const Position& coordinate)const
 {
-	return m_board[coordinate.first][coordinate.second];
-	
+	if (coordinate.first < m_boardSize && coordinate.second < m_boardSize)
+	{
+		return m_board[coordinate.first][coordinate.second];
+	}
+	else
+		return Status::Empty;
 }
 
 size_t Board::getBoardSize()const noexcept
