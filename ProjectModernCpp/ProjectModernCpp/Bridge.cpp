@@ -66,6 +66,19 @@ std::ostream& operator<<(std::ostream& os, const Bridge& bridge)
 
 }
 
+std::istream& operator>>(std::istream& is, Bridge& bridge)
+{
+	Point startPoint, endPoint;
+	Point::Color color;
+
+	is >> startPoint >> endPoint >> color;
+
+	bridge.setStartPoint(startPoint);
+	bridge.setEndPoint(endPoint);
+	bridge.setColor(color);
+
+	return is;
+}
 
 
 Point::Color Bridge::getColor() const

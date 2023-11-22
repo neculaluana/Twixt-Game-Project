@@ -17,6 +17,7 @@ public:
 	Point::Color getColor() const;
 	Point getStartPoint() const;
 	Point getEndPoint() const;
+	friend std::istream& operator>>(std::istream& is, Bridge& bridge);
 
 	void setStartPoint(Point p);
 	void setEndPoint(Point p);
