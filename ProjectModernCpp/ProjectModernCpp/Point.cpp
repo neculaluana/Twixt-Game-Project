@@ -7,6 +7,24 @@ Point::Point(int x, int y, Color color)
 	,m_color(color)
 {}
 
+Point::Point(const Point& other)
+	:Point{ other.getCoordinates().first, other.getCoordinates().second, other.getColor() }
+{
+}
+
+Point& Point::operator=(const Point& p)
+{
+	if (this == &p)
+	{
+		return *this;
+	}
+	m_coordinates.first = p.getCoordinates().first;
+	m_coordinates.second = p.getCoordinates().second;
+	m_color = p.getColor();
+
+	return *this;
+}
+
 
 bool Point::isBridgePossible(const Point& p1, const Point& p2) const
 {
