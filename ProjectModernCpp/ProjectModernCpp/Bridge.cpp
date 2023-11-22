@@ -13,7 +13,7 @@ Bridge::Bridge(const Bridge & other)
 	,m_color(other.getColor())
 {}
 
-Bridge& Bridge::operator=(Bridge & other)
+Bridge& Bridge::operator=(const Bridge & other)
 {
 	if (this != &other) 
 	{ 
@@ -24,6 +24,23 @@ Bridge& Bridge::operator=(Bridge & other)
 	return *this;
 }
 
+Bridge::Bridge(Bridge&& other) noexcept
+	: m_startPoint(std::move(other.m_startPoint)),
+	m_endPoint(std::move(other.m_endPoint)),
+	m_color(std::move(other.m_color))
+{
+}
+
+Bridge& Bridge::operator=(Bridge&& other) noexcept
+{
+	if (this != &other)
+	{
+		m_startPoint = std::move(other.m_startPoint);
+		m_endPoint = std::move(other.m_endPoint);
+		m_color = std::move(other.m_color);
+	}
+	return *this;
+}
 
 bool operator==(const Bridge& b1, const Bridge& b2)
 {
@@ -36,6 +53,31 @@ bool operator==(const Bridge& b1, const Bridge& b2)
 bool operator!=(const Bridge& b1, const Bridge& b2)
 {
 	return !(b1 == b2);
+}
+
+std::ostream& operator<<(std::ostream& os, const Bridge& bridge)
+{
+	os << "Start Point: " << bridge.getStartPoint()
+		<< ", End Point: " << bridge.getEndPoint()
+		<< ", Color: " << bridge.getColor()<<std::endl;
+	return os;
+
+
+
+}
+
+std::istream& operator>>(std::istream& is, Bridge& bridge)
+{
+	Point startPoint, endPoint;
+	Point::Color color;
+
+	is >> startPoint >> endPoint >> color;
+
+	bridge.setStartPoint(startPoint);
+	bridge.setEndPoint(endPoint);
+	bridge.setColor(color);
+
+	return is;
 }
 
 
@@ -62,4 +104,9 @@ void Bridge::setStartPoint(Point p)
 void Bridge::setEndPoint(Point p)
 {
 	m_endPoint = p;
+}
+
+void Bridge::setColor(Point::Color c)
+{
+	m_color = c;
 }
