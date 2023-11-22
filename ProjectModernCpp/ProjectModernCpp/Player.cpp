@@ -21,6 +21,16 @@ Player::Player(Player&& other) noexcept
 	: m_color(std::move(other.m_color)), m_points(std::move(other.m_points)), m_bridges(std::move(other.m_bridges)), m_name(std::move(other.m_name)) {}
 
 
+Player& Player::operator=(Player&& other) noexcept {
+	if (this != &other) {
+		m_color = std::move(other.m_color);
+		m_points = std::move(other.m_points);
+		m_bridges = std::move(other.m_bridges);
+		m_name = std::move(other.m_name);
+	}
+	return *this;
+}
+
 Point::Color Player::getColor() const
 {
 	return m_color;

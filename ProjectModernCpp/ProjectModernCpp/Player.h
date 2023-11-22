@@ -13,6 +13,7 @@ public:
 	Player(const Player& other);
 	Player& operator=(const Player& other);
 	Player(Player&& other) noexcept;
+	Player& operator=(Player&& other) noexcept;
 
 	Point::Color getColor()const;
 	void changeColor();
