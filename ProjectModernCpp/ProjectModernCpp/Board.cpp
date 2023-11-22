@@ -12,6 +12,18 @@ Board::Board(const Board& other)
 
 }
 
+Board& Board::operator=(const Board& other)
+{
+	if (this == &other)
+		return *this;
+
+	m_boardSize = other.m_boardSize;
+	m_board = other.m_board;
+
+	return *this;
+}
+
+
 void Board::setBases(size_t boardSize) {
 	boardSize = std::min(boardSize, m_boardSize);
 
