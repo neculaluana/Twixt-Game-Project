@@ -13,7 +13,7 @@ Bridge::Bridge(const Bridge & other)
 	,m_color(other.getColor())
 {}
 
-Bridge& Bridge::operator=(Bridge & other)
+Bridge& Bridge::operator=(const Bridge & other)
 {
 	if (this != &other) 
 	{ 
@@ -23,6 +23,14 @@ Bridge& Bridge::operator=(Bridge & other)
 	}
 	return *this;
 }
+
+Bridge::Bridge(Bridge&& other) noexcept
+	: m_startPoint(std::move(other.m_startPoint)),
+	m_endPoint(std::move(other.m_endPoint)),
+	m_color(std::move(other.m_color))
+{
+}
+
 
 
 bool operator==(const Bridge& b1, const Bridge& b2)

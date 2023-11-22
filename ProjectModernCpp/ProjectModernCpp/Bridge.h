@@ -5,7 +5,10 @@ class Bridge
 public:
 	Bridge(Point startPoint, Point endPoint);
 	Bridge(const Bridge& other);
-	Bridge& operator=(Bridge& other);
+	Bridge& operator=(const Bridge& other);
+
+	Bridge(Bridge&& other)noexcept;
+	
 	friend bool operator==(const Bridge& b1, const Bridge& b2);
 	friend bool operator!=(const Bridge& b1, const Bridge& b2);
 
