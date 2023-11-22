@@ -2,6 +2,10 @@
 #include <math.h>
 #include <iostream>
 
+Point::Point()
+{
+}
+
 Point::Point(int x, int y, Color color)
 	:m_coordinates(std::make_pair(x, y))
 	,m_color(color)
@@ -55,6 +59,11 @@ bool Point::isBridgePossible(const Point& p1, const Point& p2) const
 const Point::Color& Point::getColor() const
 {
 	return m_color;
+}
+
+void Point::setColor(Color color)
+{
+	m_color = color;
 }
 
 const std::pair<uint8_t, uint8_t>& Point::getCoordinates() const

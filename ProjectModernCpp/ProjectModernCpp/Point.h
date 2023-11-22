@@ -7,6 +7,7 @@ public:
 		Red,
 		Black
 	};
+	Point();
 	Point(int x, int y, Color color);
 	~Point() = default;
 
