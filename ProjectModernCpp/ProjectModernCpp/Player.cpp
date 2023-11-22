@@ -7,6 +7,15 @@ Player::Player(std::string name, Point::Color color):
 Player::Player(const Player& other)
 	: m_color(other.m_color), m_points(other.m_points), m_bridges(other.m_bridges), m_name(other.m_name) {}
 
+Player& Player::operator=(const Player& other) {
+	if (this != &other) {
+		m_color = other.m_color;
+		m_points = other.m_points;
+		m_bridges = other.m_bridges;
+		m_name = other.m_name;
+	}
+	return *this;
+}
 
 Point::Color Player::getColor() const
 {

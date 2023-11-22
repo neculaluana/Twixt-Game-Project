@@ -11,7 +11,7 @@ public:
 	Player(std::string name, Point::Color color);
 	~Player() = default;
 	Player(const Player& other);
-
+	Player& operator=(const Player& other);
 
 	Point::Color getColor()const;
 	void changeColor();
