@@ -55,6 +55,18 @@ bool operator!=(const Bridge& b1, const Bridge& b2)
 	return !(b1 == b2);
 }
 
+std::ostream& operator<<(std::ostream& os, const Bridge& bridge)
+{
+	os << "Start Point: " << bridge.getStartPoint()
+		<< ", End Point: " << bridge.getEndPoint()
+		<< ", Color: " << bridge.getColor()<<std::endl;
+	return os;
+
+
+
+}
+
+
 
 Point::Color Bridge::getColor() const
 {
