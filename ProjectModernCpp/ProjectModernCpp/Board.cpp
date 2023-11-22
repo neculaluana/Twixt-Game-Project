@@ -6,6 +6,12 @@ Board::Board(size_t boardSize) :
 	setBases(boardSize);
 }
 
+Board::Board(const Board& other)
+	: m_boardSize{ other.m_boardSize }, m_board{ other.m_board }
+{
+
+}
+
 void Board::setBases(size_t boardSize) {
 	boardSize = std::min(boardSize, m_boardSize);
 

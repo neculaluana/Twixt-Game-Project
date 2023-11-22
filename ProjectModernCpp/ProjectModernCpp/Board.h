@@ -23,6 +23,12 @@ public:
 	using Position = std::pair<size_t, size_t>;
 
 	Board(size_t boardSize = 24);
+	Board(const Board& other);
+	Board& operator= (const Board& board);
+
+	Board(Board&& other)noexcept;
+	Board& operator= (Board&& board)noexcept;
+	
 	~Board() = default;
 
 
