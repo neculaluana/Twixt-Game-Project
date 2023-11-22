@@ -1,8 +1,10 @@
-#include "Board.h"
-int main()
-{
-	Board b;
-	std::cout << b;
+#include "ProjectModernCpp.h"
+#include <QtWidgets/QApplication>
 
-	return 0;
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    ProjectModernCpp w;
+    w.show();
+    return a.exec();
 }

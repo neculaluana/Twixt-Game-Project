@@ -81,7 +81,7 @@ void Game::saveGame(const std::string& filename)
 	file << m_board;
 	file << m_playerRed;
 	file << m_playerBlack;
-	file << m_currentPlayer->getColor();
+	//file << m_currentPlayer->getColor();
 
 	file.close();
 
@@ -93,10 +93,10 @@ void Game::loadGame(const std::string& filename) {
 		return;
 	}
 
-	file >> m_board;
-	file >> m_playerRed;
-	file >> m_playerBlack;
-	file >> m_currentPlayer->getColor();
+	//file >> m_board;
+	//file >> m_playerRed;
+	//file >> m_playerBlack;
+	//file >> m_currentPlayer->getColor();
 
 	file.close();
 }

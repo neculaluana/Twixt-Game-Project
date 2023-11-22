@@ -44,11 +44,11 @@ void Player::changeColor()
 	}
 	else
 		m_color = Point::Color::Red;
-	for (const auto& point : m_points)
+	for ( auto& point : m_points)
 	{
 		point.setColor(m_color);
 	}
-	for (const auto& bridge : m_bridges)
+	for ( auto& bridge : m_bridges)
 	{
 		bridge.setColor(m_color);
 	}
