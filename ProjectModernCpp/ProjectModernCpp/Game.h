@@ -4,6 +4,14 @@
 class Game {
 public:
 	Game() = default;
+
+	Game(std::string name1, std::string name2);
+	Game(const Game& other);
+	Game& operator= (const Game& p);
+
+	Game(Game&& other) noexcept;
+	Game& operator= (Game&& p) noexcept;
+
 	void startNewGame();
 	void saveGame(const std::string& filename);
 	void loadGame(const std::string& filename);
