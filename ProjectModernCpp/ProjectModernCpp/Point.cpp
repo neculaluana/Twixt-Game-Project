@@ -7,6 +7,7 @@ Point::Point(int x, int y, Color color)
 	,m_color(color)
 {}
 
+
 bool Point::isBridgePossible(const Point& p1, const Point& p2) const
 {
 	if ((std::abs(p1.getCoordinates().first - p2.getCoordinates().first) == 1 && std::abs(p1.getCoordinates().second - p2.getCoordinates().second) == 2) ||
