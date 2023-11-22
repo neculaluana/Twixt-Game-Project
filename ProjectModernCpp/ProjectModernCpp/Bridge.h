@@ -21,6 +21,7 @@ public:
 
 	void setStartPoint(Point p);
 	void setEndPoint(Point p);
+	void setColor(Point::Color c);
 
 	//bool isValidBridge() const;
 	//bool intersects(const Bridge& other) const;

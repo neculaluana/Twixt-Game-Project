@@ -105,3 +105,8 @@ void Bridge::setEndPoint(Point p)
 {
 	m_endPoint = p;
 }
+
+void Bridge::setColor(Point::Color c)
+{
+	m_color = c;
+}
