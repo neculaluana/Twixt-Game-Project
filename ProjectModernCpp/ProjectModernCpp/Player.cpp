@@ -3,6 +3,11 @@
 Player::Player(std::string name, Point::Color color):
 	m_color(color) {
 }
+
+Player::Player(const Player& other)
+	: m_color(other.m_color), m_points(other.m_points), m_bridges(other.m_bridges), m_name(other.m_name) {}
+
+
 Point::Color Player::getColor() const
 {
 	return m_color;
