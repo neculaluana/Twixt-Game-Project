@@ -12,6 +12,7 @@ public:
 	~Player() = default;
 	Player(const Player& other);
 	Player& operator=(const Player& other);
+	Player(Player&& other) noexcept;
 
 	Point::Color getColor()const;
 	void changeColor();

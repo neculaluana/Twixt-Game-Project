@@ -17,6 +17,10 @@ Player& Player::operator=(const Player& other) {
 	return *this;
 }
 
+Player::Player(Player&& other) noexcept
+	: m_color(std::move(other.m_color)), m_points(std::move(other.m_points)), m_bridges(std::move(other.m_bridges)), m_name(std::move(other.m_name)) {}
+
+
 Point::Color Player::getColor() const
 {
 	return m_color;
