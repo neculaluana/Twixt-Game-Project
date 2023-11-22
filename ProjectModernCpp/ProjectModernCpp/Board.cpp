@@ -23,6 +23,11 @@ Board& Board::operator=(const Board& other)
 	return *this;
 }
 
+Board::Board(Board&& other)noexcept
+	: m_boardSize(std::exchange(other.m_boardSize, 0)), m_board(std::move(other.m_board))
+{
+
+}
 
 void Board::setBases(size_t boardSize) {
 	boardSize = std::min(boardSize, m_boardSize);
