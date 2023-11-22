@@ -24,10 +24,10 @@ public:
 
 	Board(size_t boardSize = 24);
 	Board(const Board& other);
-	Board& operator= (const Board& board);
+	Board& operator= (const Board& other);
 
 	Board(Board&& other)noexcept;
-	Board& operator= (Board&& board)noexcept;
+	Board& operator= (Board&& other)noexcept;
 	
 	~Board() = default;
 

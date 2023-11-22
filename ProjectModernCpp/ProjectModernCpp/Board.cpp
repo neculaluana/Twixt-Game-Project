@@ -29,6 +29,19 @@ Board::Board(Board&& other)noexcept
 
 }
 
+Board& Board::operator=(Board&& other)noexcept
+{
+	if (this == &other)
+	{
+		return *this;
+	}
+
+	m_boardSize = std::exchange(other.m_boardSize, 0);
+	m_board = std::move(other.m_board);
+
+	return *this;
+}
+
 void Board::setBases(size_t boardSize) {
 	boardSize = std::min(boardSize, m_boardSize);
 
