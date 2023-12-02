@@ -20,6 +20,7 @@ public:
 public slots:
 
 	void start();
+	void load();
 };
 
 #endif // ! MAINMENU_H

@@ -10,23 +10,24 @@ void MainMenu::start() {
 }
 
 void MainMenu::displayMainMenu() {
-    const int width = 150;
-    const int height = 200;
 
-   // QString fileName = QFileDialog::getOpenFileName(this, "Open Image File", QDir::currentPath());
-
-    
-
-    Button* playButton = new Button(QString("Play"));
+    Button* playButton = new Button(QString("New game"));
     int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
     int byPos = 375;
     playButton->setPos(bxPos, byPos);
     connect(playButton, SIGNAL(clicked()), this, SLOT(start()));
     scene->addItem(playButton);
 
+    Button* loadButton = new Button(QString("Load game"));
+    int lxPos = this->width() / 2 - loadButton->boundingRect().width() / 2;
+    int lyPos = 450;
+    loadButton->setPos(lxPos, lyPos);
+    connect(loadButton, SIGNAL(clicked()), this, SLOT(load()));
+    scene->addItem(loadButton);
+
     Button* quitButton = new Button(QString("Quit"));
     int qxPos = this->width() / 2 - quitButton->boundingRect().width() / 2;
-    int qyPos = 450;
+    int qyPos = 525;
     quitButton->setPos(qxPos, qyPos);
     connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
     scene->addItem(quitButton);
@@ -39,6 +40,10 @@ void MainMenu::displayMainMenu() {
     item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
     item->setPos(imxPos, imyPos);
     scene->addItem(item);
+}
+
+void MainMenu::load()
+{
 }
 
 
