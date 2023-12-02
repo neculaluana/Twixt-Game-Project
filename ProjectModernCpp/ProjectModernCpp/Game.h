@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Board.h"
+#include "MainMenu.h"
 class Game {
 public:
 	Game() = default;
@@ -17,6 +18,7 @@ public:
 	const Board& getBoard() const;
 
 	void startNewGame();
+	void initializeGame();
 	void saveGame(const std::string& filename);
 	void loadGame(const std::string& filename);
 	void makePoint();
@@ -26,6 +28,7 @@ public:
 	bool drawGame() const;
 	~Game() = default;
 private:
+	MainMenu* mainMenu;
 	Player m_playerRed;
 	Player m_playerBlack;
 	Player* m_currentPlayer;

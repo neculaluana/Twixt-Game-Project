@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "MainMenu.h"
 #include <fstream>
 
 Game::Game(std::string name1, std::string name2)
@@ -69,6 +70,12 @@ void Game::startNewGame() {
 	std::cout << "Black player name: ";
 	std::cin >> name;
 	m_playerBlack.setName(name);
+}
+void Game::initializeGame()
+{
+	mainMenu = new MainMenu();
+	mainMenu->show();
+	mainMenu->displayMainMenu();
 }
 void Game::saveGame(const std::string& filename)
 {
