@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="ProjectModernCpp">
-    </qresource>
+  <qresource prefix="ProjectModernCpp"/>
+  <qresource prefix="Resources">
+    <file>Resources/twixt.jpg</file>
+  </qresource>
 </RCC>
