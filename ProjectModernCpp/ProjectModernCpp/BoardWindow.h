@@ -3,11 +3,11 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsRectItem>
-
+#include <QGraphicsEllipseItem>
 class BoardWindow
 {
 public:
-	BoardWindow(QGraphicsScene* scene);
+	BoardWindow(QGraphicsScene* scene, int width, int height);
 
 
 

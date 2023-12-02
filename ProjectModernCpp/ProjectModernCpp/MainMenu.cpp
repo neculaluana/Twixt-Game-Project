@@ -7,7 +7,7 @@
 void MainMenu::start() {
 
     scene->clear();
-    showBoard(scene);
+    showBoard(scene, this->width(), this->height());
 }
 
 void MainMenu::displayMainMenu() {
@@ -52,15 +52,15 @@ MainMenu::MainMenu(QWidget* parent) {
     // set up the screen
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(1024, 768);
+    setFixedSize(700, 700);
 
     // set up the scene
     scene = new QGraphicsScene();
-    scene->setSceneRect(0, 0, 1024, 768);
+    scene->setSceneRect(0, 0, 700, 700);
     setScene(scene);
 }
-void MainMenu::showBoard(QGraphicsScene* s)
+void MainMenu::showBoard(QGraphicsScene* s, int width, int height)
 {
-    BoardWindow board(s);
+    BoardWindow board(s, width, height);
     
 }

@@ -17,7 +17,7 @@ public:
 
 	QGraphicsScene* scene;
 	//ProjectModernCpp* w;
-	void showBoard(QGraphicsScene* s);
+	void showBoard(QGraphicsScene* s, int width, int height);
 	
 public slots:
 
