@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include "ProjectModernCpp.h"
 
 class MainMenu : public QGraphicsView {
 	Q_OBJECT;
@@ -14,6 +15,7 @@ public:
 	void displayMainMenu();
 
 	QGraphicsScene* scene;
+	//ProjectModernCpp* w;
 	
 public slots:
 
