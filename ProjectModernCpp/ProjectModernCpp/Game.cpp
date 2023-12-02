@@ -62,20 +62,28 @@ const Board& Game::getBoard() const
 }
 
 void Game::startNewGame() {
-	m_board.printBoard();
-	std::string name;
+	//m_board.printBoard();
+	/*std::string name;
 	std::cout << "Red player name: ";
 	std::cin >> name;
 	m_playerRed.setName(name);
 	std::cout << "Black player name: ";
 	std::cin >> name;
-	m_playerBlack.setName(name);
+	m_playerBlack.setName(name);*/
+
+	showBoard(mainMenu->scene, mainMenu->width(), mainMenu->height(),m_board);
 }
 void Game::initializeGame()
 {
 	mainMenu = new MainMenu();
 	mainMenu->show();
 	mainMenu->displayMainMenu();
+	connect(mainMenu, SIGNAL(newGameStarted()), this, SLOT(startNewGameSlot()));
+
+}
+void Game::startNewGameSlot()
+{
+	startNewGame();
 }
 void Game::saveGame(const std::string& filename)
 {
@@ -125,4 +133,11 @@ void Game::changeCurrentPlayer() {
 		*m_currentPlayer = m_playerBlack;
 	else
 		*m_currentPlayer = m_playerRed;
+}
+
+void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
+{
+	BoardWindow* board= new BoardWindow(s, width, height, b);
+
+
 }

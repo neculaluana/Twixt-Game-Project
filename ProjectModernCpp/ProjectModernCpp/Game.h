@@ -2,7 +2,15 @@
 #include "Player.h"
 #include "Board.h"
 #include "MainMenu.h"
-class Game {
+#include <QObject>
+#include <QtCore>
+#include <QApplication>
+#include <QGraphicsScene>
+#include <QWidget>
+
+
+class Game : public QObject {
+	Q_OBJECT;
 public:
 	Game() = default;
 
@@ -26,7 +34,11 @@ public:
 	void changeCurrentPlayer();
 	bool wonGame() const;
 	bool drawGame() const;
+	void showBoard(QGraphicsScene* s, int width, int height, Board b);
+	
 	~Game() = default;
+public slots:
+	void startNewGameSlot();
 private:
 	MainMenu* mainMenu;
 	Player m_playerRed;

@@ -4,10 +4,12 @@
 #include <qfiledialog.h>
 
 
-void MainMenu::start() {
-
+void MainMenu::newGame() 
+{
     scene->clear();
-    showBoard(scene, this->width(), this->height());
+    setIsNewGame(true);
+    emit newGameStarted();
+
 }
 
 void MainMenu::displayMainMenu() {
@@ -16,7 +18,7 @@ void MainMenu::displayMainMenu() {
     int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
     int byPos = 375;
     playButton->setPos(bxPos, byPos);
-    connect(playButton, SIGNAL(clicked()), this, SLOT(start()));
+    connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
     scene->addItem(playButton);
 
     Button* loadButton = new Button(QString("Load game"));
@@ -43,6 +45,16 @@ void MainMenu::displayMainMenu() {
     scene->addItem(item);
 }
 
+void MainMenu::setIsNewGame(bool a)
+{
+    isNewGame = a;
+}
+
+bool MainMenu::getIsNewGame()
+{
+    return isNewGame;
+}
+
 void MainMenu::load()
 {
 }
@@ -58,9 +70,5 @@ MainMenu::MainMenu(QWidget* parent) {
     scene = new QGraphicsScene();
     scene->setSceneRect(0, 0, 700, 700);
     setScene(scene);
-}
-void MainMenu::showBoard(QGraphicsScene* s, int width, int height)
-{
-    BoardWindow board(s, width, height);
-    
+    isNewGame = false;
 }

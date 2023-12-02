@@ -9,5 +9,6 @@ int main(int argc, char *argv[])
     //w.show();
     Game game("Ana", "Ion");
     game.initializeGame();
+
     return a.exec();
 }

@@ -17,12 +17,16 @@ public:
 
 	QGraphicsScene* scene;
 	//ProjectModernCpp* w;
-	void showBoard(QGraphicsScene* s, int width, int height);
-	
+	void setIsNewGame(bool a);
+	bool getIsNewGame();
+signals:
+	void newGameStarted();
 public slots:
 
-	void start();
+	void newGame();
 	void load();
+private:
+	bool isNewGame;
 };
 
 #endif // ! MAINMENU_H

@@ -35,7 +35,7 @@ public:
 	Status getStatus(const Position& coordinate)const;
 	void setBases(size_t boardSize);
 	void boardResize(size_t boardSize);
-	size_t getBoardSize()const noexcept;
+	size_t getBoardSize() const noexcept;
 
 	void printBoard()const;
 	void addPoint(const Point& p);
@@ -48,7 +48,7 @@ public:
 
 
 private:
-	size_t m_boardSize;
+	 size_t m_boardSize;
 	std::vector<std::vector < Status >> m_board;
 
 };
