@@ -96,6 +96,7 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="ProjectModernCpp.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Bridge.h" />
     <QtMoc Include="Button.h" />
     <ClInclude Include="Game.h" />
+    <QtMoc Include="MainMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>
