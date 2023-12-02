@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include "ProjectModernCpp.h"
+#include "BoardWindow.h"
 
 class MainMenu : public QGraphicsView {
 	Q_OBJECT;
@@ -16,6 +17,7 @@ public:
 
 	QGraphicsScene* scene;
 	//ProjectModernCpp* w;
+	void showBoard(QGraphicsScene* s);
 	
 public slots:
 

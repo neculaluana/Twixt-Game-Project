@@ -7,6 +7,7 @@
 void MainMenu::start() {
 
     scene->clear();
+    showBoard(scene);
 }
 
 void MainMenu::displayMainMenu() {
@@ -57,4 +58,9 @@ MainMenu::MainMenu(QWidget* parent) {
     scene = new QGraphicsScene();
     scene->setSceneRect(0, 0, 1024, 768);
     setScene(scene);
+}
+void MainMenu::showBoard(QGraphicsScene* s)
+{
+    BoardWindow board(s);
+    
 }
