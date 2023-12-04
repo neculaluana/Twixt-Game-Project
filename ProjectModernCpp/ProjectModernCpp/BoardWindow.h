@@ -6,6 +6,8 @@
 #include <QGraphicsEllipseItem>
 #include <vector>
 #include "Board.h"
+#include "CircleButton.h"
+
 class BoardWindow
 {
 public:
