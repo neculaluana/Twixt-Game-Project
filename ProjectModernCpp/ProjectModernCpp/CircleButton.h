@@ -9,7 +9,7 @@
 class CircleButton : public QObject, public QGraphicsEllipseItem {
     Q_OBJECT
 public:
-    CircleButton(QString name, QGraphicsItem* parent = nullptr);
+    CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr);
 
 
 signals:
