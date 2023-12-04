@@ -18,3 +18,21 @@ CircleButton::CircleButton(int x, int y, int diameter, QGraphicsItem* parent)
 
 
 
+
+void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+    emit clicked();
+}
+
+void CircleButton::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::lightGray);
+    setBrush(brush);
+}
+
+void CircleButton::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::darkGray);
+    setBrush(brush);
+}
