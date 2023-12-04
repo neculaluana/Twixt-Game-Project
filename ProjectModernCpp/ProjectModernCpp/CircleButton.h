@@ -1,0 +1,29 @@
+#ifndef CIRCLEBUTTON_H
+#define CIRCLEBUTTON_H
+
+#include <QGraphicsEllipseItem>
+#include <QGraphicsTextItem>
+#include <QBrush>
+
+
+class CircleButton : public QObject, public QGraphicsEllipseItem {
+    Q_OBJECT
+public:
+    CircleButton(QString name, QGraphicsItem* parent = nullptr);
+
+
+signals:
+    void clicked();
+
+protected:
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
+    virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+
+
+};
+
+
+
+#endif // CIRCLEBUTTON_H
+
