@@ -1,9 +1,9 @@
-#include"Button.h"
+#include"MenuButton.h"
 
 #include <QGraphicsTextItem>
 #include <QBrush>
 
-Button::Button(QString name, QGraphicsItem* parent) : QGraphicsRectItem(parent) {
+MenuButton::MenuButton(QString name, QGraphicsItem* parent) : QGraphicsRectItem(parent) {
     
     setRect(0, 0, 200, 50);
     QBrush brush;
@@ -17,18 +17,18 @@ Button::Button(QString name, QGraphicsItem* parent) : QGraphicsRectItem(parent) 
     setAcceptHoverEvents(true);
 }
 
-void Button::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+void MenuButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     emit clicked();
 }
 
-void Button::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
+void MenuButton::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::cyan);
     setBrush(brush);
 }
 
-void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
+void MenuButton::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::darkCyan);

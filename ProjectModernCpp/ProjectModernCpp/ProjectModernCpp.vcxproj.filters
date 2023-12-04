@@ -55,7 +55,7 @@
     <ClCompile Include="Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="MenuButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
@@ -83,7 +83,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Button.h">
+    <QtMoc Include="MenuButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="MainMenu.h">

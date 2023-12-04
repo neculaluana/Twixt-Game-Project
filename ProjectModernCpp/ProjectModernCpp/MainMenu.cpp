@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-#include "Button.h"
+#include "MenuButton.h"
 #include <QGraphicsTextItem>
 #include <qfiledialog.h>
 
@@ -14,21 +14,21 @@ void MainMenu::newGame()
 
 void MainMenu::displayMainMenu() {
 
-    Button* playButton = new Button(QString("New game"));
+    MenuButton* playButton = new MenuButton(QString("New game"));
     int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
     int byPos = 375;
     playButton->setPos(bxPos, byPos);
     connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
     scene->addItem(playButton);
 
-    Button* loadButton = new Button(QString("Load game"));
+    MenuButton* loadButton = new MenuButton(QString("Load game"));
     int lxPos = this->width() / 2 - loadButton->boundingRect().width() / 2;
     int lyPos = 450;
     loadButton->setPos(lxPos, lyPos);
     connect(loadButton, SIGNAL(clicked()), this, SLOT(load()));
     scene->addItem(loadButton);
 
-    Button* quitButton = new Button(QString("Quit"));
+    MenuButton* quitButton = new MenuButton(QString("Quit"));
     int qxPos = this->width() / 2 - quitButton->boundingRect().width() / 2;
     int qyPos = 525;
     quitButton->setPos(qxPos, qyPos);
