@@ -1,4 +1,4 @@
-#include "CircleButton.h"
+﻿#include "CircleButton.h"
 #include <QGraphicsSceneMouseEvent>
 
 CircleButton::CircleButton(int x, int y, int diameter, QGraphicsItem* parent)
@@ -16,11 +16,20 @@ CircleButton::CircleButton(int x, int y, int diameter, QGraphicsItem* parent)
     setAcceptHoverEvents(true);
 }
 
-
-
-
 void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     emit clicked();
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::red);
+    setBrush(brush);
+    update();
+}
+
+void CircleButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::red);
+    setBrush(brush);
 }
 
 void CircleButton::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
