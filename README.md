@@ -5,7 +5,7 @@
 - Necula Luana
 - Popica Stefania
 
-###Requirements:
+### Requirements:
 - VS Qt Extension
 
 Installation Steps:
