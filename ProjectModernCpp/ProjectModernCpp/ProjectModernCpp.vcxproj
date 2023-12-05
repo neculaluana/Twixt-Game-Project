@@ -95,6 +95,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardWindow.cpp" />
     <ClCompile Include="Bridge.cpp" />
+    <ClCompile Include="CircleButton.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -110,6 +111,7 @@
     <QtMoc Include="MenuButton.h" />
     <QtMoc Include="Game.h" />
     <QtMoc Include="MainMenu.h" />
+    <QtMoc Include="CircleButton.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>

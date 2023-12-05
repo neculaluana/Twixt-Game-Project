@@ -15,13 +15,14 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,const Boar
     int cellHeight = 630 / boardSize;
 
     for (int i = 0; i < boardSize; ++i) {
+
         for (int j = 0; j < boardSize; ++j) {
+
             int x = width / 20 + i * cellWidth + cellWidth / 2;
             int y = height / 13 + j * cellHeight + cellHeight / 2;
 
-            QGraphicsEllipseItem* point = new QGraphicsEllipseItem(x - 4, y - 4, 8, 8);
-            point->setBrush(QBrush(Qt::darkGray));
-            scene->addItem(point);
+            CircleButton* button = new CircleButton(x, y, 8, nullptr);
+            scene->addItem(button);
         }
     }
 	

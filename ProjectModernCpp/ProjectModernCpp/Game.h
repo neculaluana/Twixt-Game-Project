@@ -30,7 +30,6 @@ public:
 	void saveGame(const std::string& filename);
 	void loadGame(const std::string& filename);
 	void makePoint();
-	void createBridge(const Point& start, const Point& end);
 	void changeCurrentPlayer();
 	bool wonGame() const;
 	bool drawGame() const;
