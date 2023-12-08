@@ -26,5 +26,8 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,const Boar
             m_points.push_back(button);
         }
     }
+    BridgeLine* line = new BridgeLine(m_points[0], m_points[1]);
+    scene->addItem(line);
+
 	
 }

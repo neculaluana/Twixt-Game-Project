@@ -7,6 +7,7 @@
 #include <vector>
 #include "Board.h"
 #include "CircleButton.h"
+#include "BridgeLine.h"
 
 class BoardWindow
 {
