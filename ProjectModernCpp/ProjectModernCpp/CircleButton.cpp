@@ -37,10 +37,13 @@ void CircleButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
 }
 
 void CircleButton::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::lightGray);
-    setBrush(brush);
+    if (!isClicked)
+    {
+        QBrush brush;
+        brush.setStyle(Qt::SolidPattern);
+        brush.setColor(Qt::lightGray);
+        setBrush(brush);
+    }
 }
 
 void CircleButton::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
@@ -48,7 +51,7 @@ void CircleButton::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
     {
         QBrush brush;
         brush.setStyle(Qt::SolidPattern);
-        brush.setColor(Qt::darkGray);
+       brush.setColor(Qt::darkGray);
         setBrush(brush);
     }
 }
