@@ -16,7 +16,7 @@ public:
 
 
 private:
-	std::vector<std::vector<QGraphicsEllipseItem*>> m_points;
+	std::vector<CircleButton*> m_points;
 
 };
 

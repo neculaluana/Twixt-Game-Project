@@ -23,6 +23,7 @@ protected:
 
 private:
     bool isClicked;
+    QColor color;
 };
 
 

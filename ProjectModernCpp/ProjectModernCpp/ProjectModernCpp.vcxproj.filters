@@ -64,6 +64,12 @@
     <ClCompile Include="BoardWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CircleButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BridgeLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -81,6 +87,9 @@
     <ClInclude Include="BoardWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BridgeLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MenuButton.h">
@@ -90,6 +99,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Game.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CircleButton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
