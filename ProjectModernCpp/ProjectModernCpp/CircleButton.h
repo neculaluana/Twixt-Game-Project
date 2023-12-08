@@ -21,7 +21,8 @@ protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
-
+private:
+    bool isClicked;
 };
 
 
