@@ -11,7 +11,8 @@ BridgeLine::BridgeLine(CircleButton* startButton, CircleButton* endButton, QGrap
 void BridgeLine::updatePosition()
 {
     if (startButton && endButton) {
-        setLine(QLineF(startButton->pos(), endButton->pos()));
+        QLineF newLine(startButton->pos(), endButton->pos());
+        setLine(newLine);
     }
     update();
 }
@@ -22,16 +23,26 @@ QRectF BridgeLine::boundingRect() const
         return QRectF();
     }
 
-    qreal left = std::min(startButton->pos().x(), endButton->pos().x());
-    qreal top = std::min(startButton->pos().y(), endButton->pos().y());
-    qreal right = std::max(startButton->pos().x(), endButton->pos().x());
-    qreal bottom = std::max(startButton->pos().y(), endButton->pos().y());
+    QPointF startPoint = startButton->pos();
+    QPointF endPoint = endButton->pos();
 
-    return QRectF(QPointF(left, top), QPointF(right, bottom));
+    qreal left = std::min(startPoint.x(), endPoint.x());
+    qreal right = std::max(startPoint.x(), endPoint.x());
+    qreal top = std::min(startPoint.y(), endPoint.y());
+    qreal bottom = std::max(startPoint.y(), endPoint.y());
+
+    QRectF rect(left, top, right - left, bottom - top);
+    qreal margin = 1.0;
+    rect.adjust(-margin, -margin, margin, margin);
+    return rect;
 }
 
 void BridgeLine::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) 
 {
+    if (!startButton || !endButton) return;
+
+    QPen pen(Qt::black, 2); 
+    painter->setPen(pen);
+
     painter->drawLine(line());
-    update();
 }

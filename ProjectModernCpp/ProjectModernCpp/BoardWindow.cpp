@@ -24,10 +24,18 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,const Boar
             CircleButton* button = new CircleButton(x, y, 8, nullptr);
             scene->addItem(button);
             m_points.push_back(button);
+            
         }
     }
-    BridgeLine* line = new BridgeLine(m_points[0], m_points[1]);
-    scene->addItem(line);
+    for (size_t i = 0; i < m_points.size() - 1; ++i)
+    {
+        if(m_points[i]!=nullptr && m_points[i + 1]!=nullptr)
+        if (m_points[i]->getIsClicked() && m_points[i + 1]->getIsClicked())
 
-	
+        {
+            BridgeLine* line = new BridgeLine(m_points[i], m_points[i + 1]);
+            scene->addItem(line);
+            m_lines.push_back(line);
+        }
+    }
 }

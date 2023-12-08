@@ -18,7 +18,7 @@ public:
 
 private:
 	std::vector<CircleButton*> m_points;
-
+	std::vector<BridgeLine*> m_lines;
 };
 
 #endif //BOARDWINDOW_H

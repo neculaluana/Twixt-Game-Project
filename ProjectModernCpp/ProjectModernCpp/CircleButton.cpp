@@ -55,3 +55,13 @@ void CircleButton::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
         setBrush(brush);
     }
 }
+
+void CircleButton::setIsClicked(bool a)
+{
+    isClicked = a;
+}
+
+bool CircleButton::getIsClicked()
+{
+    return isClicked;
+}

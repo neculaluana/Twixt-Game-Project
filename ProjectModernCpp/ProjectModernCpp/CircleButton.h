@@ -10,8 +10,9 @@ class CircleButton : public QObject, public QGraphicsEllipseItem {
     Q_OBJECT
 public:
     CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr);
-
-
+    void setIsClicked(bool a);
+    bool getIsClicked();
+    bool isClicked=false;
 signals:
     void clicked();
 
@@ -22,7 +23,7 @@ protected:
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
 private:
-    bool isClicked;
+
     QColor color;
 };
 
