@@ -21,7 +21,7 @@ public slots:
 	//void onButtonClicked();
 	void onButtonClicked(int x, int y);
 signals:
-	void pointAdded(int x, int y);
+	void pointAdded(int x, int y, CircleButton* button);
 
 private:
 	 Board& m_board;

@@ -6,6 +6,7 @@ Game::Game(std::string name1, std::string name2)
 	:m_board{ Board() }
 	, m_playerRed{ Player(name1, Point::Color::Red) }
 	, m_playerBlack{ Player(name2, Point::Color::Black) }
+	, m_currentPlayer{ &m_playerRed }
 {}
 
 Game::Game(const Game& other)
@@ -31,6 +32,7 @@ Game::Game(Game&& other) noexcept
 	: m_playerRed{ std::move(other.m_playerRed) }
 	, m_playerBlack{ std::move(other.m_playerBlack) }
 	, m_board{ std::move(other.m_board) }
+	, m_currentPlayer { std::move (other.m_currentPlayer)}
 {
 }
 
@@ -143,31 +145,20 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 
 }
 
-void Game::onPointAdded(int x, int y)
+void Game::onPointAdded(int x, int y,CircleButton* button)
 {
 	Point newPoint(x, y, m_currentPlayer->getColor());
 
-	// Check if the point can be legally added to the board.
 	if (m_board.isPointPossible({ x, y })) {
-		// Add the point to the board.
 		m_board.addPoint(newPoint);
 
-		// Add the point to the current player's list of points.
 		m_currentPlayer->addPoint(newPoint);
 
-		// Check and create bridges if any.
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 
-		// Additional game logic here, such as checking for a winner,
-		// changing the current player, etc.
-		// ...
-
-		// Update the GUI if needed. For example, you might signal the GUI to redraw the board.
-		// This could be a signal emitted by the Game class that the GUI listens to.
 		emit boardUpdated();
 	}
 	else {
-		// Handle the case where the point cannot be added (e.g., already occupied).
-		// You might want to inform the user or log this event.
+		button->resetColor();
 	}
 }

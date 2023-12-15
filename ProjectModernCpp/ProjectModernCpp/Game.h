@@ -37,6 +37,7 @@ public:
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
 	
 	~Game() = default;
+
 public slots:
 	void startNewGameSlot();
 	void onPointAdded(int x, int y);
