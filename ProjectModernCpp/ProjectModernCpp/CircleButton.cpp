@@ -65,3 +65,12 @@ bool CircleButton::getIsClicked()
 {
     return isClicked;
 }
+
+void CircleButton::resetColor()
+{
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::darkGray); 
+    setBrush(brush);
+    update();
+}

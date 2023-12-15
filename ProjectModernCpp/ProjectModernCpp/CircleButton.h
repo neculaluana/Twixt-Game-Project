@@ -13,6 +13,8 @@ public:
     void setIsClicked(bool a);
     bool getIsClicked();
     bool isClicked=false;
+    void resetColor();
+
 signals:
     void clicked();
 
