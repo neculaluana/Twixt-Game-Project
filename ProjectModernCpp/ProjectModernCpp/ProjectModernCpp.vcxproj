@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
-    <ClInclude Include="BoardWindow.h" />
+    <QtMoc Include="BoardWindow.h" />
     <ClInclude Include="Bridge.h" />
     <QtMoc Include="MenuButton.h" />
     <QtMoc Include="Game.h" />

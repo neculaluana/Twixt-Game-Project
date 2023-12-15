@@ -138,6 +138,6 @@ void Game::changeCurrentPlayer() {
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
 	BoardWindow* board= new BoardWindow(s, width, height, b);
-
+	
 
 }
