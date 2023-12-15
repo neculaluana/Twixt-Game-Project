@@ -139,7 +139,7 @@ void Game::changeCurrentPlayer() {
 
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
-	BoardWindow* board= new BoardWindow(s, width, height,b);
+	BoardWindow* board= new BoardWindow(s, width, height,b, m_currentPlayer);
 	connect(board, &BoardWindow::pointAdded, this, &Game::onPointAdded);
 
 
@@ -152,9 +152,15 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 	if (m_board.isPointPossible({ x, y })) {
 		m_board.addPoint(newPoint);
 
+
 		m_currentPlayer->addPoint(newPoint);
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
+
+		if (m_currentPlayer == &m_playerRed)
+			m_currentPlayer = &m_playerBlack;
+		else
+			m_currentPlayer = &m_playerRed;
 
 		emit boardUpdated();
 	}

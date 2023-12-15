@@ -22,7 +22,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
             int x = width / 20 + i * cellWidth + cellWidth / 2;
             int y = height / 13 + j * cellHeight + cellHeight / 2;
 
-            CircleButton* button = new CircleButton(x, y, 8, nullptr);
+            CircleButton* button = new CircleButton(x, y, 8, nullptr, currentPlayer);
             scene->addItem(button);
             m_points.push_back(button);
             std::pair<uint8_t, uint8_t> coords = std::make_pair(i, j);

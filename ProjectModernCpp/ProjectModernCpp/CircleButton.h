@@ -9,7 +9,7 @@
 class CircleButton : public QObject, public QGraphicsEllipseItem {
     Q_OBJECT
 public:
-    CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr, Player*currentPlayer);
+    CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr, Player* currentPlayer = nullptr);
     void setIsClicked(bool a);
     bool getIsClicked();
     bool isClicked=false;

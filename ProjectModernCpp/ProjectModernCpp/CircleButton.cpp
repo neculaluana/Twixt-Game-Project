@@ -30,11 +30,15 @@ void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 }
 
 void CircleButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
+   
     if(!isClicked)
     {
         QBrush brush;
         brush.setStyle(Qt::SolidPattern);
-        brush.setColor(Qt::red);
+        if (m_currentPlayer->getColor() == Point::Color::Red)
+            brush.setColor(Qt::red);
+        else
+            brush.setColor(Qt::black);
         setBrush(brush);
     }
 }
