@@ -132,9 +132,9 @@ void Game::makePoint() {
 }
 void Game::changeCurrentPlayer() {
 	if ((*m_currentPlayer).getColor() == m_playerRed.getColor())
-		*m_currentPlayer = m_playerBlack;
+		m_currentPlayer = &m_playerBlack;
 	else
-		*m_currentPlayer = m_playerRed;
+		m_currentPlayer = &m_playerRed;
 }
 
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
@@ -147,9 +147,12 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 
 void Game::onPointAdded(int x, int y,CircleButton* button)
 {
+	if (!button) return;
+
 	Point newPoint(x, y, m_currentPlayer->getColor());
 
 	if (m_board.isPointPossible({ x, y })) {
+		button->updateColor(m_currentPlayer->getColor());
 		m_board.addPoint(newPoint);
 
 
@@ -157,11 +160,13 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 
-		if (m_currentPlayer == &m_playerRed)
+		/*if (m_currentPlayer == &m_playerRed)
 			m_currentPlayer = &m_playerBlack;
 		else
-			m_currentPlayer = &m_playerRed;
+			m_currentPlayer = &m_playerRed;*/
 
+
+		changeCurrentPlayer();
 		emit boardUpdated();
 	}
 	else {
