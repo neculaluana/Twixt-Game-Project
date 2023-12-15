@@ -1,10 +1,8 @@
 #include "BoardWindow.h"
 
 
-BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Game& game, Board& b, Player& currentPlayer)
-    : m_game(game)
-    , m_board(b)
-    , m_currentPlayer(currentPlayer)
+BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b)
+    : m_board(b)
 {
 	QGraphicsRectItem* board = new QGraphicsRectItem(width/20, height/13, 630, 630);
 	board->setBrush(QBrush(Qt::lightGray));
@@ -29,17 +27,17 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Game& gam
             m_points.push_back(button);
             std::pair<uint8_t, uint8_t> coords = std::make_pair(i, j);
             connect(button, &CircleButton::clicked, this, &BoardWindow::onButtonClicked);
-           
+            
             
         }
     }
     s = scene;
-}
+}/*
 void BoardWindow::onButtonClicked()
 {
-
+    
     drawLines(s);
-}
+}*/
 void BoardWindow::drawLines(QGraphicsScene* scene)
 {
     if (m_points.size() > 1)
@@ -58,4 +56,9 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
 
     }
     
+}
+
+void BoardWindow::onButtonClicked(int x, int y)
+{
+    emit pointAdded(x, y);
 }

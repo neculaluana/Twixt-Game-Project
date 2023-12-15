@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Board.h"
 #include "MainMenu.h"
+#include "BoardWindow.h"
 #include <QObject>
 #include <QtCore>
 #include <QApplication>
@@ -34,14 +35,18 @@ public:
 	bool wonGame() const;
 	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
-	void addPointFromGUI(const std::pair<uint8_t, uint8_t>& coords);
+	
 	~Game() = default;
 public slots:
 	void startNewGameSlot();
+	void onPointAdded(int x, int y);
+signals:
+	void boardUpdated();
 private:
 	MainMenu* mainMenu;
 	Player m_playerRed;
 	Player m_playerBlack;
 	Player* m_currentPlayer;
 	Board m_board;
+	std::function<void()> guiUpdateCallback;
 };

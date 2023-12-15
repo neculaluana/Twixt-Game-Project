@@ -137,19 +137,37 @@ void Game::changeCurrentPlayer() {
 
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
-	BoardWindow* board= new BoardWindow(s, width, height, b);
-	
+	BoardWindow* board= new BoardWindow(s, width, height,b);
+	connect(board, &BoardWindow::pointAdded, this, &Game::onPointAdded);
+
 
 }
-void Game::addPointFromGUI(const std::pair<uint8_t, uint8_t>& coords) {
-	if (m_board.isPointPossible(coords)) {
-		Point p(coords.first, coords.second, m_currentPlayer->getColor());
-		m_board.addPoint(p);
-		m_currentPlayer->addPoint(p);
-		
 
-		if (guiUpdateCallback) {
-			guiUpdateCallback();
-		}
+void Game::onPointAdded(int x, int y)
+{
+	Point newPoint(x, y, m_currentPlayer->getColor());
+
+	// Check if the point can be legally added to the board.
+	if (m_board.isPointPossible({ x, y })) {
+		// Add the point to the board.
+		m_board.addPoint(newPoint);
+
+		// Add the point to the current player's list of points.
+		m_currentPlayer->addPoint(newPoint);
+
+		// Check and create bridges if any.
+		m_board.makeBridges(newPoint, *m_currentPlayer);
+
+		// Additional game logic here, such as checking for a winner,
+		// changing the current player, etc.
+		// ...
+
+		// Update the GUI if needed. For example, you might signal the GUI to redraw the board.
+		// This could be a signal emitted by the Game class that the GUI listens to.
+		emit boardUpdated();
+	}
+	else {
+		// Handle the case where the point cannot be added (e.g., already occupied).
+		// You might want to inform the user or log this event.
 	}
 }
