@@ -41,21 +41,24 @@ void BoardWindow::onButtonClicked()
 }*/
 void BoardWindow::drawLines(QGraphicsScene* scene)
 {
-    if (m_points.size() > 1)
-    {
+    std::vector<Bridge> bridges=m_currentPlayer->getBridges();
+    for(auto& bridge:bridges)
         for (size_t i = 0; i < m_points.size() - 1; ++i)
         {
-            if (m_points[i] != nullptr && m_points[i + 1] != nullptr)
+            if (m_points[i]->getX() == bridge.getStartPoint().getCoordinates().first)
+            {
+            }
+            /*if (m_points[i] != nullptr && m_points[i + 1] != nullptr)
                 if (m_points[i]->getIsClicked() && m_points[i + 1]->getIsClicked())
 
                 {
                     BridgeLine* line = new BridgeLine(m_points[i], m_points[i + 1]);
                     scene->addItem(line);
                     m_lines.push_back(line);
-                }
+                }*/
         }
 
-    }
+    
     
 }
 

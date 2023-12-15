@@ -12,6 +12,8 @@ public:
     CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr, Player* currentPlayer = nullptr);
     void setIsClicked(bool a);
     bool getIsClicked();
+    int getX();
+    int getY();
     bool isClicked=false;
     void resetColor();
     void updateColor(Point::Color playerColor);
@@ -30,6 +32,7 @@ private:
 
     QColor color;
     Player* m_currentPlayer;
+    int m_x, m_y;
 };
 
 

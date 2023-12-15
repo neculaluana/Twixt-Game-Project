@@ -154,7 +154,7 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 	if (m_board.getStatus(position)==Board::Status::Empty) {
 		button->updateColor(m_currentPlayer->getColor());
 		m_board.addPoint(newPoint);
-
+		m_board.makeBridges(newPoint, *m_currentPlayer);
 
 		m_currentPlayer->addPoint(newPoint);
 

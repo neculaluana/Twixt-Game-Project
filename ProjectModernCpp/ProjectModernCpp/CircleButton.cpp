@@ -2,7 +2,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 CircleButton::CircleButton(int x, int y, int diameter, QGraphicsItem* parent, Player*currentPlayer)
-    : QGraphicsEllipseItem(parent), isClicked(false), m_currentPlayer{currentPlayer} {
+    : QGraphicsEllipseItem(parent), isClicked(false), m_currentPlayer{ currentPlayer }, m_x{ x }, m_y{ y } {
 
     setRect(0, 0, diameter, diameter);
     setPos(x - diameter / 2, y - diameter / 2);
@@ -66,6 +66,16 @@ void CircleButton::setIsClicked(bool a)
 bool CircleButton::getIsClicked()
 {
     return isClicked;
+}
+
+int CircleButton::getX()
+{
+    return m_x;
+}
+
+int CircleButton::getY()
+{
+    return m_y;
 }
 
 void CircleButton::resetColor()
