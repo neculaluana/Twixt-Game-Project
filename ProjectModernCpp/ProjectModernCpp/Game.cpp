@@ -150,8 +150,8 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 	if (!button) return;
 
 	Point newPoint(x, y, m_currentPlayer->getColor());
-
-	if (m_board.isPointPossible({ x, y })) {
+	std::pair position = std::make_pair<size_t, size_t>(x, y);
+	if (m_board.getStatus(position)==Board::Status::Empty) {
 		button->updateColor(m_currentPlayer->getColor());
 		m_board.addPoint(newPoint);
 
@@ -160,16 +160,18 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 
-		/*if (m_currentPlayer == &m_playerRed)
-			m_currentPlayer = &m_playerBlack;
-		else
-			m_currentPlayer = &m_playerRed;*/
 
 
 		changeCurrentPlayer();
 		emit boardUpdated();
 	}
 	else {
-		button->resetColor();
+		if (button->getColor() == m_currentPlayer->getColor())
+		{
+			m_board.setStatus(position, Board::Status::Empty);
+			button->resetColor();
+			
+		}
+
 	}
 }

@@ -70,9 +70,11 @@ bool CircleButton::getIsClicked()
 
 void CircleButton::resetColor()
 {
+    isClicked = false;
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkGray); 
+    color = Qt::darkGray;
+    brush.setColor(color); 
     setBrush(brush);
     update();
 }
@@ -84,4 +86,12 @@ void CircleButton::updateColor(Point::Color playerColor) {
     brush.setColor(color);
     setBrush(brush);
     update();
+}
+
+Point::Color CircleButton::getColor()
+{
+    if (color == Qt::red)
+        return Point::Color::Red;
+    else
+        return Point::Color::Black;
 }

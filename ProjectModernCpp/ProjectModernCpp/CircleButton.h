@@ -15,6 +15,7 @@ public:
     bool isClicked=false;
     void resetColor();
     void updateColor(Point::Color playerColor);
+    Point::Color getColor();
 
 signals:
     void clicked();

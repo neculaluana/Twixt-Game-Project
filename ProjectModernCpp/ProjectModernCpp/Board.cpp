@@ -59,6 +59,11 @@ void Board::boardResize(size_t boardSize){
 	setBases(boardSize);
 }
 
+void Board::setStatus(const Position& coordinate, Board::Status status)
+{
+	m_board[coordinate.first][coordinate.second] = status;
+}
+
 
 Board::Status Board::getStatus(const Position& coordinate)const
 {
@@ -67,7 +72,7 @@ Board::Status Board::getStatus(const Position& coordinate)const
 		return m_board[coordinate.first][coordinate.second];
 	}
 	else
-		return Status::Empty;
+		return Status::Invalid;
 }
 
 size_t Board::getBoardSize()const noexcept

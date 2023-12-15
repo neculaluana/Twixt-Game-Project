@@ -12,11 +12,12 @@ class Board
 {
 public:
 	enum class Status {
-		Empty = '.',
-		PlayerRed = 'r',
-		PlayerBlack = 'b',
-		BaseRed = '-',
-		BaseBlack = '|'
+		Empty,
+		PlayerRed ,
+		PlayerBlack,
+		BaseRed ,
+		BaseBlack,
+		Invalid
 
 	};
 
@@ -33,6 +34,7 @@ public:
 
 
 	Status getStatus(const Position& coordinate)const;
+	void setStatus(const Position& coordinate, Board::Status status);
 	void setBases(size_t boardSize);
 	void boardResize(size_t boardSize);
 	size_t getBoardSize() const noexcept;
