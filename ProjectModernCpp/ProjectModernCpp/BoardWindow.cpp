@@ -1,7 +1,10 @@
 #include "BoardWindow.h"
 
 
-BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,const Board& b )
+BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Game& game, Board& b, Player& currentPlayer)
+    : m_game(game)
+    , m_board(b)
+    , m_currentPlayer(currentPlayer)
 {
 	QGraphicsRectItem* board = new QGraphicsRectItem(width/20, height/13, 630, 630);
 	board->setBrush(QBrush(Qt::lightGray));
