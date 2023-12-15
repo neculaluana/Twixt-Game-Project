@@ -141,3 +141,15 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 	
 
 }
+void Game::addPointFromGUI(const std::pair<uint8_t, uint8_t>& coords) {
+	if (m_board.isPointPossible(coords)) {
+		Point p(coords.first, coords.second, m_currentPlayer->getColor());
+		m_board.addPoint(p);
+		m_currentPlayer->addPoint(p);
+		
+
+		if (guiUpdateCallback) {
+			guiUpdateCallback();
+		}
+	}
+}

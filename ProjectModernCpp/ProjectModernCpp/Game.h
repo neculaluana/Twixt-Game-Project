@@ -34,7 +34,7 @@ public:
 	bool wonGame() const;
 	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
-	
+	void addPointFromGUI(const std::pair<uint8_t, uint8_t>& coords);
 	~Game() = default;
 public slots:
 	void startNewGameSlot();

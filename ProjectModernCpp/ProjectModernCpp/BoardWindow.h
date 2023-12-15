@@ -5,7 +5,6 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsEllipseItem>
 #include <vector>
-#include "Board.h"
 #include "CircleButton.h"
 #include "BridgeLine.h"
 #include "Game.h"

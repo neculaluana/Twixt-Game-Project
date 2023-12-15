@@ -27,8 +27,9 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Game& gam
             CircleButton* button = new CircleButton(x, y, 8, nullptr);
             scene->addItem(button);
             m_points.push_back(button);
+            std::pair<uint8_t, uint8_t> coords = std::make_pair(i, j);
             connect(button, &CircleButton::clicked, this, &BoardWindow::onButtonClicked);
-
+           
             
         }
     }
@@ -36,6 +37,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Game& gam
 }
 void BoardWindow::onButtonClicked()
 {
+
     drawLines(s);
 }
 void BoardWindow::drawLines(QGraphicsScene* scene)
