@@ -81,3 +81,10 @@ void CircleButton::resetColor()
     setBrush(brush);
     update();
 }
+
+void CircleButton::updateColor(Point::Color playerColor) {
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(playerColor == Point::Color::Red ? Qt::red : Qt::black);
+    setBrush(brush);
+}
