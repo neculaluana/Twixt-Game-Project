@@ -4,12 +4,12 @@
 #include <QGraphicsEllipseItem>
 #include <QGraphicsTextItem>
 #include <QBrush>
-
+#include "Player.h"
 
 class CircleButton : public QObject, public QGraphicsEllipseItem {
     Q_OBJECT
 public:
-    CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr);
+    CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr, Player*currentPlayer);
     void setIsClicked(bool a);
     bool getIsClicked();
     bool isClicked=false;
@@ -27,6 +27,7 @@ protected:
 private:
 
     QColor color;
+    Player* m_currentPlayer;
 };
 
 

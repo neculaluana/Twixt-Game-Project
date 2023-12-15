@@ -1,8 +1,8 @@
 ﻿#include "CircleButton.h"
 #include <QGraphicsSceneMouseEvent>
 
-CircleButton::CircleButton(int x, int y, int diameter, QGraphicsItem* parent)
-    : QGraphicsEllipseItem(parent), isClicked(false) {
+CircleButton::CircleButton(int x, int y, int diameter, QGraphicsItem* parent, Player*currentPlayer)
+    : QGraphicsEllipseItem(parent), isClicked(false), m_currentPlayer{currentPlayer} {
 
     setRect(0, 0, diameter, diameter);
     setPos(x - diameter / 2, y - diameter / 2);
@@ -21,7 +21,10 @@ void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     isClicked = true;
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::red);
+    if (m_currentPlayer->getColor() == Point::Color::Red)
+        brush.setColor(Qt::red);
+    else
+        brush.setColor(Qt::black);
     setBrush(brush);
     update();
 }

@@ -19,7 +19,7 @@ public:
 	void drawLines(QGraphicsScene* scene);
 public slots:
 	//void onButtonClicked();
-	void onButtonClicked(int x, int y);
+	void onButtonClicked(int x, int y, CircleButton* button);
 signals:
 	void pointAdded(int x, int y, CircleButton* button);
 

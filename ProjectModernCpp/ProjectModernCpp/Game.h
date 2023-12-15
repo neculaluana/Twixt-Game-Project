@@ -40,7 +40,7 @@ public:
 
 public slots:
 	void startNewGameSlot();
-	void onPointAdded(int x, int y);
+	void onPointAdded(int x, int y, CircleButton* button);
 signals:
 	void boardUpdated();
 private:

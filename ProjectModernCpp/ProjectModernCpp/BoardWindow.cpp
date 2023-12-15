@@ -1,8 +1,8 @@
 #include "BoardWindow.h"
 
 
-BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b)
-    : m_board(b)
+BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer)
+    : m_board{ b }, m_currentPlayer{currentPlayer}
 {
 	QGraphicsRectItem* board = new QGraphicsRectItem(width/20, height/13, 630, 630);
 	board->setBrush(QBrush(Qt::lightGray));
@@ -26,7 +26,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
             scene->addItem(button);
             m_points.push_back(button);
             std::pair<uint8_t, uint8_t> coords = std::make_pair(i, j);
-            connect(button, &CircleButton::clicked, this, [this, i, j]() { onButtonClicked(i, j); });
+            connect(button, &CircleButton::clicked, this, [this, i, j,button]() { onButtonClicked(i, j,button); });
 
             
             
