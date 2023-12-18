@@ -9,6 +9,7 @@ class BridgeLine : public QGraphicsLineItem
 public:
     BridgeLine(CircleButton* startButton=nullptr, CircleButton* endButton=nullptr, QGraphicsItem* parent = nullptr);
     void updatePosition();
+    void updatePen();
 protected:
     QRectF boundingRect() const override;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;

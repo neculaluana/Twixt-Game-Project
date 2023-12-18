@@ -4,6 +4,7 @@ BridgeLine::BridgeLine(CircleButton* startButton, CircleButton* endButton, QGrap
     : QGraphicsLineItem(parent), startButton(startButton), endButton(endButton)
 {
     updatePosition();
+    updatePen();
 }
 
 
@@ -16,6 +17,15 @@ void BridgeLine::updatePosition()
     }
     update();
 }
+void BridgeLine::updatePen()
+{
+    if (!startButton || !endButton) return;
+
+    QColor color = endButton->getQtColor(); 
+    QPen pen(color, 2); 
+    setPen(pen);
+}
+
 
 QRectF BridgeLine::boundingRect() const 
 {
