@@ -77,6 +77,14 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     int boardSize = m_board.getBoardSize();
     int cellWidth = 630 / boardSize;
     int cellHeight = 630 / boardSize;
+    for (int i = 1; i < boardSize - 1; ++i) {
+        int x = cellWidth * (i + 0.5);
+        CircleButton* startButton = m_points[i];
+        CircleButton* endButton = m_points[i + boardSize];
+
+        BridgeLine* line = new BridgeLine(startButton, endButton, Qt::red);
+        
+    }
 }
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
