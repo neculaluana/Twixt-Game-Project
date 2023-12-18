@@ -78,6 +78,16 @@ int CircleButton::getY()
     return m_y;
 }
 
+int CircleButton::getLine()
+{
+    return m_line;
+}
+
+int CircleButton::getColumn()
+{
+    return m_column;
+}
+
 void CircleButton::resetColor()
 {
     isClicked = false;
