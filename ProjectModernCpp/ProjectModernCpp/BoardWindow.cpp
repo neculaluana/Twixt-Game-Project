@@ -72,6 +72,13 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
     }
 }
 
+void BoardWindow::drawBaseLines(QGraphicsScene* scene)
+{
+    int boardSize = m_board.getBoardSize();
+    int cellWidth = 630 / boardSize;
+    int cellHeight = 630 / boardSize;
+}
+
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
     emit pointAdded(x, y,button);
