@@ -9,11 +9,13 @@
 class CircleButton : public QObject, public QGraphicsEllipseItem {
     Q_OBJECT
 public:
-    CircleButton(int x, int y, int diameter, QGraphicsItem* parent = nullptr, Player* currentPlayer = nullptr);
+    CircleButton(int x, int y, int line, int column, int diameter, QGraphicsItem* parent = nullptr, Player* currentPlayer = nullptr);
     void setIsClicked(bool a);
     bool getIsClicked();
     int getX();
     int getY();
+    int getLine();
+    int getColumn();
     bool isClicked=false;
     void resetColor();
     void updateColor(Point::Color playerColor);
@@ -32,7 +34,7 @@ private:
 
     QColor color;
     Player* m_currentPlayer;
-    int m_x, m_y;
+    int m_line, m_column, m_x, m_y;
 };
 
 
