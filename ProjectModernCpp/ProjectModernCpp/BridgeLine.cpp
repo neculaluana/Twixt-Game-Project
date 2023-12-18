@@ -40,8 +40,8 @@ QRectF BridgeLine::boundingRect() const
 void BridgeLine::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) 
 {
     if (!startButton || !endButton) return;
-
-    QPen pen(Qt::black, 2); 
+    QColor color = endButton->getQtColor();
+    QPen pen(color, 2); 
     painter->setPen(pen);
 
     painter->drawLine(line());

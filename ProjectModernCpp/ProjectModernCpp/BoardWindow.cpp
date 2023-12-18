@@ -9,7 +9,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
 	scene->addItem(board);
 
     size_t boardSize = b.getBoardSize();
-    m_points.resize(boardSize);
+    //m_points.resize(boardSize);
 
 
     int cellWidth = 630 / boardSize;
@@ -38,6 +38,13 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
 
 void BoardWindow::drawLines(QGraphicsScene* scene)
 {
+    if (m_currentPlayer->getColor() == Point::Color::Red)
+        qDebug() << "Desenare linii pentru jucătorul rosu";
+    else
+        if(m_currentPlayer->getColor() == Point::Color::Black)
+        qDebug() << "Desenare linii pentru jucătorul negru";
+
+
     std::vector<Bridge> bridges = m_currentPlayer->getBridges();
     for (auto& bridge : bridges) {
         for (auto point1 : m_points) {
@@ -54,6 +61,7 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
                     if (point2 && point2->getLine() == bridge.getEndPoint().getCoordinates().first &&
                         point2->getColumn() == bridge.getEndPoint().getCoordinates().second) {
 
+                        
                         BridgeLine* line = new BridgeLine(point1, point2);
                         scene->addItem(line);
                         m_lines.push_back(line);
