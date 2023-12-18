@@ -23,6 +23,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
             int y = height / 13 + j * cellHeight + cellHeight / 2;
 
             CircleButton* button = new CircleButton(x, y, i, j, 8, nullptr, currentPlayer);
+
             scene->addItem(button);
             m_points.push_back(button);
             std::pair<uint8_t, uint8_t> coords = std::make_pair(i, j);
@@ -43,10 +44,19 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
 {
     std::vector<Bridge> bridges=m_currentPlayer->getBridges();
     for(auto& bridge:bridges)
-        for (size_t i = 0; i < m_points.size() - 1; ++i)
+        for (auto point1 : m_points)
         {
-            if (m_points[i]->getX() == bridge.getStartPoint().getCoordinates().first)
+            if (point1->getLine() == bridge.getStartPoint().getCoordinates().first && point1->getColumn() == bridge.getStartPoint().getCoordinates().second)
             {
+                for (auto point2 : m_points)
+                {
+                    if (point2->getLine() == bridge.getEndPoint().getCoordinates().first && point2->getColumn() == bridge.getEndPoint().getCoordinates().second)
+                    {
+                        BridgeLine* line = new BridgeLine(point1, point2);
+                        scene->addItem(line);
+                        m_lines.push_back(line);
+                    }
+                }
             }
             /*if (m_points[i] != nullptr && m_points[i + 1] != nullptr)
                 if (m_points[i]->getIsClicked() && m_points[i + 1]->getIsClicked())
@@ -65,4 +75,5 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
     emit pointAdded(x, y,button);
+    drawLines(s);
 }
