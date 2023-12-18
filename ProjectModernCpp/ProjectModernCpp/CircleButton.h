@@ -20,6 +20,7 @@ public:
     void resetColor();
     void updateColor(Point::Color playerColor);
     Point::Color getColor();
+    QColor getQtColor();
 
 signals:
     void clicked();
@@ -32,7 +33,7 @@ protected:
 
 private:
 
-    QColor color;
+    QColor m_color;
     Player* m_currentPlayer;
     int m_line, m_column, m_x, m_y;
 

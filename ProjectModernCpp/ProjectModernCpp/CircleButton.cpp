@@ -21,7 +21,7 @@ void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     isClicked = true;
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(color);
+    brush.setColor(m_color);
     setBrush(brush);
     update();
 }
@@ -32,7 +32,7 @@ void CircleButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
     {
         QBrush brush;
         brush.setStyle(Qt::SolidPattern);
-        brush.setColor(color);
+        brush.setColor(m_color);
         setBrush(brush);
     }
     update();
@@ -93,8 +93,8 @@ void CircleButton::resetColor()
     isClicked = false;
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    color = Qt::darkGray;
-    brush.setColor(color); 
+    m_color = Qt::darkGray;
+    brush.setColor(m_color); 
     setBrush(brush);
     update();
 }
@@ -102,16 +102,21 @@ void CircleButton::resetColor()
 void CircleButton::updateColor(Point::Color playerColor) {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    color = playerColor == Point::Color::Red ? Qt::red : Qt::black;
-    brush.setColor(color);
+    m_color = playerColor == Point::Color::Red ? Qt::red : Qt::black;
+    brush.setColor(m_color);
     setBrush(brush);
     update();
 }
 
 Point::Color CircleButton::getColor()
 {
-    if (color == Qt::red)
+    if (m_color == Qt::red)
         return Point::Color::Red;
     else
         return Point::Color::Black;
+}
+
+QColor CircleButton::getQtColor()
+{
+    return m_color;
 }
