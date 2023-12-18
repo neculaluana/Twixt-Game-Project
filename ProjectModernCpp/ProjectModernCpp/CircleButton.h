@@ -35,6 +35,8 @@ private:
     QColor color;
     Player* m_currentPlayer;
     int m_line, m_column, m_x, m_y;
+
+
 };
 
 

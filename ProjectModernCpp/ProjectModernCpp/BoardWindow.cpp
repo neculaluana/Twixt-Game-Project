@@ -1,5 +1,5 @@
-#include "BoardWindow.h"
-
+﻿#include "BoardWindow.h"
+#include <QDebug>
 
 BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer)
     : m_board{ b }, m_currentPlayer{currentPlayer}
@@ -34,42 +34,34 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
         }
     }
     s = scene;
-}/*
-void BoardWindow::onButtonClicked()
-{
-    
-    drawLines(s);
-}*/
+}
+
 void BoardWindow::drawLines(QGraphicsScene* scene)
 {
-    std::vector<Bridge> bridges=m_currentPlayer->getBridges();
-    for(auto& bridge:bridges)
-        for (auto point1 : m_points)
-        {
-            if (point1->getLine() == bridge.getStartPoint().getCoordinates().first && point1->getColumn() == bridge.getStartPoint().getCoordinates().second)
-            {
-                for (auto point2 : m_points)
-                {
-                    if (point2->getLine() == bridge.getEndPoint().getCoordinates().first && point2->getColumn() == bridge.getEndPoint().getCoordinates().second)
-                    {
+    std::vector<Bridge> bridges = m_currentPlayer->getBridges();
+    for (auto& bridge : bridges) {
+        for (auto point1 : m_points) {
+            if (!point1) {
+                qDebug() << "Punct null detectat";
+                continue; 
+            }
+
+            if (point1->getLine() == bridge.getStartPoint().getCoordinates().first &&
+                point1->getColumn() == bridge.getStartPoint().getCoordinates().second) {
+
+                for (auto point2 : m_points) {
+
+                    if (point2 && point2->getLine() == bridge.getEndPoint().getCoordinates().first &&
+                        point2->getColumn() == bridge.getEndPoint().getCoordinates().second) {
+
                         BridgeLine* line = new BridgeLine(point1, point2);
                         scene->addItem(line);
                         m_lines.push_back(line);
                     }
                 }
             }
-            /*if (m_points[i] != nullptr && m_points[i + 1] != nullptr)
-                if (m_points[i]->getIsClicked() && m_points[i + 1]->getIsClicked())
-
-                {
-                    BridgeLine* line = new BridgeLine(m_points[i], m_points[i + 1]);
-                    scene->addItem(line);
-                    m_lines.push_back(line);
-                }*/
         }
-
-    
-    
+    }
 }
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
