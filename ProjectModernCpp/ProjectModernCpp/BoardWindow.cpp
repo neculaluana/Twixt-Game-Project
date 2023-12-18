@@ -98,6 +98,14 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     BridgeLine* lineRight = new BridgeLine(startButtonRight, endButtonRight, Qt::red);
     scene->addItem(lineRight);
     m_lines.push_back(lineRight);
+
+    CircleButton* startButtonLeft = m_points[2*boardSize-1];
+    CircleButton* endButtonLeft = m_points[(boardSize)*boardSize - 1];
+
+    BridgeLine* lineLeft = new BridgeLine(startButtonLeft, endButtonLeft, Qt::red);
+    scene->addItem(lineLeft);
+    m_lines.push_back(lineLeft);
+
 }
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
