@@ -34,6 +34,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
         }
     }
     s = scene;
+    drawBaseLines(scene);
 }
 
 void BoardWindow::drawLines(QGraphicsScene* scene)
@@ -89,6 +90,9 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     for (int i = (boardSize - 2) * boardSize; i < (boardSize - 1) * boardSize - 1; ++i) {
         CircleButton* startButton = m_points[i];
         CircleButton* endButton = m_points[i + boardSize];
+        BridgeLine* line = new BridgeLine(startButton, endButton, Qt::red);
+        scene->addItem(line);
+        m_lines.push_back(line);
 
     }
 }

@@ -1,8 +1,10 @@
 #include "BridgeLine.h"
 
-BridgeLine::BridgeLine(CircleButton* startButton, CircleButton* endButton, QGraphicsItem* parent)
+BridgeLine::BridgeLine(CircleButton* startButton, CircleButton* endButton,QColor color, QGraphicsItem* parent)
     : QGraphicsLineItem(parent), startButton(startButton), endButton(endButton)
 {
+    QPen pen(color, 2); 
+    setPen(pen);
     updatePosition();
     updatePen();
 }

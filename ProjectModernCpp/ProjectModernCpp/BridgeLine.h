@@ -7,7 +7,7 @@
 class BridgeLine : public QGraphicsLineItem
 {
 public:
-    BridgeLine(CircleButton* startButton=nullptr, CircleButton* endButton=nullptr, QGraphicsItem* parent = nullptr);
+    BridgeLine(CircleButton* startButton=nullptr, CircleButton* endButton=nullptr,QColor color = nullptr, QGraphicsItem* parent = nullptr);
     void updatePosition();
     void updatePen();
 protected:
