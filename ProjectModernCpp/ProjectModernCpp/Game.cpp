@@ -133,17 +133,21 @@ void Game::makePoint() {
 		(*m_currentPlayer).addPoint(p);
 	}
 }
+
 void Game::changeCurrentPlayer() {
 	if ((*m_currentPlayer).getColor() == m_playerRed.getColor())
 		m_currentPlayer = &m_playerBlack;
 	else
 		m_currentPlayer = &m_playerRed;
+	if (m_boardWindow) {
+		m_boardWindow->setCurrentPlayer(m_currentPlayer);
+	}
 }
 
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
-	BoardWindow* board= new BoardWindow(s, width, height,b, m_currentPlayer);
-	connect(board, &BoardWindow::pointAdded, this, &Game::onPointAdded);
+	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
+	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
 
 
 }
@@ -155,6 +159,21 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 	Point newPoint(x, y, m_currentPlayer->getColor());
 	std::pair position = std::make_pair<size_t, size_t>(x, y);
 	if (m_board.getStatus(position)==Board::Status::Empty) {
+		
+			button->updateColor(m_currentPlayer->getColor());
+			m_board.addPoint(newPoint);
+			m_board.makeBridges(newPoint, *m_currentPlayer);
+
+			m_currentPlayer->addPoint(newPoint);
+
+			m_board.makeBridges(newPoint, *m_currentPlayer);
+			changeCurrentPlayer();
+
+
+	}else	
+	if (m_board.getStatus(position) == Board::Status::BaseRed && m_currentPlayer->getColor() == Point::Color::Red)
+	{
+
 		button->updateColor(m_currentPlayer->getColor());
 		m_board.addPoint(newPoint);
 		m_board.makeBridges(newPoint, *m_currentPlayer);
@@ -162,11 +181,25 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 		m_currentPlayer->addPoint(newPoint);
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
-
-
-
 		changeCurrentPlayer();
+		
+	}
+	else if(m_board.getStatus(position) == Board::Status::BaseBlack && m_currentPlayer->getColor() == Point::Color::Black)
+	{
+
+		button->updateColor(m_currentPlayer->getColor());
+		m_board.addPoint(newPoint);
+		m_board.makeBridges(newPoint, *m_currentPlayer);
+
+		m_currentPlayer->addPoint(newPoint);
+
+		m_board.makeBridges(newPoint, *m_currentPlayer);
+		changeCurrentPlayer();
+
+	}
+
+	
 		emit boardUpdated();
 	}
 	
-}
+

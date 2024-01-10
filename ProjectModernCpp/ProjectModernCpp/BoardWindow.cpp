@@ -2,7 +2,8 @@
 #include <QDebug>
 
 BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer)
-    : m_board{ b }, m_currentPlayer{currentPlayer}
+    : m_board{ b }
+    , m_currentPlayer{currentPlayer}
 {
 	QGraphicsRectItem* board = new QGraphicsRectItem(width/20, height/13, 630, 630);
 	board->setBrush(QBrush(Qt::lightGray));
@@ -46,13 +47,65 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     drawBaseLines(scene);
 }
 
+void BoardWindow::setCurrentPlayer(Player* current)
+{
+    drawLines(s);
+    m_currentPlayer = current;
+}
+
+bool isBridgesIntersection(CircleButton* existingBridgeStart, CircleButton* existingBridgeEnd, CircleButton* futurePoint1, CircleButton* futurePoint2) {
+    //auto orientation = [](CircleButton* a, CircleButton* b, CircleButton* c) {
+    //    int val = (b->getY() - a->getY()) * (c->getX() - b->getX()) - (b->getX() - a->getX()) * (c->getY() - b->getY());
+    //    if (val == 0) return 0; // Collinear
+    //    return (val > 0) ? 1 : 2; // Clockwise or counterclockwise
+    //    };
+
+    //auto onSegment = [](CircleButton* p, CircleButton* q, CircleButton* r) {
+    //    return q->getX() <= std::max(p->getX(), r->getX()) && q->getX() >= std::min(p->getX(), r->getX()) &&
+    //        q->getY() <= std::max(p->getY(), r->getY()) && q->getY() >= std::min(p->getY(), r->getY());
+    //    };
+
+    //// Four orientations for the combination of line segment (future bridge) and existing bridge
+    //int o1 = orientation(existingBridgeStart, existingBridgeEnd, futurePoint1);
+    //int o2 = orientation(existingBridgeStart, existingBridgeEnd, futurePoint2);
+    //int o3 = orientation(futurePoint1, futurePoint2, existingBridgeStart);
+    //int o4 = orientation(futurePoint1, futurePoint2, existingBridgeEnd);
+
+    //// General case
+    //if (o1 != o2 && o3 != o4) return true;
+
+    //// Special cases - existing bridge and one of the points of the potential bridge are collinear
+    //if (o1 == 0 && onSegment(existingBridgeStart, futurePoint1, existingBridgeEnd)) return true;
+    //if (o2 == 0 && onSegment(existingBridgeStart, futurePoint2, existingBridgeEnd)) return true;
+
+    //// Special cases - potential bridge and one of the points of the existing bridge are collinear
+    //if (o3 == 0 && onSegment(futurePoint1, existingBridgeStart, futurePoint2)) return true;
+    //if (o4 == 0 && onSegment(futurePoint1, existingBridgeEnd, futurePoint2)) return true;
+
+    //return false; // No intersection
+
+    auto linesIntersect = [](const QPoint& p1, const QPoint& p2, const QPoint& p3, const QPoint& p4) -> bool {
+        auto CCW = [](const QPoint& A, const QPoint& B, const QPoint& C) -> bool {
+            return (C.y() - A.y()) * (B.x() - A.x()) > (B.y() - A.y()) * (C.x() - A.x());
+            };
+        return CCW(p1, p3, p4) != CCW(p2, p3, p4) && CCW(p1, p2, p3) != CCW(p1, p2, p4);
+        };
+
+    QPoint p1(existingBridgeStart->getX(), existingBridgeStart->getY());
+    QPoint p2(existingBridgeEnd->getX(), existingBridgeEnd->getY());
+    QPoint p3(futurePoint1->getX(), futurePoint1->getY());
+    QPoint p4(futurePoint2->getX(), futurePoint2->getY());
+
+    return linesIntersect(p1, p2, p3, p4);
+}
+
 void BoardWindow::drawLines(QGraphicsScene* scene)
 {
     if (m_currentPlayer->getColor() == Point::Color::Red)
-        qDebug() << "Desenare linii pentru jucătorul rosu";
+        qDebug() << "Desenare linii pentru jucatorul rosu";
     else
         if(m_currentPlayer->getColor() == Point::Color::Black)
-        qDebug() << "Desenare linii pentru jucătorul negru";
+        qDebug() << "Desenare linii pentru jucatorul negru";
 
 
     std::vector<Bridge> bridges = m_currentPlayer->getBridges();
@@ -60,7 +113,7 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
         for (auto point1 : m_points) {
             if (!point1) {
                 qDebug() << "Punct null detectat";
-                continue; 
+                continue;
             }
 
             if (point1->getLine() == bridge.getStartPoint().getCoordinates().first &&
@@ -70,11 +123,19 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
 
                     if (point2 && point2->getLine() == bridge.getEndPoint().getCoordinates().first &&
                         point2->getColumn() == bridge.getEndPoint().getCoordinates().second) {
+                        bool canDrawBridge = true;
 
-                        
-                        BridgeLine* line = new BridgeLine(point1, point2);
-                        scene->addItem(line);
-                        m_lines.push_back(line);
+                        for (auto& bridge : m_lines) {
+                               if (isBridgesIntersection(bridge->getStartButton(), bridge->getEndButton(), point1, point2)) {
+                                    canDrawBridge = false;
+                                    break;
+                               }
+                        }
+                        if (canDrawBridge) {
+                            BridgeLine* line = new BridgeLine(point1, point2);
+                            scene->addItem(line);
+                            m_lines.push_back(line);
+                        }
                     }
                 }
             }
@@ -85,53 +146,24 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
 void BoardWindow::drawBaseLines(QGraphicsScene* scene)
 {
     int boardSize = m_board.getBoardSize();
-    // No need to calculate lastColumnIndex as it was incorrect
+    int firstRowIndex = 1; 
+    int lastRowIndex = boardSize - 2; 
 
-    // Calculate the indices of the buttons for the top and bottom rows
-    int firstRowIndex = 1; // Skip the corner
-    int lastRowIndex = boardSize - 2; // Skip the corner and 0-indexed
+    int firstColumnIndex = boardSize;
+    int lastColumnIndex = boardSize * (boardSize - 2); 
 
-    // Calculate the indices of the buttons for the left and right columns
-    int firstColumnIndex = boardSize; // Skip the first row
-    int lastColumnIndex = boardSize * (boardSize - 2); // Skip the last row and first column
-
-    BaseLine* leftLine = new BaseLine(m_points[firstRowIndex +boardSize- 2], m_points[lastRowIndex+boardSize-2], Qt::red); // Index is 0-based
+    BaseLine* leftLine = new BaseLine(m_points[firstRowIndex +boardSize- 2], m_points[firstColumnIndex + (boardSize - 3)], Qt::black,nullptr,0); // Index is 0-based
     scene->addItem(leftLine);
 
-    BaseLine* topLine = new BaseLine(m_points[firstColumnIndex-1], m_points[lastColumnIndex-1], Qt::red);
+    BaseLine* topLine = new BaseLine(m_points[firstColumnIndex-1], m_points[firstRowIndex + boardSize * (boardSize - 1) - 3], Qt::red,nullptr,0);
     scene->addItem(topLine);
 
-    BaseLine* bottomLine = new BaseLine(m_points[firstColumnIndex+(boardSize-3)], m_points[lastColumnIndex + (boardSize - 3)], Qt::red);
+    BaseLine* bottomLine = new BaseLine(m_points[boardSize - 3], m_points[lastRowIndex + boardSize * (boardSize - 2) - 2], Qt::red,nullptr,1);
     scene->addItem(bottomLine);
 
-    BaseLine* rightLine = new BaseLine(m_points[firstRowIndex+boardSize*(boardSize-1)-3], m_points[lastRowIndex + boardSize*(boardSize-2)+21], Qt::red); // Index is 0-based
+    BaseLine* rightLine = new BaseLine(m_points[firstRowIndex+boardSize*(boardSize-2)-3], m_points[lastRowIndex + boardSize*(boardSize-2)-2], Qt::black,nullptr,1); // Index is 0-based
     scene->addItem(rightLine);
-
-    // Draw bottom line
-    //for (int i = firstColumnIndex + boardSize * (boardSize - 1); i <= lastColumnIndex + boardSize * (boardSize - 1); i++) {
-    //    if (i < m_points.size() - 1) { // -1 to account for the next index
-    //        
-    //        m_lines.push_back(line);
-    //    }
-    //}
-
-    // Draw left line
-    //for (int i = firstColumnIndex; i <= lastColumnIndex; i += boardSize) {
-    //    if (i < m_points.size() - boardSize) { // -boardSize to account for the next index
-    //        BridgeLine* line = new BridgeLine(m_points[i], m_points[i + boardSize], Qt::red);
-    //        scene->addItem(line);
-    //        m_lines.push_back(line);
-    //    }
-    //}
-
-    //// Draw right line
-    //for (int i = firstRowIndex + boardSize - 1; i <= lastRowIndex + boardSize * (boardSize - 1); i += boardSize) {
-    //    if (i < m_points.size() - boardSize) { // -boardSize to account for the next index
-    //        BridgeLine* line = new BridgeLine(m_points[i], m_points[i + boardSize], Qt::red);
-    //        scene->addItem(line);
-    //        m_lines.push_back(line);
-    //    }
-    //}
+    
 }
 
 
