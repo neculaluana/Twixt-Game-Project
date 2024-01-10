@@ -93,7 +93,13 @@ int CircleButton::getColumn()
 void CircleButton::updateColor(Point::Color playerColor) {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    m_color = playerColor == Point::Color::Red ? Qt::red : Qt::black;
+    if (playerColor == Point::Color::Red)
+        m_color = Qt::red;
+    else if (playerColor == Point::Color::Black)
+        m_color = Qt::black;
+    else
+        m_color = Qt::blue;
+
     brush.setColor(m_color);
     setBrush(brush);
     update();
