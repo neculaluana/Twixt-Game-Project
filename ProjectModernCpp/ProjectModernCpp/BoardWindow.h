@@ -7,6 +7,7 @@
 #include <vector>
 #include "CircleButton.h"
 #include "BridgeLine.h"
+#include "BaseLine.h"
 #include "Board.h"
 
 class BoardWindow : public QObject

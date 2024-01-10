@@ -19,6 +19,15 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
 
         for (int j = 0; j < boardSize; ++j) {
 
+            bool isCorner = (i == 0 && j == 0) || // Top-left corner
+                (i == 0 && j == boardSize - 1) || // Top-right corner
+                (i == boardSize - 1 && j == 0) || // Bottom-left corner
+                (i == boardSize - 1 && j == boardSize - 1); // Bottom-right corner
+
+            if (isCorner) {
+                continue;
+            }
+
             int x = width / 20 + i * cellWidth + cellWidth / 2;
             int y = height / 13 + j * cellHeight + cellHeight / 2;
 
@@ -76,37 +85,57 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
 void BoardWindow::drawBaseLines(QGraphicsScene* scene)
 {
     int boardSize = m_board.getBoardSize();
+    // No need to calculate lastColumnIndex as it was incorrect
 
- 
-    CircleButton* startButtonTop = m_points[25];
-    CircleButton* endButtonTop = m_points[2*boardSize - 2];
+    // Calculate the indices of the buttons for the top and bottom rows
+    int firstRowIndex = 1; // Skip the corner
+    int lastRowIndex = boardSize - 2; // Skip the corner and 0-indexed
 
-    BridgeLine* lineTop = new BridgeLine(startButtonTop, endButtonTop, Qt::red);
-    scene->addItem(lineTop);
-    m_lines.push_back(lineTop);
+    // Calculate the indices of the buttons for the left and right columns
+    int firstColumnIndex = boardSize; // Skip the first row
+    int lastColumnIndex = boardSize * (boardSize - 2); // Skip the last row and first column
 
-    CircleButton* startButtonBottom = m_points[(boardSize - 1) * boardSize + 1]; 
-    CircleButton* endButtonBottom = m_points[(boardSize ) * boardSize - 2]; 
+    BaseLine* leftLine = new BaseLine(m_points[firstRowIndex +boardSize- 2], m_points[lastRowIndex+boardSize-2], Qt::red); // Index is 0-based
+    scene->addItem(leftLine);
 
-    BridgeLine* lineBottom = new BridgeLine(startButtonBottom, endButtonBottom, Qt::red);
-    scene->addItem(lineBottom);
-    m_lines.push_back(lineBottom);
+    BaseLine* topLine = new BaseLine(m_points[firstColumnIndex-1], m_points[lastColumnIndex-1], Qt::red);
+    scene->addItem(topLine);
 
-    CircleButton* startButtonRight = m_points[25];
-    CircleButton* endButtonRight = m_points[(boardSize) * boardSize - 23];
+    BaseLine* bottomLine = new BaseLine(m_points[firstColumnIndex+(boardSize-3)], m_points[lastColumnIndex + (boardSize - 3)], Qt::red);
+    scene->addItem(bottomLine);
 
-    BridgeLine* lineRight = new BridgeLine(startButtonRight, endButtonRight, Qt::red);
-    scene->addItem(lineRight);
-    m_lines.push_back(lineRight);
+    BaseLine* rightLine = new BaseLine(m_points[firstRowIndex+boardSize*(boardSize-1)-3], m_points[lastRowIndex + boardSize*(boardSize-2)+21], Qt::red); // Index is 0-based
+    scene->addItem(rightLine);
 
-    CircleButton* startButtonLeft = m_points[2*boardSize-1];
-    CircleButton* endButtonLeft = m_points[(boardSize)*boardSize - 1];
+    // Draw bottom line
+    //for (int i = firstColumnIndex + boardSize * (boardSize - 1); i <= lastColumnIndex + boardSize * (boardSize - 1); i++) {
+    //    if (i < m_points.size() - 1) { // -1 to account for the next index
+    //        
+    //        m_lines.push_back(line);
+    //    }
+    //}
 
-    BridgeLine* lineLeft = new BridgeLine(startButtonLeft, endButtonLeft, Qt::red);
-    scene->addItem(lineLeft);
-    m_lines.push_back(lineLeft);
+    // Draw left line
+    //for (int i = firstColumnIndex; i <= lastColumnIndex; i += boardSize) {
+    //    if (i < m_points.size() - boardSize) { // -boardSize to account for the next index
+    //        BridgeLine* line = new BridgeLine(m_points[i], m_points[i + boardSize], Qt::red);
+    //        scene->addItem(line);
+    //        m_lines.push_back(line);
+    //    }
+    //}
 
+    //// Draw right line
+    //for (int i = firstRowIndex + boardSize - 1; i <= lastRowIndex + boardSize * (boardSize - 1); i += boardSize) {
+    //    if (i < m_points.size() - boardSize) { // -boardSize to account for the next index
+    //        BridgeLine* line = new BridgeLine(m_points[i], m_points[i + boardSize], Qt::red);
+    //        scene->addItem(line);
+    //        m_lines.push_back(line);
+    //    }
+    //}
 }
+
+
+
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
