@@ -16,12 +16,13 @@ class BoardWindow : public QObject
 
 public:
 	BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer);
-
 	void drawLines(QGraphicsScene* scene);
 	void drawBaseLines(QGraphicsScene* scene);
+
 public slots:
 	//void onButtonClicked();
 	void onButtonClicked(int x, int y, CircleButton* button);
+
 signals:
 	void pointAdded(int x, int y, CircleButton* button);
 

@@ -88,16 +88,7 @@ int CircleButton::getColumn()
     return m_column;
 }
 
-void CircleButton::resetColor()
-{
-    isClicked = false;
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    m_color = Qt::darkGray;
-    brush.setColor(m_color); 
-    setBrush(brush);
-    update();
-}
+
 
 void CircleButton::updateColor(Point::Color playerColor) {
     QBrush brush;

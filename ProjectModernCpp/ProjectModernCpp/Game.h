@@ -12,6 +12,7 @@
 
 class Game : public QObject {
 	Q_OBJECT;
+
 public:
 	Game() = default;
 
@@ -41,8 +42,10 @@ public:
 public slots:
 	void startNewGameSlot();
 	void onPointAdded(int x, int y, CircleButton* button);
+
 signals:
 	void boardUpdated();
+
 private:
 	MainMenu* mainMenu;
 	Player m_playerRed;
@@ -50,4 +53,8 @@ private:
 	Player* m_currentPlayer;
 	Board m_board;
 	std::function<void()> guiUpdateCallback;
+	size_t m_maxPieceNumber;
+	size_t m_maxBridgeNumber;
+	size_t m_boardSize;
+
 };
