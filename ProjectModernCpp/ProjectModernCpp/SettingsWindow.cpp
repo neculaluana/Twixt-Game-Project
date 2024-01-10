@@ -3,34 +3,102 @@
 #include "SettingsWindow.h"
 #include <QGraphicsProxyWidget>
 
+#include "SettingsWindow.h"
+#include <QGraphicsProxyWidget>
+#include <QLabel>
+#include <QVBoxLayout>
+
+#include "SettingsWindow.h"
+#include <QGraphicsProxyWidget>
+#include <QLabel>
+#include <QVBoxLayout>
+
 SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog(parent) {
+    QFont widgetFont;
+    widgetFont.setPointSize(12);
+
+    // Spin Boxes
     QSpinBox* boardSize = new QSpinBox();
     boardSize->setRange(10, 30);
+    boardSize->setFont(widgetFont);
+    boardSize->setFixedSize(150, 50);
+
     QSpinBox* numberOfBridges = new QSpinBox();
     numberOfBridges->setRange(1, 10);
+    numberOfBridges->setFont(widgetFont);
+    numberOfBridges->setFixedSize(150, 50);
+
     QSpinBox* numberOfPillars = new QSpinBox();
     numberOfPillars->setRange(1, 20);
+    numberOfPillars->setFont(widgetFont);
+    numberOfPillars->setFixedSize(150, 50);
 
+    // Labels
+    QLabel* labelBoardSize = new QLabel("Board Size:");
+    labelBoardSize->setFont(widgetFont);
+    QLabel* labelNumberOfBridges = new QLabel("Number of Bridges:");
+    labelNumberOfBridges->setFont(widgetFont);
+    QLabel* labelNumberOfPillars = new QLabel("Number of Pillars:");
+    labelNumberOfPillars->setFont(widgetFont);
+
+    // Horizontal Layouts for Label and Spin Box with Spacers
+    QHBoxLayout* hLayout1 = new QHBoxLayout();
+    hLayout1->addWidget(labelBoardSize);
+    hLayout1->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+    hLayout1->addWidget(boardSize);
+
+    QHBoxLayout* hLayout2 = new QHBoxLayout();
+    hLayout2->addWidget(labelNumberOfBridges);
+    hLayout2->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+    hLayout2->addWidget(numberOfBridges);
+
+    QHBoxLayout* hLayout3 = new QHBoxLayout();
+    hLayout3->addWidget(labelNumberOfPillars);
+    hLayout3->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+    hLayout3->addWidget(numberOfPillars);
+
+    // Buttons
     QPushButton* saveButton = new QPushButton("Save");
+    saveButton->setFont(widgetFont);
+    saveButton->setFixedSize(200, 50);
     QPushButton* cancelButton = new QPushButton("Cancel");
+    cancelButton->setFont(widgetFont);
+    cancelButton->setFixedSize(200, 50);
 
-    // Adăugarea widget-urilor la scena grafică folosind QGraphicsProxyWidget
-    QGraphicsProxyWidget* proxyBoardSize = scene->addWidget(boardSize);
-    QGraphicsProxyWidget* proxyNumberOfBridges = scene->addWidget(numberOfBridges);
-    QGraphicsProxyWidget* proxyNumberOfPillars = scene->addWidget(numberOfPillars);
-    QGraphicsProxyWidget* proxySaveButton = scene->addWidget(saveButton);
-    QGraphicsProxyWidget* proxyCancelButton = scene->addWidget(cancelButton);
+    // Horizontal Layout for Buttons with Centering
+    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    buttonLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+    buttonLayout->addWidget(saveButton);
+    buttonLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum));  // Fixed spacer for separating buttons
+    buttonLayout->addWidget(cancelButton);
+    buttonLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-    // Poziționarea widget-urilor pe scenă
-    proxyBoardSize->setPos(50, 50);
-    proxyNumberOfBridges->setPos(50, 100);
-    proxyNumberOfPillars->setPos(50, 150);
-    proxySaveButton->setPos(50, 200);
-    proxyCancelButton->setPos(150, 200);
+    // Vertical Layout for the entire window
+    QVBoxLayout* vLayout = new QVBoxLayout();
+    vLayout->addLayout(hLayout1);
+    vLayout->addLayout(hLayout2);
+    vLayout->addLayout(hLayout3);
+    vLayout->addLayout(buttonLayout);
 
-    // Opțional: Adăugarea unui fundal pentru a îmbunătăți vizibilitatea
-    QGraphicsRectItem* background = new QGraphicsRectItem(0, 0, 300, 300);
-    background->setBrush(QBrush(Qt::lightGray));
-    background->setZValue(-1); // Asigură-te că fundalul este în spatele widget-urilor
+    // Create a container widget for the layout
+    QWidget* container = new QWidget();
+    container->setLayout(vLayout);
+
+    // Add the container widget to the scene using QGraphicsProxyWidget
+    QGraphicsProxyWidget* proxyContainer = scene->addWidget(container);
+
+    QRectF sceneRect = scene->sceneRect();
+    proxyContainer->setPos((sceneRect.width() - container->width()) / 2,
+        (sceneRect.height() - container->height()) / 2);
+
+    // Background
+    QGraphicsRectItem* background = new QGraphicsRectItem();
+    float backgroundWidth = sceneRect.width() * 0.8;  
+    float backgroundHeight = sceneRect.height() * 0.4; 
+    float posX = (sceneRect.width() - backgroundWidth) / 2;
+    float posY = (sceneRect.height() - backgroundHeight) / 2;
+    background->setRect(posX, posY, backgroundWidth, backgroundHeight);
+    background->setBrush(QBrush(Qt::darkCyan));
+    background->setZValue(-1); 
     scene->addItem(background);
 }
