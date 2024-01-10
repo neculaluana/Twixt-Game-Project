@@ -46,8 +46,8 @@ void Board::setBases(size_t boardSize) {
 	boardSize = std::min(boardSize, m_boardSize);
 
 	for (size_t i = 0; i < boardSize; ++i) {
-		m_board[i][0] = Status::BaseBlack;
-		m_board[i][boardSize - 1] = Status::BaseBlack;
+		m_board[i][0] = Status::BaseRed;
+		m_board[i][boardSize - 1] = Status::BaseRed;
 		m_board[0][i] = Status::BaseRed;
 		m_board[boardSize - 1][i] = Status::BaseRed;
 	}

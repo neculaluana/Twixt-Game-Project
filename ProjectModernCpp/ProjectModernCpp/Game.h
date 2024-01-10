@@ -51,6 +51,7 @@ signals:
 
 private:
 	MainMenu* mainMenu;
+	BoardWindow* m_boardWindow;
 	Player m_playerRed;
 	Player m_playerBlack;
 	Player* m_currentPlayer;
