@@ -165,13 +165,5 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 		changeCurrentPlayer();
 		emit boardUpdated();
 	}
-	else {
-		if (button->getColor() == m_currentPlayer->getColor())
-		{
-			m_board.setStatus(position, Board::Status::Empty);
-			button->resetColor();
-			
-		}
-
-	}
+	
 }
