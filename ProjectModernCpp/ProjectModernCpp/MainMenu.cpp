@@ -12,6 +12,40 @@ void MainMenu::newGame()
 
 }
 
+void MainMenu::settings()
+{
+    scene->clear();
+    setSettings(true);
+    emit getSettingsClicked();
+
+}
+
+void MainMenu::setSettings(bool b)
+{
+    settingsClicked = b;
+}
+
+bool MainMenu::getSettingsClicked()
+{
+    return settingsClicked;
+}
+
+void MainMenu::setIsNewGame(bool a)
+{
+    isNewGame = a;
+}
+
+bool MainMenu::getIsNewGame()
+{
+    return isNewGame;
+}
+
+void MainMenu::load()
+{
+}
+
+
+
 void MainMenu::displayMainMenu() {
     int startY = 375;
     int buttonInterval = 75;
@@ -55,24 +89,7 @@ void MainMenu::displayMainMenu() {
     scene->addItem(item);
 }
 
-void MainMenu::setIsNewGame(bool a)
-{
-    isNewGame = a;
-}
 
-bool MainMenu::getIsNewGame()
-{
-    return isNewGame;
-}
-
-void MainMenu::load()
-{
-}
-
-void MainMenu::settings()
-{
-
-}
 
 MainMenu::MainMenu(QWidget* parent) {
     // set up the screen

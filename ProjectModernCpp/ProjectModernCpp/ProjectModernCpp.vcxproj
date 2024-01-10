@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SettingsWindow.cpp" />
     <QtRcc Include="ProjectModernCpp.qrc" />
     <QtUic Include="ProjectModernCpp.ui" />
     <QtMoc Include="ProjectModernCpp.h" />
@@ -109,6 +110,7 @@
   <ItemGroup>
     <ClInclude Include="BaseLine.h" />
     <ClInclude Include="Board.h" />
+    <QtMoc Include="SettingsWindow.h" />
     <QtMoc Include="BoardWindow.h" />
     <ClInclude Include="Bridge.h" />
     <QtMoc Include="MenuButton.h" />
