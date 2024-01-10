@@ -19,19 +19,22 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
 
     // Spin Boxes
     QSpinBox* boardSize = new QSpinBox();
-    boardSize->setRange(10, 30);
+    boardSize->setRange(5, 100);
+    boardSize->setValue(24);
     boardSize->setFont(widgetFont);
     boardSize->setFixedSize(150, 50);
 
     QSpinBox* numberOfBridges = new QSpinBox();
-    numberOfBridges->setRange(1, 10);
+    numberOfBridges->setRange(1, 100);
+    numberOfBridges->setValue(50);
     numberOfBridges->setFont(widgetFont);
     numberOfBridges->setFixedSize(150, 50);
 
-    QSpinBox* numberOfPillars = new QSpinBox();
-    numberOfPillars->setRange(1, 20);
-    numberOfPillars->setFont(widgetFont);
-    numberOfPillars->setFixedSize(150, 50);
+    QSpinBox* numberOfPoints = new QSpinBox();
+    numberOfPoints->setRange(1, 100);
+    numberOfPoints->setValue(10);
+    numberOfPoints->setFont(widgetFont);
+    numberOfPoints->setFixedSize(150, 50);
 
     // Labels
     QLabel* labelBoardSize = new QLabel("Board Size:");
@@ -55,7 +58,7 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
     QHBoxLayout* hLayout3 = new QHBoxLayout();
     hLayout3->addWidget(labelNumberOfPillars);
     hLayout3->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-    hLayout3->addWidget(numberOfPillars);
+    hLayout3->addWidget(numberOfPoints);
 
     // Buttons
     QPushButton* saveButton = new QPushButton("Save");
@@ -101,4 +104,11 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
     background->setBrush(QBrush(Qt::darkCyan));
     background->setZValue(-1); 
     scene->addItem(background);
+
+    connect(saveButton, SIGNAL(clicked()), this, SLOT(saveButtonClicked(boardSize,numberOfPoints,numberOfBridges)));
+
+}
+
+void SettingsWindow::saveButtonClicked(QSpinBox* boardSize, QSpinBox* numberOfPoints, QSpinBox* numberOfBridges) {
+    emit settingsChanged(boardSize->value(), numberOfBridges->value(), numberOfPoints->value());
 }
