@@ -7,8 +7,10 @@
 class BaseLine : public QGraphicsLineItem
 {
 public:
-    BaseLine(CircleButton* startButton = nullptr, CircleButton* endButton = nullptr, QColor color = nullptr, QGraphicsItem* parent = nullptr);
-    void updatePosition();
+    BaseLine(CircleButton* startButton = nullptr, CircleButton* endButton = nullptr, QColor color = nullptr, QGraphicsItem* parent = nullptr, int aux=NULL);
+    void updatePositionTL();
+    void updatePositionRB();
+
     void updatePen();
 protected:
     QRectF boundingRect() const override;
@@ -16,6 +18,7 @@ protected:
 private:
     CircleButton* startButton;
     CircleButton* endButton;
+    
 };
 
 #endif // BRIDGELINE_H

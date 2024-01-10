@@ -1,24 +1,37 @@
 #include "BaseLine.h"
 
-BaseLine::BaseLine(CircleButton* startButton, CircleButton* endButton, QColor color, QGraphicsItem* parent)
+BaseLine::BaseLine(CircleButton* startButton, CircleButton* endButton, QColor color, QGraphicsItem* parent, int aux)
     : QGraphicsLineItem(parent), startButton(startButton), endButton(endButton)
 {
     QPen pen(color, 2);
     setPen(pen);
-    updatePosition();
+    if (aux == 0)
+        updatePositionTL();
+    else
+        updatePositionRB();
     updatePen();
 }
 
 
 
-void BaseLine::updatePosition()
+void BaseLine::updatePositionTL()
 {
     if (startButton && endButton) {
-        QLineF newLine(startButton->pos(), endButton->pos());
+        QPointF startPoint = startButton->pos();
+        QPointF endPoint = endButton->pos();
+
+        startPoint.setX(startPoint.x() - 10);
+        endPoint.setX(endPoint.x() - 10);
+        startPoint.setY(startPoint.y() - 10);
+        endPoint.setY(endPoint.y() - 10);
+        QLineF newLine(startPoint, endPoint);
+
+        //QLineF newLine(startButton->pos(), endButton->pos());
         setLine(newLine);
     }
     update();
 }
+
 void BaseLine::updatePen()
 {
     if (!startButton || !endButton) return;
