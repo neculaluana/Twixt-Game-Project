@@ -3,9 +3,9 @@
 #include <fstream>
 
 Game::Game(std::string name1, std::string name2)
-	:m_board{ Board() }
-	, m_playerRed{ Player(name1, Point::Color::Red) }
-	, m_playerBlack{ Player(name2, Point::Color::Black) }
+	:m_board{ Board(m_boardSize) }
+	, m_playerRed{ Player(name1, Point::Color::Red, m_maxPieceNumber,m_maxBridgeNumber) }
+	, m_playerBlack{ Player(name2, Point::Color::Black, m_maxPieceNumber, m_maxBridgeNumber) }
 	, m_currentPlayer{ &m_playerRed }
 {}
 

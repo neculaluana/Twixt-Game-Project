@@ -4,6 +4,11 @@ Player::Player(std::string name, Point::Color color):
 	m_color(color) {
 }
 
+Player::Player(std::string name, Point::Color color, size_t maxPointsNumber, size_t maxBridgesNumber) :
+	m_color{ color }, m_maxPointsNumber{ maxPointsNumber }, m_maxBridgesNumber{ maxBridgesNumber }
+{
+}
+
 Player::Player(const Player& other)
 	: m_color(other.m_color), m_points(other.m_points), m_bridges(other.m_bridges), m_name(other.m_name) {}
 

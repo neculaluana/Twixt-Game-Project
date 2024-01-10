@@ -9,6 +9,7 @@ class Player
 {
 public:
 	Player(std::string name, Point::Color color);
+	Player(std::string name, Point::Color color, size_t maxPointsNumber, size_t maxBridgesNumber);
 	~Player() = default;
 	Player(const Player& other);
 	Player& operator=(const Player& other);
@@ -34,5 +35,7 @@ private:
 	std::vector<Point> m_points;
 	std::vector<Bridge> m_bridges;
 	std::string m_name;
+	size_t m_maxPointsNumber;
+	size_t m_maxBridgesNumber;
 
 };

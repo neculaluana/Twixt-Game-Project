@@ -23,7 +23,7 @@ public:
 
 	using Position = std::pair<size_t, size_t>;
 
-	Board(size_t boardSize = 24);
+	Board(size_t boardSize);
 	Board(const Board& other);
 	Board& operator= (const Board& other);
 
