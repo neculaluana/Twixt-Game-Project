@@ -91,7 +91,7 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     int firstColumnIndex = boardSize;
     int lastColumnIndex = boardSize * (boardSize - 2); 
 
-    BaseLine* leftLine = new BaseLine(m_points[firstRowIndex +boardSize- 2], m_points[firstColumnIndex + (boardSize - 3)], Qt::red,nullptr,0); // Index is 0-based
+    BaseLine* leftLine = new BaseLine(m_points[firstRowIndex +boardSize- 2], m_points[firstColumnIndex + (boardSize - 3)], Qt::black,nullptr,0); // Index is 0-based
     scene->addItem(leftLine);
 
     BaseLine* topLine = new BaseLine(m_points[firstColumnIndex-1], m_points[firstRowIndex + boardSize * (boardSize - 1) - 3], Qt::red,nullptr,0);
@@ -100,7 +100,7 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     BaseLine* bottomLine = new BaseLine(m_points[boardSize - 3], m_points[lastRowIndex + boardSize * (boardSize - 2) - 2], Qt::red,nullptr,1);
     scene->addItem(bottomLine);
 
-    BaseLine* rightLine = new BaseLine(m_points[firstRowIndex+boardSize*(boardSize-2)-3], m_points[lastRowIndex + boardSize*(boardSize-2)-2], Qt::red,nullptr,1); // Index is 0-based
+    BaseLine* rightLine = new BaseLine(m_points[firstRowIndex+boardSize*(boardSize-2)-3], m_points[lastRowIndex + boardSize*(boardSize-2)-2], Qt::black,nullptr,1); // Index is 0-based
     scene->addItem(rightLine);
     
 }
