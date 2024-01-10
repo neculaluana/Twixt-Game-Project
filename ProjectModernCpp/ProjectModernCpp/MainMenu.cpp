@@ -47,6 +47,7 @@ void MainMenu::load()
 
 
 void MainMenu::displayMainMenu() {
+    scene->clear();
     int startY = 375;
     int buttonInterval = 75;
 

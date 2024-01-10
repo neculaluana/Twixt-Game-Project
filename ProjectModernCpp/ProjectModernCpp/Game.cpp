@@ -69,9 +69,7 @@ void Game::startNewGame() {
 	showBoard(mainMenu->scene, mainMenu->width(), mainMenu->height(),m_board);
 }
 
-void Game::settingsClicked(QGraphicsScene* s) {
-	SettingsWindow* settings = new SettingsWindow(s);
-}
+
 void Game::initializeGame()
 {
 	mainMenu = new MainMenu();
@@ -86,10 +84,8 @@ void Game::startNewGameSlot()
 	startNewGame();
 }
 
-void Game::settingsSlot()
-{
-	settingsClicked(mainMenu->scene);
-}
+
+
 void Game::saveGame(const std::string& filename)
 {
 	std::ofstream file(filename, std::ios::out | std::ios::binary);
@@ -202,4 +198,31 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 		emit boardUpdated();
 	}
 	
+void Game::settingsSlot()
+{
+	settingsClicked(mainMenu->scene);
+}
+
+void Game::settingsClicked(QGraphicsScene* s) {
+	SettingsWindow* settings = new SettingsWindow(s);
+	connect(settings, SIGNAL(settingsSaved()), this, SLOT(showMainMenu()));
+	connect(settings, SIGNAL(settingsCanceled()), this, SLOT(showMainMenu()));
+	bool success=connect(settings, SIGNAL(settingsChanged(int, int, int)), this, SLOT(updateSettings(int, int, int)));
+	if (!success) {
+		qDebug() << "Connection failed!";
+	}
+
+}
+
+void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges) {
+	m_boardSize = boardSize;
+	m_maxPointNumber = numberOfPoints;
+	m_maxBridgeNumber = numberOfBridges;
+}
+
+void Game::showMainMenu() {
+	if (mainMenu) {
+		mainMenu->displayMainMenu();
+	}
+}
 
