@@ -92,6 +92,7 @@
     <QtRcc Include="ProjectModernCpp.qrc" />
     <QtUic Include="ProjectModernCpp.ui" />
     <QtMoc Include="ProjectModernCpp.h" />
+    <ClCompile Include="BaseLine.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardWindow.cpp" />
     <ClCompile Include="Bridge.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseLine.h" />
     <ClInclude Include="Board.h" />
     <QtMoc Include="BoardWindow.h" />
     <ClInclude Include="Bridge.h" />

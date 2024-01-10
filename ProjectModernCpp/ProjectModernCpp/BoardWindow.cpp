@@ -95,16 +95,16 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     int firstColumnIndex = boardSize; // Skip the first row
     int lastColumnIndex = boardSize * (boardSize - 2); // Skip the last row and first column
 
-    BridgeLine* leftLine = new BridgeLine(m_points[firstRowIndex +boardSize- 2], m_points[lastRowIndex+boardSize-2], Qt::red); // Index is 0-based
+    BaseLine* leftLine = new BaseLine(m_points[firstRowIndex +boardSize- 2], m_points[lastRowIndex+boardSize-2], Qt::red); // Index is 0-based
     scene->addItem(leftLine);
 
-    BridgeLine* topLine = new BridgeLine(m_points[firstColumnIndex-1], m_points[lastColumnIndex-1], Qt::red);
+    BaseLine* topLine = new BaseLine(m_points[firstColumnIndex-1], m_points[lastColumnIndex-1], Qt::red);
     scene->addItem(topLine);
 
-    BridgeLine* bottomLine = new BridgeLine(m_points[firstColumnIndex+(boardSize-3)], m_points[lastColumnIndex + (boardSize - 3)], Qt::red);
+    BaseLine* bottomLine = new BaseLine(m_points[firstColumnIndex+(boardSize-3)], m_points[lastColumnIndex + (boardSize - 3)], Qt::red);
     scene->addItem(bottomLine);
 
-    BridgeLine* rightLine = new BridgeLine(m_points[firstRowIndex+boardSize*(boardSize-1)-3], m_points[lastRowIndex + boardSize*(boardSize-2)+21], Qt::red); // Index is 0-based
+    BaseLine* rightLine = new BaseLine(m_points[firstRowIndex+boardSize*(boardSize-1)-3], m_points[lastRowIndex + boardSize*(boardSize-2)+21], Qt::red); // Index is 0-based
     scene->addItem(rightLine);
 
     // Draw bottom line
