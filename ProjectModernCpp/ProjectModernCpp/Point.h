@@ -5,7 +5,8 @@ public:
 	enum class Color : uint8_t
 	{
 		Red,
-		Black
+		Black,
+		Debug
 	};
 	Point();
 	Point(int x, int y, Color color);
