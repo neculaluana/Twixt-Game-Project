@@ -130,6 +130,7 @@ void Game::makePoint() {
 		(*m_currentPlayer).addPoint(p);
 	}
 }
+
 void Game::changeCurrentPlayer() {
 	if ((*m_currentPlayer).getColor() == m_playerRed.getColor())
 		m_currentPlayer = &m_playerBlack;
@@ -152,6 +153,21 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 	Point newPoint(x, y, m_currentPlayer->getColor());
 	std::pair position = std::make_pair<size_t, size_t>(x, y);
 	if (m_board.getStatus(position)==Board::Status::Empty) {
+		
+			button->updateColor(m_currentPlayer->getColor());
+			m_board.addPoint(newPoint);
+			m_board.makeBridges(newPoint, *m_currentPlayer);
+
+			m_currentPlayer->addPoint(newPoint);
+
+			m_board.makeBridges(newPoint, *m_currentPlayer);
+			changeCurrentPlayer();
+
+
+	}else	
+	if (m_board.getStatus(position) == Board::Status::BaseRed && m_currentPlayer->getColor() == Point::Color::Red)
+	{
+
 		button->updateColor(m_currentPlayer->getColor());
 		m_board.addPoint(newPoint);
 		m_board.makeBridges(newPoint, *m_currentPlayer);
@@ -159,11 +175,25 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 		m_currentPlayer->addPoint(newPoint);
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
-
-
-
 		changeCurrentPlayer();
+		
+	}
+	else if(m_board.getStatus(position) == Board::Status::BaseBlack && m_currentPlayer->getColor() == Point::Color::Black)
+	{
+
+		button->updateColor(m_currentPlayer->getColor());
+		m_board.addPoint(newPoint);
+		m_board.makeBridges(newPoint, *m_currentPlayer);
+
+		m_currentPlayer->addPoint(newPoint);
+
+		m_board.makeBridges(newPoint, *m_currentPlayer);
+		changeCurrentPlayer();
+
+	}
+
+	
 		emit boardUpdated();
 	}
 	
-}
+
