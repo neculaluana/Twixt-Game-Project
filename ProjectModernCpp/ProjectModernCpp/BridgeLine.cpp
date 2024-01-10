@@ -9,12 +9,18 @@ BridgeLine::BridgeLine(CircleButton* startButton, CircleButton* endButton,QColor
     updatePen();
 }
 
-
-
 void BridgeLine::updatePosition()
 {
     if (startButton && endButton) {
-        QLineF newLine(startButton->pos(), endButton->pos());
+        QPointF startPoint = startButton->pos();
+        QPointF endPoint = endButton->pos();
+
+        startPoint.setX(startPoint.x() + 4);
+        startPoint.setY(startPoint.y() + 4);
+        endPoint.setX(endPoint.x() + 4);
+        endPoint.setY(endPoint.y() + 4);
+
+        QLineF newLine(startPoint, endPoint);
         setLine(newLine);
     }
     update();

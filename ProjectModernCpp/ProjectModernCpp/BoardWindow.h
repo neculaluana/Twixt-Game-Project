@@ -16,6 +16,7 @@ class BoardWindow : public QObject
 public:
 	BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer);
 
+	void setCurrentPlayer(Player* current);
 	void drawLines(QGraphicsScene* scene);
 	void drawBaseLines(QGraphicsScene* scene);
 public slots:
@@ -25,7 +26,7 @@ signals:
 	void pointAdded(int x, int y, CircleButton* button);
 
 private:
-	 Board& m_board;
+	Board& m_board;
 	std::vector<CircleButton*> m_points;
 	std::vector<BridgeLine*> m_lines;
 	QGraphicsScene* s;

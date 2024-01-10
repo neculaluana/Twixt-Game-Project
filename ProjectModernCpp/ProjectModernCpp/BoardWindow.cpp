@@ -2,7 +2,8 @@
 #include <QDebug>
 
 BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer)
-    : m_board{ b }, m_currentPlayer{currentPlayer}
+    : m_board{ b }
+    , m_currentPlayer{currentPlayer}
 {
 	QGraphicsRectItem* board = new QGraphicsRectItem(width/20, height/13, 630, 630);
 	board->setBrush(QBrush(Qt::lightGray));
@@ -35,6 +36,12 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     }
     s = scene;
     drawBaseLines(scene);
+}
+
+void BoardWindow::setCurrentPlayer(Player* current)
+{
+    drawLines(s);
+    m_currentPlayer = current;
 }
 
 void BoardWindow::drawLines(QGraphicsScene* scene)

@@ -135,12 +135,15 @@ void Game::changeCurrentPlayer() {
 		m_currentPlayer = &m_playerBlack;
 	else
 		m_currentPlayer = &m_playerRed;
+	if (m_boardWindow) {
+		m_boardWindow->setCurrentPlayer(m_currentPlayer);
+	}
 }
 
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
-	BoardWindow* board= new BoardWindow(s, width, height,b, m_currentPlayer);
-	connect(board, &BoardWindow::pointAdded, this, &Game::onPointAdded);
+	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
+	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
 
 
 }
