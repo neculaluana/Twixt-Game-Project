@@ -16,7 +16,7 @@ void MainMenu::settings()
 {
     scene->clear();
     setSettings(true);
-    emit getSettingsClicked();
+    emit SettingsClicked();
 
 }
 
