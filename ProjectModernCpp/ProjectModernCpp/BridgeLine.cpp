@@ -34,6 +34,16 @@ void BridgeLine::updatePen()
     setPen(pen);
 }
 
+CircleButton* BridgeLine::getStartButton()
+{
+    return startButton;
+}
+
+CircleButton* BridgeLine::getEndButton()
+{
+    return endButton;
+}
+
 
 QRectF BridgeLine::boundingRect() const 
 {
