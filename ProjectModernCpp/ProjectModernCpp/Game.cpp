@@ -64,16 +64,13 @@ const Board& Game::getBoard() const
 }
 
 void Game::startNewGame() {
-	//m_board.printBoard();
-	/*std::string name;
-	std::cout << "Red player name: ";
-	std::cin >> name;
-	m_playerRed.setName(name);
-	std::cout << "Black player name: ";
-	std::cin >> name;
-	m_playerBlack.setName(name);*/
+	
 
 	showBoard(mainMenu->scene, mainMenu->width(), mainMenu->height(),m_board);
+}
+
+void Game::settingsClicked(QGraphicsScene* s) {
+	SettingsWindow* settings = new SettingsWindow(s);
 }
 void Game::initializeGame()
 {
@@ -81,11 +78,17 @@ void Game::initializeGame()
 	mainMenu->show();
 	mainMenu->displayMainMenu();
 	connect(mainMenu, SIGNAL(newGameStarted()), this, SLOT(startNewGameSlot()));
+	connect(mainMenu, SIGNAL(SettingsClicked()), this, SLOT(settingsSlot()));
 
 }
 void Game::startNewGameSlot()
 {
 	startNewGame();
+}
+
+void Game::settingsSlot()
+{
+	settingsClicked(mainMenu->scene);
 }
 void Game::saveGame(const std::string& filename)
 {

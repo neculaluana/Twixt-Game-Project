@@ -12,37 +12,22 @@ void MainMenu::newGame()
 
 }
 
-void MainMenu::displayMainMenu() {
+void MainMenu::settings()
+{
+    scene->clear();
+    setSettings(true);
+    emit SettingsClicked();
 
-    MenuButton* playButton = new MenuButton(QString("New game"));
-    int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
-    int byPos = 375;
-    playButton->setPos(bxPos, byPos);
-    connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
-    scene->addItem(playButton);
+}
 
-    MenuButton* loadButton = new MenuButton(QString("Load game"));
-    int lxPos = this->width() / 2 - loadButton->boundingRect().width() / 2;
-    int lyPos = 450;
-    loadButton->setPos(lxPos, lyPos);
-    connect(loadButton, SIGNAL(clicked()), this, SLOT(load()));
-    scene->addItem(loadButton);
+void MainMenu::setSettings(bool b)
+{
+    settingsClicked = b;
+}
 
-    MenuButton* quitButton = new MenuButton(QString("Quit"));
-    int qxPos = this->width() / 2 - quitButton->boundingRect().width() / 2;
-    int qyPos = 525;
-    quitButton->setPos(qxPos, qyPos);
-    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
-    scene->addItem(quitButton);
-
-    QImage image("Resources/twixt.jpg");
-    int imxPos = this->width() / 2 - image.width() / 4;
-    int imyPos = 150;
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
-    item->setScale(0.5);
-    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-    item->setPos(imxPos, imyPos);
-    scene->addItem(item);
+bool MainMenu::getSettingsClicked()
+{
+    return settingsClicked;
 }
 
 void MainMenu::setIsNewGame(bool a)
@@ -58,6 +43,52 @@ bool MainMenu::getIsNewGame()
 void MainMenu::load()
 {
 }
+
+
+
+void MainMenu::displayMainMenu() {
+    int startY = 375;
+    int buttonInterval = 75;
+
+    // Butonul "New game"
+    MenuButton* playButton = new MenuButton(QString("New game"));
+    int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
+    playButton->setPos(bxPos, startY);
+    connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
+    scene->addItem(playButton);
+
+    // Butonul "Load game"
+    MenuButton* loadButton = new MenuButton(QString("Load game"));
+    int lxPos = this->width() / 2 - loadButton->boundingRect().width() / 2;
+    loadButton->setPos(lxPos, startY + buttonInterval);
+    connect(loadButton, SIGNAL(clicked()), this, SLOT(load()));
+    scene->addItem(loadButton);
+
+    // Butonul "Settings"
+    MenuButton* settingsButton = new MenuButton(QString("Settings"));
+    int sxPos = this->width() / 2 - settingsButton->boundingRect().width() / 2;
+    settingsButton->setPos(sxPos, startY + 2 * buttonInterval);
+    connect(settingsButton, SIGNAL(clicked()), this, SLOT(settings()));
+    scene->addItem(settingsButton);
+
+    // Butonul "Quit"
+    MenuButton* quitButton = new MenuButton(QString("Quit"));
+    int qxPos = this->width() / 2 - quitButton->boundingRect().width() / 2;
+    quitButton->setPos(qxPos, startY + 3 * buttonInterval);
+    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
+    scene->addItem(quitButton);
+
+
+    QImage image("Resources/twixt.jpg");
+    int imxPos = this->width() / 2 - image.width() / 4;
+    int imyPos = 150;
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    item->setScale(0.5);
+    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+    item->setPos(imxPos, imyPos);
+    scene->addItem(item);
+}
+
 
 
 MainMenu::MainMenu(QWidget* parent) {

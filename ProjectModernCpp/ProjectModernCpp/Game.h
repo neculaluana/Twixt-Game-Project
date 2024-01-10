@@ -8,7 +8,7 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QWidget>
-
+#include "SettingsWindow.h"
 
 class Game : public QObject {
 	Q_OBJECT;
@@ -36,11 +36,14 @@ public:
 	bool wonGame() const;
 	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
+	void settingsClicked(QGraphicsScene* s);
+
 	
 	~Game() = default;
 
 public slots:
 	void startNewGameSlot();
+	void settingsSlot();
 	void onPointAdded(int x, int y, CircleButton* button);
 
 signals:
