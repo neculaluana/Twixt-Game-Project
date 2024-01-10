@@ -25,6 +25,7 @@ public slots:
 
 	void newGame();
 	void load();
+	void settings();
 private:
 	bool isNewGame;
 };
