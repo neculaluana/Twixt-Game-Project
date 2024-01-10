@@ -32,6 +32,23 @@ void BaseLine::updatePositionTL()
     update();
 }
 
+void BaseLine::updatePositionRB()
+{
+    if (startButton && endButton) {
+        QPointF startPoint = startButton->pos();
+        QPointF endPoint = endButton->pos();
+
+        startPoint.setX(startPoint.x() + 18);
+        endPoint.setX(endPoint.x() + 18);
+        startPoint.setY(startPoint.y() + 16);
+        endPoint.setY(endPoint.y() + 16);
+        QLineF newLine(startPoint, endPoint);
+
+        //QLineF newLine(startButton->pos(), endButton->pos());
+        setLine(newLine);
+    }
+    update();
+}
 void BaseLine::updatePen()
 {
     if (!startButton || !endButton) return;
