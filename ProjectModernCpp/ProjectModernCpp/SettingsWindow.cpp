@@ -1,36 +1,27 @@
 ﻿#include "SettingsWindow.h"
-
-#include "SettingsWindow.h"
-#include <QGraphicsProxyWidget>
-
-#include "SettingsWindow.h"
 #include <QGraphicsProxyWidget>
 #include <QLabel>
 #include <QVBoxLayout>
 
-#include "SettingsWindow.h"
-#include <QGraphicsProxyWidget>
-#include <QLabel>
-#include <QVBoxLayout>
 
 SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog(parent) {
     QFont widgetFont;
     widgetFont.setPointSize(12);
 
     // Spin Boxes
-    QSpinBox* boardSize = new QSpinBox();
+    boardSize = new QSpinBox(this);
     boardSize->setRange(5, 100);
     boardSize->setValue(24);
     boardSize->setFont(widgetFont);
     boardSize->setFixedSize(150, 50);
 
-    QSpinBox* numberOfBridges = new QSpinBox();
+    numberOfBridges = new QSpinBox(this);
     numberOfBridges->setRange(1, 100);
     numberOfBridges->setValue(50);
     numberOfBridges->setFont(widgetFont);
     numberOfBridges->setFixedSize(150, 50);
 
-    QSpinBox* numberOfPoints = new QSpinBox();
+    numberOfPoints = new QSpinBox(this);
     numberOfPoints->setRange(1, 100);
     numberOfPoints->setValue(10);
     numberOfPoints->setFont(widgetFont);
@@ -72,7 +63,7 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
     QHBoxLayout* buttonLayout = new QHBoxLayout();
     buttonLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
     buttonLayout->addWidget(saveButton);
-    buttonLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum));  // Fixed spacer for separating buttons
+    buttonLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum));  
     buttonLayout->addWidget(cancelButton);
     buttonLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
@@ -105,10 +96,22 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
     background->setZValue(-1); 
     scene->addItem(background);
 
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(saveButtonClicked(boardSize,numberOfPoints,numberOfBridges)));
+    connect(saveButton, &QPushButton::clicked, this, [this]() {
+        int boardSizeValue = boardSize->value();
+        int numberOfPointsValue = numberOfPoints->value();
+        int numberOfBridgesValue = numberOfBridges->value();
+        saveButtonClicked(boardSizeValue, numberOfPointsValue, numberOfBridgesValue);
+        });
+    connect(cancelButton, &QPushButton::clicked, this, &SettingsWindow::cancelButtonClicked);
 
 }
 
-void SettingsWindow::saveButtonClicked(QSpinBox* boardSize, QSpinBox* numberOfPoints, QSpinBox* numberOfBridges) {
-    emit settingsChanged(boardSize->value(), numberOfBridges->value(), numberOfPoints->value());
+void SettingsWindow::saveButtonClicked(int boardSize, int numberOfPoints, int numberOfBridges) {
+    emit settingsChanged(boardSize, numberOfPoints, numberOfBridges);
+    emit settingsSaved();
+}
+
+void SettingsWindow::cancelButtonClicked() {
+    emit settingsCanceled();
+    this->deleteLater();
 }
