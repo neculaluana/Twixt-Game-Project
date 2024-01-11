@@ -100,12 +100,13 @@ bool isBridgesIntersection(CircleButton* existingBridgeStart, CircleButton* exis
 }
 
 void BoardWindow::drawLines(QGraphicsScene* scene)
-{
+{/*
+
     if (m_currentPlayer->getColor() == Point::Color::Red)
         qDebug() << "Desenare linii pentru jucatorul rosu";
     else
         if(m_currentPlayer->getColor() == Point::Color::Black)
-        qDebug() << "Desenare linii pentru jucatorul negru";
+        qDebug() << "Desenare linii pentru jucatorul negru";*/
 
 
     std::vector<Bridge> bridges = m_currentPlayer->getBridges();

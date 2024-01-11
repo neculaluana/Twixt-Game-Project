@@ -151,51 +151,79 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 void Game::onPointAdded(int x, int y,CircleButton* button)
 {
 	if (!button) return;
-
-	Point newPoint(x, y, m_currentPlayer->getColor());
+	if ((*m_currentPlayer).getColor() == Point::Color::Black)
+		qDebug() << "rosie";
+	if ((*m_currentPlayer).getColor() == Point::Color::Black)
+		qDebug() << "negru";
 	std::pair position = std::make_pair<size_t, size_t>(x, y);
+	if (m_board.getStatus(position) == Board::Status::BaseRed)
+		qDebug() << "baza rosie";
+	
+	if (m_board.getStatus(position) == Board::Status::BaseBlack)
+		qDebug() << "baza neagra";
+	
+
+	if (m_board.getStatus(position) == Board::Status::BaseRed && (*m_currentPlayer).getColor() == Point::Color::Black)
+	{
+		button->resetColor();
+
+
+		return;
+	}
+	if (m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Red)
+	{
+		button->resetColor();
+		return;
+	}
+	if (m_board.getStatus(position) == Board::Status::BaseRed && (*m_currentPlayer).getColor() == Point::Color::Red)
+	{
+		Point newPoint(x, y, (*m_currentPlayer).getColor());
+
+		button->updateColor(Point::Color::Red);
+		m_board.addPoint(newPoint);
+		m_board.makeBridges(newPoint, *m_currentPlayer);
+
+		(*m_currentPlayer).addPoint(newPoint);
+
+		m_board.makeBridges(newPoint, *m_currentPlayer);
+		changeCurrentPlayer();
+		emit boardUpdated();
+		return;
+	}else
 	if (m_board.getStatus(position)==Board::Status::Empty) {
-		
-			button->updateColor(m_currentPlayer->getColor());
+		Point newPoint(x, y, (*m_currentPlayer).getColor());
+
+			button->updateColor((*m_currentPlayer).getColor());
 			m_board.addPoint(newPoint);
 			m_board.makeBridges(newPoint, *m_currentPlayer);
 
-			m_currentPlayer->addPoint(newPoint);
+			(*m_currentPlayer).addPoint(newPoint);
 
 			m_board.makeBridges(newPoint, *m_currentPlayer);
 			changeCurrentPlayer();
 
-
-	}else	
-	if (m_board.getStatus(position) == Board::Status::BaseRed && m_currentPlayer->getColor() == Point::Color::Red)
+			emit boardUpdated();
+			return;
+	}	
+	
+	else if(m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
 	{
+		Point newPoint(x, y, (*m_currentPlayer).getColor());
 
-		button->updateColor(m_currentPlayer->getColor());
+		button->updateColor(Point::Color::Black);
 		m_board.addPoint(newPoint);
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 
-		m_currentPlayer->addPoint(newPoint);
+		(*m_currentPlayer).addPoint(newPoint);
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
-		
-	}
-	else if(m_board.getStatus(position) == Board::Status::BaseBlack && m_currentPlayer->getColor() == Point::Color::Black)
-	{
-
-		button->updateColor(m_currentPlayer->getColor());
-		m_board.addPoint(newPoint);
-		m_board.makeBridges(newPoint, *m_currentPlayer);
-
-		m_currentPlayer->addPoint(newPoint);
-
-		m_board.makeBridges(newPoint, *m_currentPlayer);
-		changeCurrentPlayer();
-
+		emit boardUpdated();
+		return;
 	}
 
 	
-		emit boardUpdated();
+		
 	}
 	
 void Game::settingsSlot()
