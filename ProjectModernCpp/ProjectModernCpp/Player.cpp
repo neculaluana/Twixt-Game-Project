@@ -1,11 +1,16 @@
 #include "Player.h"
 
-Player::Player(std::string name, Point::Color color):
-	m_color(color) {
+Player::Player(std::string name, Point::Color color, size_t maxPointsCount, size_t maxBridgesCount) :
+	m_color(color), m_playerTurn(false) {
 }
 
+//Player::Player(std::string name, Point::Color color, size_t maxPointsCount, size_t maxBridgesCount)
+//
+//{
+//}
+
 Player::Player(const Player& other)
-	: m_color(other.m_color), m_points(other.m_points), m_bridges(other.m_bridges), m_name(other.m_name) {}
+	: m_color(other.m_color), m_points(other.m_points), m_bridges(other.m_bridges), m_name(other.m_name),m_playerTurn(other.m_playerTurn){}
 
 Player& Player::operator=(const Player& other) {
 	if (this != &other) {
@@ -13,12 +18,13 @@ Player& Player::operator=(const Player& other) {
 		m_points = other.m_points;
 		m_bridges = other.m_bridges;
 		m_name = other.m_name;
+		m_playerTurn = other.m_playerTurn;
 	}
 	return *this;
 }
 
 Player::Player(Player&& other) noexcept
-	: m_color(std::move(other.m_color)), m_points(std::move(other.m_points)), m_bridges(std::move(other.m_bridges)), m_name(std::move(other.m_name)) {}
+	: m_color(std::move(other.m_color)), m_points(std::move(other.m_points)), m_bridges(std::move(other.m_bridges)), m_name(std::move(other.m_name)),m_playerTurn(std::move(other.m_playerTurn)) {}
 
 
 Player& Player::operator=(Player&& other) noexcept {
@@ -27,6 +33,7 @@ Player& Player::operator=(Player&& other) noexcept {
 		m_points = std::move(other.m_points);
 		m_bridges = std::move(other.m_bridges);
 		m_name = std::move(other.m_name);
+		m_playerTurn = std::move(other.m_playerTurn);
 	}
 	return *this;
 }
@@ -65,6 +72,26 @@ void Player::setName(std::string name)
 	m_name = name;
 }
 
+uint8_t Player::getPointsSize()
+{
+	return m_points.size();
+}
+
+uint8_t Player::getBridgesSize()
+{
+	return m_bridges.size();
+}
+
+size_t Player::getMaxPointsCount()
+{
+	return m_maxPointsCount;
+}
+
+size_t Player::getMaxBridgesCount()
+{
+	return m_maxBridgesCount;
+}
+
 std::vector<Point> Player::getPoints() const
 {
 	return m_points;
@@ -98,6 +125,18 @@ void Player::removePoint(const Point& p)
 		}
 	}
 }
+
+bool Player::getPlayerTurn()
+{
+	return m_playerTurn;
+}
+
+void Player::setPlayerTurn(bool turn)
+{
+	m_playerTurn = turn;
+}
+
+
 
 std::ostream& operator<<(std::ostream& os, const Player& player) {
 	os << player.m_name << std::endl;

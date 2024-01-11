@@ -3,11 +3,12 @@
 #include <fstream>
 
 Game::Game(std::string name1, std::string name2)
-	:m_board{ Board() }
+	:m_board{ Board(24) }
 	, m_playerRed{ Player(name1, Point::Color::Red) }
 	, m_playerBlack{ Player(name2, Point::Color::Black) }
 	, m_currentPlayer{ &m_playerRed }
-	, m_playersTurn{std::make_pair(0,0)}
+	, m_playersTurn{std::make_pair(1,0)}
+	, isRed{true}
 {}
 
 Game::Game(const Game& other)
@@ -136,10 +137,13 @@ void Game::makePoint() {
 }
 
 void Game::changeCurrentPlayer() {
+	
+	m_currentPlayer->setPlayerTurn(false);
 	if ((*m_currentPlayer).getColor() == m_playerRed.getColor())
 		m_currentPlayer = &m_playerBlack;
 	else
 		m_currentPlayer = &m_playerRed;
+	m_currentPlayer->setPlayerTurn(true);
 	if (m_boardWindow) {
 		m_boardWindow->setCurrentPlayer(m_currentPlayer);
 	}
@@ -156,9 +160,19 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 {
 	if (!button) return;
 	if ((*m_currentPlayer).getColor() == Point::Color::Black)
+	{
 		qDebug() << "rosie";
-	if ((*m_currentPlayer).getColor() == Point::Color::Black)
+		isRed = false;
+		if (isRed == false)
+			qDebug() << "isRed este fals";
+	}
+	if ((*m_currentPlayer).getColor() == Point::Color::Red)
+	{
 		qDebug() << "negru";
+		isRed = true;
+		if (isRed == true)
+			qDebug() << "isRed este true";
+	}
 	std::pair position = std::make_pair<size_t, size_t>(x, y);
 	if (m_board.getStatus(position) == Board::Status::BaseRed)
 		qDebug() << "baza rosie";
@@ -192,6 +206,9 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
 		emit boardUpdated();
+
+		m_playersTurn.second++;
+		qDebug() << m_playersTurn.second << '\n';
 		return;
 	}
 	else
@@ -199,6 +216,18 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 			Point newPoint(x, y, (*m_currentPlayer).getColor());
 
 			button->updateColor((*m_currentPlayer).getColor());
+
+			if (m_currentPlayer->getColor() == Point::Color::Red)
+			{
+				m_playersTurn.first++;
+				qDebug() << m_playersTurn.first << '\n';
+			}
+			else 
+				if (m_currentPlayer->getColor() == Point::Color::Black)
+				{
+					m_playersTurn.second++;
+					qDebug() << m_playersTurn.second << '\n';
+				}
 			m_board.addPoint(newPoint);
 			m_board.makeBridges(newPoint, *m_currentPlayer);
 
@@ -224,6 +253,9 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
 		emit boardUpdated();
+		m_playersTurn.first++;
+		qDebug() << m_playersTurn.first << '\n';
+
 		return;
 	}
 
