@@ -127,6 +127,40 @@ void Board::setBoardSize(size_t boardSize)
 
 }
 
+void Board::serialize(json& j) const {
+	j["m_boardSize"] = m_boardSize;
+	j["m_board"] = json::array();
+	for (const std::vector<Status>& row : m_board) {
+		json rowJson = json::array();
+		for (const Status& status : row) {
+			rowJson.push_back(static_cast<int>(status));
+		}
+		j["m_board"].push_back(rowJson);
+	}
+}
+
+void Board::deserialize(const json& j) {
+	if (j.contains("m_boardSize")) {
+		m_boardSize = j["m_boardSize"].get<size_t>();
+	}
+	if (j.contains("m_board") && j["m_board"].is_array()) {
+		m_board.clear();
+		for (const json& rowJson : j["m_board"]) {
+			if (rowJson.is_array()) {
+				std::vector<Status> row;
+				for (const json& statusJson : rowJson) {
+					if (statusJson.is_number()) {
+						row.push_back(static_cast<Status>(statusJson.get<int>()));
+					}
+				}
+				m_board.push_back(row);
+			}
+		}
+	}
+}
+
+
+
 bool Board::isPointPossible(const Position& coordinate) const
 {
 	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)

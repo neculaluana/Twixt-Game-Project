@@ -56,6 +56,20 @@ bool operator!=(const Bridge& b1, const Bridge& b2)
 }
 
 
+void Bridge::serialize(json& j) const
+{
+	j["startPoint"] = m_startPoint.serialize(); 
+	j["endPoint"] = m_endPoint.serialize();     
+	j["color"] = static_cast<int>(m_color);
+}
+
+void Bridge::deserialize(const json& j)
+{
+	m_startPoint.deserialize(j["startPoint"]); 
+	m_endPoint.deserialize(j["endPoint"]);     
+	m_color = static_cast<Point::Color>(j["color"]);
+}
+
 Point::Color Bridge::getColor() const
 {
 	return m_color;

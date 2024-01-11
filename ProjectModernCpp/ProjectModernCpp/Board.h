@@ -45,7 +45,8 @@ public:
 	bool isPointPossible(const Position& coordinate)const;
 	void makeBridges(const Point& point, Player& player);
 	void setBoardSize(size_t boardSize);
-
+	void serialize(json& j) const;
+	void deserialize(const json& j);
 	friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	friend std::istream& operator>>(std::istream& is, Board& board);
 
