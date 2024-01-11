@@ -6,6 +6,9 @@
 #include "ProjectModernCpp.h"
 #include "BoardWindow.h"
 #include "SettingsWindow.h"
+#include"MenuButton.h"
+#include <QGraphicsTextItem>
+#include <qfiledialog.h>
 
 class MainMenu : public QGraphicsView {
 	Q_OBJECT;
@@ -16,12 +19,13 @@ public:
 
 	void displayMainMenu();
 
-	QGraphicsScene* scene;
 	//ProjectModernCpp* w;
 	void setIsNewGame(bool a);
 	void setSettings(bool b);
 	bool getIsNewGame();
 	bool getSettingsClicked();
+	QGraphicsScene* scene;
+	void removeAllItems();
 signals:
 	void newGameStarted();
 	void SettingsClicked();
@@ -33,6 +37,12 @@ public slots:
 private:
 	bool isNewGame;
 	bool settingsClicked;
+	MenuButton* playButton;
+	MenuButton* loadButton; 
+	MenuButton* settingsButton;
+	MenuButton* quitButton;
+	QGraphicsPixmapItem* image;
+
 };
 
 #endif // ! MAINMENU_H

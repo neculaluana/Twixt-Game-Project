@@ -28,7 +28,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     scene->addItem(m_currentPlayerText);
 
     m_currentPlayerPointsText = new QGraphicsTextItem();
-    QString pointsLeft= QString::number(50);
+    QString pointsLeft= QString::number(m_currentPlayer->getMaxPointsCount());
     m_currentPlayerPointsText->setPlainText("Points left:   " + pointsLeft);
     m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
     m_currentPlayerPointsText->setFont(font2);
@@ -36,7 +36,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     scene->addItem(m_currentPlayerPointsText);
 
     m_currentPlayerBridgesText = new QGraphicsTextItem();
-    QString bridgesLeft = QString::number(50);
+    QString bridgesLeft = QString::number(m_currentPlayer->getMaxBridgesCount());
     m_currentPlayerBridgesText->setPlainText("Bridges left: " + bridgesLeft);
     m_currentPlayerBridgesText->setDefaultTextColor(Qt::red);
     m_currentPlayerBridgesText->setFont(font2);

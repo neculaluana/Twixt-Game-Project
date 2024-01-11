@@ -92,6 +92,16 @@ size_t Player::getMaxBridgesCount()
 	return m_maxBridgesCount;
 }
 
+void Player::setMaxPointsCount(size_t maxPoints)
+{
+	m_maxPointsCount = maxPoints;
+}
+
+void Player::setMaxBridgesCount(size_t maxBridges)
+{
+	m_maxBridgesCount = maxBridges;
+}
+
 std::vector<Point> Player::getPoints() const
 {
 	return m_points;

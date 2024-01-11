@@ -121,6 +121,12 @@ void Board::makeBridges(const Point& point, Player& player )
 	}
 }
 
+void Board::setBoardSize(size_t boardSize)
+{
+	m_boardSize = boardSize;
+
+}
+
 bool Board::isPointPossible(const Position& coordinate) const
 {
 	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)
