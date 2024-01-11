@@ -19,23 +19,23 @@ CircleButton::CircleButton(int x, int y, int line, int column, int diameter, QGr
 void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     emit clicked();
     isClicked = true;
-    QBrush brush;
+    /*QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(m_color);
     setBrush(brush);
-    update();
+    update();*/
 }
 
 void CircleButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
    
-    if(!isClicked)
-    {
-        QBrush brush;
-        brush.setStyle(Qt::SolidPattern);
-        brush.setColor(m_color);
-        setBrush(brush);
-    }
-    update();
+    //if(!isClicked)
+    //{
+    //  /*  QBrush brush;
+    //    brush.setStyle(Qt::SolidPattern);
+    //    brush.setColor(m_color);
+    //    setBrush(brush);*/
+    //}
+    //update();
 }
 
 void CircleButton::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
@@ -88,7 +88,15 @@ int CircleButton::getColumn()
     return m_column;
 }
 
-
+void CircleButton::resetColor() 
+{
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::darkGray);
+    setBrush(brush);
+    
+    update();
+}
 
 void CircleButton::updateColor(Point::Color playerColor) {
     QBrush brush;
@@ -112,6 +120,7 @@ Point::Color CircleButton::getColor()
     else
         return Point::Color::Black;
 }
+
 
 QColor CircleButton::getQtColor()
 {
