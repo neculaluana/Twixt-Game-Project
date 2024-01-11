@@ -102,6 +102,7 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
         int numberOfBridgesValue = numberOfBridges->value();
         saveButtonClicked(boardSizeValue, numberOfPointsValue, numberOfBridgesValue);
         });
+    
     connect(cancelButton, &QPushButton::clicked, this, &SettingsWindow::cancelButtonClicked);
 
 }
@@ -113,5 +114,10 @@ void SettingsWindow::saveButtonClicked(int boardSize, int numberOfPoints, int nu
 
 void SettingsWindow::cancelButtonClicked() {
     emit settingsCanceled();
+    //disconnect();
     this->deleteLater();
+}
+
+SettingsWindow::~SettingsWindow() {
+    disconnect();
 }

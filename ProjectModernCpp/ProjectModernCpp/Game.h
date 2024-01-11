@@ -52,8 +52,9 @@ signals:
 	void boardUpdated();
 
 private:
-	MainMenu* mainMenu;
+	MainMenu* m_mainMenu;
 	BoardWindow* m_boardWindow;
+	SettingsWindow* m_settingsWindow=nullptr;
 	Player m_playerRed;
 	Player m_playerBlack;
 	Player* m_currentPlayer;

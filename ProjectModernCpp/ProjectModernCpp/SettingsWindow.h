@@ -15,6 +15,7 @@ class SettingsWindow : public QDialog
 public:
 
 	SettingsWindow(QGraphicsScene* scene,QWidget* parent = nullptr);
+	~SettingsWindow();
 
 public slots:
 	void saveButtonClicked(int boardSize, int numberOfPoints, int numberOfBridges);
