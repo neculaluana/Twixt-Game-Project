@@ -7,6 +7,7 @@ Game::Game(std::string name1, std::string name2)
 	, m_playerRed{ Player(name1, Point::Color::Red) }
 	, m_playerBlack{ Player(name2, Point::Color::Black) }
 	, m_currentPlayer{ &m_playerRed }
+	, m_playersTurn{std::make_pair(0,0)}
 {}
 
 Game::Game(const Game& other)
@@ -151,8 +152,7 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 
 
 }
-
-void Game::onPointAdded(int x, int y,CircleButton* button)
+void Game::onPointAdded(int x, int y, CircleButton* button)
 {
 	if (!button) return;
 	if ((*m_currentPlayer).getColor() == Point::Color::Black)
@@ -162,10 +162,10 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 	std::pair position = std::make_pair<size_t, size_t>(x, y);
 	if (m_board.getStatus(position) == Board::Status::BaseRed)
 		qDebug() << "baza rosie";
-	
+
 	if (m_board.getStatus(position) == Board::Status::BaseBlack)
 		qDebug() << "baza neagra";
-	
+
 
 	if (m_board.getStatus(position) == Board::Status::BaseRed && (*m_currentPlayer).getColor() == Point::Color::Black)
 	{
@@ -193,9 +193,10 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 		changeCurrentPlayer();
 		emit boardUpdated();
 		return;
-	}else
-	if (m_board.getStatus(position)==Board::Status::Empty) {
-		Point newPoint(x, y, (*m_currentPlayer).getColor());
+	}
+	else
+		if (m_board.getStatus(position) == Board::Status::Empty) {
+			Point newPoint(x, y, (*m_currentPlayer).getColor());
 
 			button->updateColor((*m_currentPlayer).getColor());
 			m_board.addPoint(newPoint);

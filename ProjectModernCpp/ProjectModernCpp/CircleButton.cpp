@@ -27,7 +27,7 @@ void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 }
 
 void CircleButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
-   
+
     //if(!isClicked)
     //{
     //  /*  QBrush brush;
@@ -88,13 +88,13 @@ int CircleButton::getColumn()
     return m_column;
 }
 
-void CircleButton::resetColor() 
+void CircleButton::resetColor()
 {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::darkGray);
     setBrush(brush);
-    
+
     update();
 }
 
