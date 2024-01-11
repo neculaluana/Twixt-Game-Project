@@ -9,6 +9,7 @@
 #include <QGraphicsScene>
 #include <QWidget>
 #include "SettingsWindow.h"
+#include <cstdint>
 
 class Game : public QObject {
 	Q_OBJECT;
@@ -60,5 +61,6 @@ private:
 	size_t m_maxPieceNumber;
 	size_t m_maxBridgeNumber;
 	size_t m_boardSize;
+	std::pair<uint8_t,uint8_t>m_playersTurn;
 
 };
