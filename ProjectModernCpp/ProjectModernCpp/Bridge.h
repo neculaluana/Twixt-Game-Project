@@ -7,13 +7,15 @@ public:
 	Bridge(Point startPoint, Point endPoint);
 	Bridge(const Bridge& other);
 	Bridge(Bridge&& other)noexcept;
-	
+	Bridge() = default;
+
 	Bridge& operator=(const Bridge& other);
 	Bridge& operator=(Bridge&& other)noexcept;
 	friend bool operator==(const Bridge& b1, const Bridge& b2);
 	friend bool operator!=(const Bridge& b1, const Bridge& b2);
 	//friend std::ostream& operator<<(std::ostream& os, const Bridge& bridge);
-	
+	void serialize(json& j) const;
+	void deserialize(const json& j);
 	Point::Color getColor() const;
 	Point getStartPoint() const;
 	Point getEndPoint() const;

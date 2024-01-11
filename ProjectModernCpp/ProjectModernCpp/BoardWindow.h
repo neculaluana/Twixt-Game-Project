@@ -5,6 +5,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsEllipseItem>
 #include <vector>
+#include <QPushButton>
 #include "CircleButton.h"
 #include "BridgeLine.h"
 #include "BaseLine.h"
@@ -25,10 +26,13 @@ public:
 public slots:
 	//void onButtonClicked();
 	void onButtonClicked(int x, int y, CircleButton* button);
-
+	void onSaveGameClicked() 
+	{
+		emit saveGameRequested();
+	}
 signals:
 	void pointAdded(int x, int y, CircleButton* button);
-
+	void saveGameRequested();
 private:
 	Board& m_board;
 	std::vector<CircleButton*> m_points;
@@ -38,7 +42,7 @@ private:
 	QGraphicsTextItem* m_currentPlayerText;
 	QGraphicsTextItem* m_currentPlayerPointsText;
 	QGraphicsTextItem* m_currentPlayerBridgesText;
-
+	QPushButton* saveButton;
 };
 
 #endif //BOARDWINDOW_H

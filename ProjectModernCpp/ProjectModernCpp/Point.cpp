@@ -80,3 +80,27 @@ bool Point::operator!=(const Point& p)
 {
 	return !(this == &p);
 }
+
+json Point::serialize() const
+{
+	json j;
+	j["x"] = m_coordinates.first;
+	j["y"] = m_coordinates.second;
+	j["color"] = static_cast<int>(m_color);
+	return j;
+}
+
+void Point::deserialize(const json& j)
+{
+
+	if (j.find("x") != j.end() && j.find("y") != j.end() && j.find("color") != j.end())
+	{
+		m_coordinates.first = j["x"];
+		m_coordinates.second = j["y"];
+		m_color = static_cast<Color>(j["color"]);
+	}
+	else
+	{
+		throw std::runtime_error("JSON invalid pentru deserializare Point.");
+	}
+}

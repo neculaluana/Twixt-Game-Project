@@ -5,6 +5,7 @@
 #include<string>
 #include"Point.h"
 #include"Bridge.h"
+
 class Player
 {
 public:
@@ -28,6 +29,8 @@ public:
 	std::vector<Bridge> getBridges()const;
 	std::string	getName()const;
 	void setName(std::string name); 
+	void serialize(json& j) const;
+	void deserialize(const json& j);
 
 	uint8_t getPointsSize();
 	uint8_t getBridgesSize();

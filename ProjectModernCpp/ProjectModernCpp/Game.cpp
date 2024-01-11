@@ -13,6 +13,7 @@ Game::Game(std::string name1, std::string name2)
 	initializeGame();
 	connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
 	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
+
 }
 
 Game::Game(const Game& other)
@@ -97,38 +98,38 @@ void Game::startNewGameSlot()
 {
 	startNewGame();
 }
+void Game::saveGame(const std::string& filename) {
+	json j;
 
+	m_playerRed.serialize(j["playerRed"]);
+	m_playerBlack.serialize(j["playerBlack"]);
+	m_board.serialize(j["board"]);
 
-
-void Game::saveGame(const std::string& filename)
-{
-	std::ofstream file(filename, std::ios::out | std::ios::binary);
-	if (!file) {
-		std::cerr << "Unable to open file for saving game state." << std::endl;
-		return;
+	std::ofstream file(filename);
+	if (file.is_open()) {
+		file << j.dump(4); 
+		file.close();
 	}
-
-	file << m_board;
-	file << m_playerRed;
-	file << m_playerBlack;
-	//file << m_currentPlayer->getColor();
-
-	file.close();
-
+	else {
+		std::cerr << "Eroare la deschiderea fi?ierului de salvare." << std::endl;
+	}
 }
 void Game::loadGame(const std::string& filename) {
-	std::ofstream file(filename, std::ios::in | std::ios::binary);
-	if (!file) {
-		std::cerr << "Unable to open file for loading game state." << std::endl;
-		return;
+	std::ifstream file(filename);
+	if (file.is_open()) {
+		std::string file_contents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+		json j = json::parse(file_contents);
+
+		m_playerRed.deserialize(j["playerRed"]);
+		m_playerBlack.deserialize(j["playerBlack"]);
+		m_board.deserialize(j["board"]);
+
+		file.close();
 	}
-
-	//file >> m_board;
-	//file >> m_playerRed;
-	//file >> m_playerBlack;
-	//file >> m_currentPlayer->getColor();
-
-	file.close();
+	else {
+		std::cerr << "Eroare la deschiderea fi?ierului de încãrcare." << std::endl;
+	}
 }
 void Game::makePoint() {
 	std::pair<uint8_t, uint8_t> coord;
@@ -161,6 +162,8 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
 	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
+	connect(m_boardWindow, &BoardWindow::saveGameRequested, this, &Game::saveGameSlot);
+
 }
 void Game::onPointAdded(int x, int y, CircleButton* button)
 {
@@ -324,3 +327,6 @@ void Game::showMainMenu() {
 	}
 }
 
+void Game::saveGameSlot() {
+	saveGame("savegame.json");
+}

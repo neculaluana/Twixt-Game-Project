@@ -1,5 +1,9 @@
 #pragma once
 #include <iostream>
+
+#include "json.hpp"
+using json = nlohmann::json;
+
 class Point {
 public:
 	enum class Color : uint8_t
@@ -26,7 +30,8 @@ public:
 	
 	bool operator==(const Point& p);
 	bool operator!=(const Point& p);
-
+	json serialize() const;
+	void deserialize(const json& j);
 private:
 	Point::Color m_color : 1;
 	std::pair<uint8_t, uint8_t> m_coordinates;
