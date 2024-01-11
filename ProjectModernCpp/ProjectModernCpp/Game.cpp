@@ -161,7 +161,10 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
 	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
+	connect(m_boardWindow, &BoardWindow::requestPlayerChange, this, &Game::handleChangeCurrentPlayer);
 }
+
+
 void Game::onPointAdded(int x, int y, CircleButton* button)
 {
 	if (!button) return;
@@ -179,6 +182,8 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 		if (isRed == true)
 			qDebug() << "isRed este true";
 	}
+
+	
 	std::pair position = std::make_pair<size_t, size_t>(x, y);
 	if (m_board.getStatus(position) == Board::Status::BaseRed)
 		qDebug() << "baza rosie";
@@ -307,6 +312,8 @@ void Game::settingsClicked(QGraphicsScene* s) {
 	}
 }
 
+
+
 void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges) {
 	m_boardSize = boardSize;
 	m_maxPointNumber = numberOfPoints;
@@ -322,5 +329,10 @@ void Game::showMainMenu() {
 	if (m_mainMenu) {
 		m_mainMenu->displayMainMenu();
 	}
+}
+
+void Game::handleChangeCurrentPlayer()
+{
+	changeCurrentPlayer();
 }
 

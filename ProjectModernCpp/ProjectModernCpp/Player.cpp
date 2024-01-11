@@ -146,6 +146,16 @@ void Player::setPlayerTurn(bool turn)
 	m_playerTurn = turn;
 }
 
+bool Player::getfirstMoveMade()
+{
+	return m_firstMoveMade;
+}
+
+void Player::setfirstMoveMade(bool moveMade)
+{
+	m_firstMoveMade = moveMade;
+}
+
 
 
 std::ostream& operator<<(std::ostream& os, const Player& player) {

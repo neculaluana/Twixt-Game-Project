@@ -38,7 +38,7 @@ public:
 	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
 	void settingsClicked(QGraphicsScene* s);
-	
+
 
 	
 	~Game() ;
@@ -49,6 +49,7 @@ public slots:
 	void onPointAdded(int x, int y, CircleButton* button);
 	void updateSettings(int boardSize, int numberOfBridges, int numberOfPoints);
 	void showMainMenu();
+	void handleChangeCurrentPlayer();
 signals:
 	void boardUpdated();
 
@@ -67,5 +68,6 @@ private:
 	size_t m_boardSize;
 	std::pair<uint8_t,uint8_t>m_playersTurn;
 	bool isRed;
+
 
 };

@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsRectItem>
+#include <qmessagebox.h>
 #include <QGraphicsEllipseItem>
 #include <vector>
 #include "CircleButton.h"
@@ -28,6 +29,7 @@ public slots:
 
 signals:
 	void pointAdded(int x, int y, CircleButton* button);
+	void requestPlayerChange();
 
 private:
 	Board& m_board;

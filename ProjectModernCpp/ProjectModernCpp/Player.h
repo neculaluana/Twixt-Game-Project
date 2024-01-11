@@ -28,6 +28,8 @@ public:
 	std::vector<Bridge> getBridges()const;
 	std::string	getName()const;
 	void setName(std::string name); 
+	bool getfirstMoveMade();
+	void setfirstMoveMade(bool moveMade);
 
 	uint8_t getPointsSize();
 	uint8_t getBridgesSize();
@@ -47,6 +49,7 @@ private:
 	bool m_playerTurn;
 	size_t m_maxPointsCount=50;
 	size_t m_maxBridgesCount=50;
+	bool m_firstMoveMade;
 
 
 };

@@ -200,6 +200,21 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
+    if (m_currentPlayer->getfirstMoveMade() && m_currentPlayer->getColor() == Point::Color::Black) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Schimbă Piesele");
+        msgBox.setText("Al doilea jucător, dorești să preiei piesele roșii?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        int result = msgBox.exec();
+
+        if (result == QMessageBox::Yes) {
+            emit requestPlayerChange();
+        }
+
+        m_currentPlayer->setfirstMoveMade(false);
+    }
+
+
     emit pointAdded(x, y,button);
     drawLines(s);
 
