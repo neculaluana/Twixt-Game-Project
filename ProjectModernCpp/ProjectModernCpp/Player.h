@@ -33,6 +33,8 @@ public:
 	uint8_t getBridgesSize();
 	size_t getMaxPointsCount();
 	size_t getMaxBridgesCount();
+	void setMaxPointsCount(size_t maxPoints);
+	void setMaxBridgesCount(size_t maxBridges);
 	friend std::ostream& operator<<(std::ostream& os, const Player& player);
 	friend std::istream& operator>>(std::istream& is, Player& player);
 

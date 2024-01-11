@@ -312,6 +312,10 @@ void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges
 	m_maxPointNumber = numberOfPoints;
 	m_maxBridgeNumber = numberOfBridges;
 	m_board.setBoardSize(boardSize);
+	m_playerRed.setMaxPointsCount(numberOfPoints);
+	m_playerBlack.setMaxPointsCount(numberOfPoints);
+	m_playerRed.setMaxBridgesCount(numberOfBridges);
+	m_playerBlack.setMaxBridgesCount(numberOfBridges);
 }
 
 void Game::showMainMenu() {

@@ -29,9 +29,9 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
     // Labels
     labelBoardSize = new QLabel("Board Size:");
     labelBoardSize->setFont(widgetFont);
-    labelNumberOfBridges = new QLabel("Number of Bridges:");
+    labelNumberOfBridges = new QLabel("Number of Bridges per Player:");
     labelNumberOfBridges->setFont(widgetFont);
-    labelNumberOfPillars = new QLabel("Number of Pillars:");
+    labelNumberOfPillars = new QLabel("Number of Points per Player:");
     labelNumberOfPillars->setFont(widgetFont);
 
     // Horizontal Layouts for Label and Spin Box with Spacers
