@@ -11,6 +11,7 @@ Game::Game(std::string name1, std::string name2)
 	, m_settingsWindow(nullptr)
 {
 	initializeGame();
+	m_playerBlack.setfirstMoveMade(true);
 	connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
 	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
 }
@@ -89,6 +90,8 @@ void Game::startNewGame() {
 void Game::initializeGame()
 {
 	m_mainMenu = new MainMenu();
+	m_playerRed.setName("Ion");
+	m_playerBlack.setName("Vasile");
 	m_mainMenu->show();
 	//m_mainMenu->displayMainMenu();
 
@@ -147,7 +150,7 @@ void Game::makePoint() {
 void Game::changeCurrentPlayer() {
 	
 	m_currentPlayer->setPlayerTurn(false);
-	if ((*m_currentPlayer).getColor() == m_playerRed.getColor())
+	if (m_currentPlayer == &m_playerRed)
 		m_currentPlayer = &m_playerBlack;
 	else
 		m_currentPlayer = &m_playerRed;
@@ -263,7 +266,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
-		emit boardUpdated();
+		//emit boardUpdated();
 		m_playersTurn.first++;
 		qDebug() << m_playersTurn.first << '\n';
 
@@ -333,6 +336,12 @@ void Game::showMainMenu() {
 
 void Game::handleChangeCurrentPlayer()
 {
+	m_currentPlayer->changeColor();
+	
 	changeCurrentPlayer();
+
+	m_currentPlayer->changeColor();
+
+
 }
 

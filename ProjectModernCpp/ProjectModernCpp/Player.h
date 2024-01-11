@@ -49,7 +49,7 @@ private:
 	bool m_playerTurn;
 	size_t m_maxPointsCount=50;
 	size_t m_maxBridgesCount=50;
-	bool m_firstMoveMade;
+	bool m_firstMoveMade = false;
 
 
 };

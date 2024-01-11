@@ -16,7 +16,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     int cellWidth = 630 / boardSize;
     int cellHeight = 630 / boardSize;
     m_currentPlayerText = new QGraphicsTextItem();
-    m_currentPlayerText->setPlainText("It is Red's turn");
+    m_currentPlayerText->setPlainText("It is Red's turn" + QString::fromStdString(m_currentPlayer->getName()));
     m_currentPlayerText->setDefaultTextColor(Qt::red);
     QFont font("Helvetica", 12);
     QFont font2("Helvetica", 11);
@@ -195,33 +195,39 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     
 }
 
+void BoardWindow::showMessage()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Schimbă Piesele");
+    msgBox.setText("Al doilea jucător, dorești să preiei piesele roșii?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    int result = msgBox.exec();
 
+    if (result == QMessageBox::Yes) {
+        emit requestPlayerChange();
+    }
+}
 
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
-    if (m_currentPlayer->getfirstMoveMade() && m_currentPlayer->getColor() == Point::Color::Black) {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Schimbă Piesele");
-        msgBox.setText("Al doilea jucător, dorești să preiei piesele roșii?");
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        int result = msgBox.exec();
+    if (!m_currentPlayer->getfirstMoveMade() && m_currentPlayer->getColor() == Point::Color::Red) {
+        QTimer::singleShot(1000, this, &BoardWindow::showMessage);
+   
 
-        if (result == QMessageBox::Yes) {
-            emit requestPlayerChange();
-        }
-
-        m_currentPlayer->setfirstMoveMade(false);
+        m_currentPlayer->setfirstMoveMade(true);
     }
-
-
-    emit pointAdded(x, y,button);
+    else if(m_currentPlayer->getColor()==Point::Color::Black && m_currentPlayer->getfirstMoveMade() == false)
+    {
+        m_currentPlayer->setfirstMoveMade(true);
+    }
+    emit pointAdded(x, y, button);
     drawLines(s);
 
    
     if (m_currentPlayer->getColor() == Point::Color::Red)
     {
-        m_currentPlayerText->setPlainText("It is Red's turn");
+        m_currentPlayerText->setPlainText("It is Red's turn"+ QString::fromStdString(m_currentPlayer->getName()));
 
         m_currentPlayerText->setDefaultTextColor(Qt::red);
         m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
@@ -236,7 +242,7 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
     }
     else
     {
-        m_currentPlayerText->setPlainText("It is Black's turn");
+        m_currentPlayerText->setPlainText("It is Black's turn"+ QString::fromStdString(m_currentPlayer->getName()));
 
         m_currentPlayerText->setDefaultTextColor(Qt::black);
 

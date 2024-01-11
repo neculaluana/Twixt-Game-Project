@@ -2,6 +2,7 @@
 #define BOARDWINDOW_H
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QTimer>
 #include <QGraphicsRectItem>
 #include <qmessagebox.h>
 #include <QGraphicsEllipseItem>
@@ -22,7 +23,7 @@ public:
 	void setCurrentPlayer(Player* current);
 	void drawLines(QGraphicsScene* scene);
 	void drawBaseLines(QGraphicsScene* scene);
-
+	void showMessage();
 public slots:
 	//void onButtonClicked();
 	void onButtonClicked(int x, int y, CircleButton* button);
