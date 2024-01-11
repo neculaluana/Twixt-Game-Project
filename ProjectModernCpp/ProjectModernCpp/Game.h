@@ -38,6 +38,7 @@ public:
 	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
 	void settingsClicked(QGraphicsScene* s);
+	
 
 	
 	~Game() = default;
@@ -46,19 +47,21 @@ public slots:
 	void startNewGameSlot();
 	void settingsSlot();
 	void onPointAdded(int x, int y, CircleButton* button);
-
+	void updateSettings(int boardSize, int numberOfBridges, int numberOfPoints);
+	void showMainMenu();
 signals:
 	void boardUpdated();
 
 private:
-	MainMenu* mainMenu;
+	MainMenu* m_mainMenu;
 	BoardWindow* m_boardWindow;
+	SettingsWindow* m_settingsWindow=nullptr;
 	Player m_playerRed;
 	Player m_playerBlack;
 	Player* m_currentPlayer;
 	Board m_board;
 	std::function<void()> guiUpdateCallback;
-	size_t m_maxPieceNumber;
+	size_t m_maxPointNumber;
 	size_t m_maxBridgeNumber;
 	size_t m_boardSize;
 	std::pair<uint8_t,uint8_t>m_playersTurn;

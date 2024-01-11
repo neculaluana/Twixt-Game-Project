@@ -68,19 +68,17 @@ const Board& Game::getBoard() const
 void Game::startNewGame() {
 	
 
-	showBoard(mainMenu->scene, mainMenu->width(), mainMenu->height(),m_board);
+	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(),m_board);
 }
 
-void Game::settingsClicked(QGraphicsScene* s) {
-	SettingsWindow* settings = new SettingsWindow(s);
-}
+
 void Game::initializeGame()
 {
-	mainMenu = new MainMenu();
-	mainMenu->show();
-	mainMenu->displayMainMenu();
-	connect(mainMenu, SIGNAL(newGameStarted()), this, SLOT(startNewGameSlot()));
-	connect(mainMenu, SIGNAL(SettingsClicked()), this, SLOT(settingsSlot()));
+	m_mainMenu = new MainMenu();
+	m_mainMenu->show();
+	m_mainMenu->displayMainMenu();
+	connect(m_mainMenu, SIGNAL(newGameStarted()), this, SLOT(startNewGameSlot()));
+	connect(m_mainMenu, SIGNAL(SettingsClicked()), this, SLOT(settingsSlot()));
 
 }
 void Game::startNewGameSlot()
@@ -88,10 +86,8 @@ void Game::startNewGameSlot()
 	startNewGame();
 }
 
-void Game::settingsSlot()
-{
-	settingsClicked(mainMenu->scene);
-}
+
+
 void Game::saveGame(const std::string& filename)
 {
 	std::ofstream file(filename, std::ios::out | std::ios::binary);
@@ -263,4 +259,51 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 		
 	}
 	
+void Game::settingsSlot()
+{
+	settingsClicked(m_mainMenu->scene);
+}
+
+void Game::settingsClicked(QGraphicsScene* s) {
+	if (!m_settingsWindow) {
+		m_settingsWindow = new SettingsWindow(s);
+		bool success1 = connect(m_settingsWindow, SIGNAL(settingsSaved()), this, SLOT(showMainMenu()));
+		bool success2 = connect(m_settingsWindow, SIGNAL(settingsCanceled()), this, SLOT(showMainMenu()));
+		bool success3 = connect(m_settingsWindow, SIGNAL(settingsChanged(int, int, int)), this, SLOT(updateSettings(int, int, int)));
+		if (!success1) {
+			qDebug() << "Connection failed save!";
+		}
+		if (!success1) {
+			qDebug() << "Connection failed cancel!";
+		}
+		if (!success1) {
+			qDebug() << "Connection failed change!";
+		}
+		connect(m_settingsWindow, &SettingsWindow::finished, [this]() {
+			m_settingsWindow = nullptr;
+			});
+	}
+	else {
+		
+		if (m_settingsWindow->isHidden()) {
+			m_settingsWindow->show();
+		}
+		else {
+			m_settingsWindow->raise();
+			m_settingsWindow->activateWindow();
+		}
+	}
+}
+
+void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges) {
+	m_boardSize = boardSize;
+	m_maxPointNumber = numberOfPoints;
+	m_maxBridgeNumber = numberOfBridges;
+}
+
+void Game::showMainMenu() {
+	if (m_mainMenu) {
+		m_mainMenu->displayMainMenu();
+	}
+}
 
