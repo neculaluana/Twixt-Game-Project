@@ -3,13 +3,17 @@
 #include <fstream>
 
 Game::Game(std::string name1, std::string name2)
-	:m_board{ Board(24) }
+	: m_board{ Board() }
 	, m_playerRed{ Player(name1, Point::Color::Red) }
 	, m_playerBlack{ Player(name2, Point::Color::Black) }
 	, m_currentPlayer{ &m_playerRed }
-	, m_playersTurn{std::make_pair(1,0)}
-	, isRed{true}
-{}
+	, m_mainMenu(nullptr)
+	, m_settingsWindow(nullptr)
+{
+	initializeGame();
+	connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
+	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
+}
 
 Game::Game(const Game& other)
 	:m_playerRed{ other.getPlayerRed() }
@@ -28,6 +32,17 @@ Game& Game::operator=(const Game& g)
 	}
 
 	return *this;
+}
+
+Game::~Game() {
+	if (m_settingsWindow) {
+		m_settingsWindow->disconnect();
+		m_settingsWindow->deleteLater();
+	}
+	if (m_mainMenu) {
+		m_mainMenu->disconnect();
+		m_mainMenu->deleteLater();
+	}
 }
 
 Game::Game(Game&& other) noexcept
@@ -67,7 +82,6 @@ const Board& Game::getBoard() const
 
 void Game::startNewGame() {
 	
-
 	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(),m_board);
 }
 
@@ -76,9 +90,7 @@ void Game::initializeGame()
 {
 	m_mainMenu = new MainMenu();
 	m_mainMenu->show();
-	m_mainMenu->displayMainMenu();
-	connect(m_mainMenu, SIGNAL(newGameStarted()), this, SLOT(startNewGameSlot()));
-	connect(m_mainMenu, SIGNAL(SettingsClicked()), this, SLOT(settingsSlot()));
+	//m_mainMenu->displayMainMenu();
 
 }
 void Game::startNewGameSlot()
@@ -149,8 +161,6 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
 	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
-
-
 }
 void Game::onPointAdded(int x, int y, CircleButton* button)
 {
@@ -263,13 +273,16 @@ void Game::settingsSlot()
 {
 	settingsClicked(m_mainMenu->scene);
 }
+//connect(settingsButton, SIGNAL(clicked()), this, SLOT(settings()));
 
 void Game::settingsClicked(QGraphicsScene* s) {
 	if (!m_settingsWindow) {
+		m_mainMenu->removeAllItems();
 		m_settingsWindow = new SettingsWindow(s);
-		bool success1 = connect(m_settingsWindow, SIGNAL(settingsSaved()), this, SLOT(showMainMenu()));
-		bool success2 = connect(m_settingsWindow, SIGNAL(settingsCanceled()), this, SLOT(showMainMenu()));
-		bool success3 = connect(m_settingsWindow, SIGNAL(settingsChanged(int, int, int)), this, SLOT(updateSettings(int, int, int)));
+		connect(m_settingsWindow, &SettingsWindow::settingsSaved, this, &Game::showMainMenu);
+		connect(m_settingsWindow, &SettingsWindow::settingsChanged, this, &Game::updateSettings);
+		connect(m_settingsWindow, &SettingsWindow::settingsCanceled, this, &Game::showMainMenu);
+		/*
 		if (!success1) {
 			qDebug() << "Connection failed save!";
 		}
@@ -278,13 +291,12 @@ void Game::settingsClicked(QGraphicsScene* s) {
 		}
 		if (!success1) {
 			qDebug() << "Connection failed change!";
-		}
-		connect(m_settingsWindow, &SettingsWindow::finished, [this]() {
+		}*/
+		/*connect(m_settingsWindow, &SettingsWindow::finished, [this]() {
 			m_settingsWindow = nullptr;
-			});
+			});*/
 	}
 	else {
-		
 		if (m_settingsWindow->isHidden()) {
 			m_settingsWindow->show();
 		}
@@ -299,6 +311,7 @@ void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges
 	m_boardSize = boardSize;
 	m_maxPointNumber = numberOfPoints;
 	m_maxBridgeNumber = numberOfBridges;
+	m_board.setBoardSize(boardSize);
 }
 
 void Game::showMainMenu() {

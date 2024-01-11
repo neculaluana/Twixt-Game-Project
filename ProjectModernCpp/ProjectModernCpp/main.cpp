@@ -8,7 +8,6 @@ int main(int argc, char *argv[])
     //ProjectModernCpp w;
     //w.show();
     Game game("Ana", "Ion");
-    game.initializeGame();
 
     return a.exec();
 }

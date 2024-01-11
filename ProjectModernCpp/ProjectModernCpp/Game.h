@@ -41,7 +41,7 @@ public:
 	
 
 	
-	~Game() = default;
+	~Game() ;
 
 public slots:
 	void startNewGameSlot();
@@ -53,9 +53,10 @@ signals:
 	void boardUpdated();
 
 private:
-	MainMenu* m_mainMenu;
 	BoardWindow* m_boardWindow;
-	SettingsWindow* m_settingsWindow=nullptr;
+	MainMenu* m_mainMenu;
+	SettingsWindow* m_settingsWindow;
+
 	Player m_playerRed;
 	Player m_playerBlack;
 	Player* m_currentPlayer;
