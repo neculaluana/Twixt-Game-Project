@@ -15,11 +15,14 @@ public:
 	Player(Player&& other) noexcept;
 	Player& operator=(Player&& other) noexcept;
 
+
 	Point::Color getColor()const;
 	void changeColor();
 	void addPoint(const Point& p);
 	void addBridge(const Bridge& bridge);
 	void removePoint(const Point& p);
+	bool getPlayerTurn();
+	void setPlayerTurn(bool turn);
 	std::vector<Point> getPoints()const;
 	std::vector<Bridge> getBridges()const;
 	std::string	getName()const;
@@ -27,12 +30,13 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Player& player);
 	friend std::istream& operator>>(std::istream& is, Player& player);
 
-
 private:
 
 	Point::Color m_color;
 	std::vector<Point> m_points;
 	std::vector<Bridge> m_bridges;
 	std::string m_name;
+	bool m_playerTurn;
+
 
 };

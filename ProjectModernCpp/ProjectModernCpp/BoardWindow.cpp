@@ -15,6 +15,15 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
 
     int cellWidth = 630 / boardSize;
     int cellHeight = 630 / boardSize;
+    m_currentPlayerText = new QGraphicsTextItem();
+    m_currentPlayerText->setPlainText("It is Red's turn");
+    m_currentPlayerText->setDefaultTextColor(Qt::red);
+    QFont font("Helvetica", 12);
+    font.setBold(true);
+    m_currentPlayerText->setFont(font);
+   
+    m_currentPlayerText->setPos(30, 10);
+    scene->addItem(m_currentPlayerText);
 
     for (int i = 0; i < boardSize; ++i) {
 
@@ -45,6 +54,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     }
     s = scene;
     drawBaseLines(scene);
+   
 }
 
 void BoardWindow::setCurrentPlayer(Player* current)
@@ -174,4 +184,22 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
     emit pointAdded(x, y,button);
     drawLines(s);
+
+   
+    if (m_currentPlayer->getColor() == Point::Color::Red)
+    {
+        m_currentPlayerText->setPlainText("It is Red's turn");
+
+        m_currentPlayerText->setDefaultTextColor(Qt::red);
+    }
+    else
+    {
+        m_currentPlayerText->setPlainText("It is Black's turn");
+
+        m_currentPlayerText->setDefaultTextColor(Qt::black);
+
+    }
+    
+
+
 }

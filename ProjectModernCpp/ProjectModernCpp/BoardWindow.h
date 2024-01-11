@@ -10,6 +10,7 @@
 #include "BaseLine.h"
 #include "Board.h"
 
+
 class BoardWindow : public QObject
 {
 	Q_OBJECT
@@ -34,6 +35,8 @@ private:
 	std::vector<BridgeLine*> m_lines;
 	QGraphicsScene* s;
 	Player* m_currentPlayer;
+	QGraphicsTextItem* m_currentPlayerText;
+
 };
 
 #endif //BOARDWINDOW_H
