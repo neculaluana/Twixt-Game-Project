@@ -44,6 +44,7 @@ public:
 	bool isBridgePossible(const Point& p1, const Point& p2)const;
 	bool isPointPossible(const Position& coordinate)const;
 	void makeBridges(const Point& point, Player& player);
+	void setBoardSize(size_t boardSize);
 
 	friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	friend std::istream& operator>>(std::istream& is, Board& board);
