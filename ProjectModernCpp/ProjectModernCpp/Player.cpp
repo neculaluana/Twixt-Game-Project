@@ -1,8 +1,13 @@
 #include "Player.h"
 
-Player::Player(std::string name, Point::Color color) :
+Player::Player(std::string name, Point::Color color, size_t maxPointsCount, size_t maxBridgesCount) :
 	m_color(color), m_playerTurn(false) {
 }
+
+//Player::Player(std::string name, Point::Color color, size_t maxPointsCount, size_t maxBridgesCount)
+//
+//{
+//}
 
 Player::Player(const Player& other)
 	: m_color(other.m_color), m_points(other.m_points), m_bridges(other.m_bridges), m_name(other.m_name),m_playerTurn(other.m_playerTurn){}
@@ -65,6 +70,26 @@ std::string	Player::getName()const
 void Player::setName(std::string name)
 {
 	m_name = name;
+}
+
+uint8_t Player::getPointsSize()
+{
+	return m_points.size();
+}
+
+uint8_t Player::getBridgesSize()
+{
+	return m_bridges.size();
+}
+
+size_t Player::getMaxPointsCount()
+{
+	return m_maxPointsCount;
+}
+
+size_t Player::getMaxBridgesCount()
+{
+	return m_maxBridgesCount;
 }
 
 std::vector<Point> Player::getPoints() const

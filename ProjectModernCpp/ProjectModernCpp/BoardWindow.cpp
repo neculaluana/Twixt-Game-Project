@@ -19,11 +19,29 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     m_currentPlayerText->setPlainText("It is Red's turn");
     m_currentPlayerText->setDefaultTextColor(Qt::red);
     QFont font("Helvetica", 12);
+    QFont font2("Helvetica", 11);
     font.setBold(true);
+    font2.setBold(true);
     m_currentPlayerText->setFont(font);
    
     m_currentPlayerText->setPos(30, 10);
     scene->addItem(m_currentPlayerText);
+
+    m_currentPlayerPointsText = new QGraphicsTextItem();
+    QString pointsLeft= QString::number(50);
+    m_currentPlayerPointsText->setPlainText("Points left:   " + pointsLeft);
+    m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
+    m_currentPlayerPointsText->setFont(font2);
+    m_currentPlayerPointsText->setPos(550, 4);
+    scene->addItem(m_currentPlayerPointsText);
+
+    m_currentPlayerBridgesText = new QGraphicsTextItem();
+    QString bridgesLeft = QString::number(50);
+    m_currentPlayerBridgesText->setPlainText("Bridges left: " + bridgesLeft);
+    m_currentPlayerBridgesText->setDefaultTextColor(Qt::red);
+    m_currentPlayerBridgesText->setFont(font2);
+    m_currentPlayerBridgesText->setPos(550, 25);
+    scene->addItem(m_currentPlayerBridgesText);
 
     for (int i = 0; i < boardSize; ++i) {
 
@@ -191,12 +209,31 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
         m_currentPlayerText->setPlainText("It is Red's turn");
 
         m_currentPlayerText->setDefaultTextColor(Qt::red);
+        m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
+        int pointsSize = m_currentPlayer->getPointsSize();
+        int maxPoints = m_currentPlayer->getMaxPointsCount();
+        m_currentPlayerPointsText->setPlainText("Points left: " + QString::number(maxPoints-pointsSize));
+
+        m_currentPlayerBridgesText->setDefaultTextColor(Qt::red);
+        int bridgesSize = m_currentPlayer->getBridgesSize();
+        int maxBridges = m_currentPlayer->getMaxBridgesCount();
+        m_currentPlayerBridgesText->setPlainText("Bridges left: " + QString::number(maxBridges - bridgesSize));
     }
     else
     {
         m_currentPlayerText->setPlainText("It is Black's turn");
 
         m_currentPlayerText->setDefaultTextColor(Qt::black);
+
+        m_currentPlayerPointsText->setDefaultTextColor(Qt::black);
+        int pointsSize = m_currentPlayer->getPointsSize();
+        int maxPoints = m_currentPlayer->getMaxPointsCount();
+        m_currentPlayerPointsText->setPlainText("Points left: " + QString::number(maxPoints - pointsSize));
+
+        m_currentPlayerBridgesText->setDefaultTextColor(Qt::black);
+        int bridgesSize = m_currentPlayer->getBridgesSize();
+        int maxBridges = m_currentPlayer->getMaxBridgesCount();
+        m_currentPlayerBridgesText->setPlainText("Bridges left: " + QString::number(maxBridges - bridgesSize));
 
     }
     

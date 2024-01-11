@@ -8,7 +8,8 @@
 class Player
 {
 public:
-	Player(std::string name, Point::Color color);
+	//Player(std::string name, Point::Color color);
+	Player(std::string name, Point::Color color, size_t maxPointsCount=50, size_t maxBridgesCount=50);
 	~Player() = default;
 	Player(const Player& other);
 	Player& operator=(const Player& other);
@@ -27,6 +28,11 @@ public:
 	std::vector<Bridge> getBridges()const;
 	std::string	getName()const;
 	void setName(std::string name); 
+
+	uint8_t getPointsSize();
+	uint8_t getBridgesSize();
+	size_t getMaxPointsCount();
+	size_t getMaxBridgesCount();
 	friend std::ostream& operator<<(std::ostream& os, const Player& player);
 	friend std::istream& operator>>(std::istream& is, Player& player);
 
@@ -37,6 +43,8 @@ private:
 	std::vector<Bridge> m_bridges;
 	std::string m_name;
 	bool m_playerTurn;
+	size_t m_maxPointsCount=50;
+	size_t m_maxBridgesCount=50;
 
 
 };

@@ -36,6 +36,8 @@ private:
 	QGraphicsScene* s;
 	Player* m_currentPlayer;
 	QGraphicsTextItem* m_currentPlayerText;
+	QGraphicsTextItem* m_currentPlayerPointsText;
+	QGraphicsTextItem* m_currentPlayerBridgesText;
 
 };
 

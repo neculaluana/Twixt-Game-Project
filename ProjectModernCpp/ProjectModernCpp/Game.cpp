@@ -3,7 +3,7 @@
 #include <fstream>
 
 Game::Game(std::string name1, std::string name2)
-	:m_board{ Board() }
+	:m_board{ Board(24) }
 	, m_playerRed{ Player(name1, Point::Color::Red) }
 	, m_playerBlack{ Player(name2, Point::Color::Black) }
 	, m_currentPlayer{ &m_playerRed }
