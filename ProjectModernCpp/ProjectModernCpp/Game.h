@@ -38,7 +38,7 @@ public:
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
 	void settingsClicked(QGraphicsScene* s);
 
-	
+
 	~Game() = default;
 
 public slots:

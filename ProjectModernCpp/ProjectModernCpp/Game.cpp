@@ -129,7 +129,6 @@ void Game::makePoint() {
 	if (m_board.isPointPossible(coord)) {
 		Point p(coord.first, coord.second, (*m_currentPlayer).getColor());
 		m_board.addPoint(p);
-		m_board.makeBridges(p, *m_currentPlayer);
 		(*m_currentPlayer).addPoint(p);
 	}
 }
@@ -166,7 +165,6 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 
 			m_currentPlayer->addPoint(newPoint);
 
-			m_board.makeBridges(newPoint, *m_currentPlayer);
 			changeCurrentPlayer();
 
 
@@ -180,7 +178,6 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 
 		m_currentPlayer->addPoint(newPoint);
 
-		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
 		
 	}
@@ -193,7 +190,6 @@ void Game::onPointAdded(int x, int y,CircleButton* button)
 
 		m_currentPlayer->addPoint(newPoint);
 
-		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
 
 	}

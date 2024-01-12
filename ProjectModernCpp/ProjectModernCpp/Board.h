@@ -44,6 +44,8 @@ public:
 	bool isBridgePossible(const Point& p1, const Point& p2)const;
 	bool isPointPossible(const Position& coordinate)const;
 	void makeBridges(const Point& point, Player& player);
+	bool isBridgesIntersection(const Bridge& existingBridge, const Bridge& futureBridge);
+
 
 	friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	friend std::istream& operator>>(std::istream& is, Board& board);
@@ -52,5 +54,5 @@ public:
 private:
 	 size_t m_boardSize;
 	std::vector<std::vector < Status >> m_board;
-
+	std::vector<Bridge> m_bridges;
 };

@@ -63,6 +63,7 @@ Point::Color Bridge::getColor() const
 
 Point Bridge::getStartPoint() const
 {
+
 	return m_startPoint;
 }
 
