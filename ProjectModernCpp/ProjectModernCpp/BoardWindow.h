@@ -18,7 +18,7 @@ class BoardWindow : public QObject
 
 public:
 	BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer);
-
+	BoardWindow(QGraphicsScene* scene, int width, int height, Board& b, Player* currentPlayer, bool loadFromFile);
 	void setCurrentPlayer(Player* current);
 	void drawLines(QGraphicsScene* scene);
 	void drawBaseLines(QGraphicsScene* scene);

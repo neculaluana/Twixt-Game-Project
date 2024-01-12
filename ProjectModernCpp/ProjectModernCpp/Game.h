@@ -36,12 +36,12 @@ public:
 	void changeCurrentPlayer();
 	bool wonGame() const;
 	bool drawGame() const;
-	void showBoard(QGraphicsScene* s, int width, int height, Board b);
+	void showBoard(QGraphicsScene* s, int width, int height, Board b, bool loadFromFile = false);
 	void settingsClicked(QGraphicsScene* s);
-	
 
-	
-	~Game() ;
+
+
+	~Game();
 
 public slots:
 	void startNewGameSlot();
@@ -50,6 +50,7 @@ public slots:
 	void updateSettings(int boardSize, int numberOfBridges, int numberOfPoints);
 	void showMainMenu();
 	void saveGameSlot();
+	void startLoadedGameSlot();
 signals:
 	void boardUpdated();
 
@@ -66,7 +67,7 @@ private:
 	size_t m_maxPointNumber;
 	size_t m_maxBridgeNumber;
 	size_t m_boardSize;
-	std::pair<uint8_t,uint8_t>m_playersTurn;
+	std::pair<uint8_t, uint8_t>m_playersTurn;
 	bool isRed;
 
 };

@@ -13,6 +13,7 @@ Game::Game(std::string name1, std::string name2)
 	initializeGame();
 	connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
 	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
+	connect(m_mainMenu, SIGNAL(loadGameStarted()), SLOT(startLoadedGameSlot()));
 
 }
 
@@ -50,7 +51,7 @@ Game::Game(Game&& other) noexcept
 	: m_playerRed{ std::move(other.m_playerRed) }
 	, m_playerBlack{ std::move(other.m_playerBlack) }
 	, m_board{ std::move(other.m_board) }
-	, m_currentPlayer { std::move (other.m_currentPlayer)}
+	, m_currentPlayer{ std::move(other.m_currentPlayer) }
 {
 }
 
@@ -82,8 +83,8 @@ const Board& Game::getBoard() const
 }
 
 void Game::startNewGame() {
-	
-	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(),m_board);
+
+	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(), m_board);
 }
 
 
@@ -107,7 +108,7 @@ void Game::saveGame(const std::string& filename) {
 
 	std::ofstream file(filename);
 	if (file.is_open()) {
-		file << j.dump(4); 
+		file << j.dump(4);
 		file.close();
 	}
 	else {
@@ -146,7 +147,7 @@ void Game::makePoint() {
 }
 
 void Game::changeCurrentPlayer() {
-	
+
 	m_currentPlayer->setPlayerTurn(false);
 	if ((*m_currentPlayer).getColor() == m_playerRed.getColor())
 		m_currentPlayer = &m_playerBlack;
@@ -158,9 +159,12 @@ void Game::changeCurrentPlayer() {
 	}
 }
 
-void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
+void Game::showBoard(QGraphicsScene* s, int width, int height, Board b, bool loadFromFile)
 {
-	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
+	if (loadFromFile)
+		m_boardWindow = new BoardWindow(s, width, height, b, m_currentPlayer, loadFromFile);
+	else
+		m_boardWindow = new BoardWindow(s, width, height, b, m_currentPlayer);
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
 	connect(m_boardWindow, &BoardWindow::saveGameRequested, this, &Game::saveGameSlot);
 
@@ -231,7 +235,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 				m_playersTurn.first++;
 				qDebug() << m_playersTurn.first << '\n';
 			}
-			else 
+			else
 				if (m_currentPlayer->getColor() == Point::Color::Black)
 				{
 					m_playersTurn.second++;
@@ -247,31 +251,31 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 			emit boardUpdated();
 			return;
-	}	
-	
-	else if(m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
-	{
-		Point newPoint(x, y, (*m_currentPlayer).getColor());
+		}
 
-		button->updateColor(Point::Color::Black);
-		m_board.addPoint(newPoint);
-		m_board.makeBridges(newPoint, *m_currentPlayer);
+		else if (m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
+		{
+			Point newPoint(x, y, (*m_currentPlayer).getColor());
 
-		(*m_currentPlayer).addPoint(newPoint);
+			button->updateColor(Point::Color::Black);
+			m_board.addPoint(newPoint);
+			m_board.makeBridges(newPoint, *m_currentPlayer);
 
-		m_board.makeBridges(newPoint, *m_currentPlayer);
-		changeCurrentPlayer();
-		emit boardUpdated();
-		m_playersTurn.first++;
-		qDebug() << m_playersTurn.first << '\n';
+			(*m_currentPlayer).addPoint(newPoint);
 
-		return;
-	}
+			m_board.makeBridges(newPoint, *m_currentPlayer);
+			changeCurrentPlayer();
+			emit boardUpdated();
+			m_playersTurn.first++;
+			qDebug() << m_playersTurn.first << '\n';
 
-	
-		
-	}
-	
+			return;
+		}
+
+
+
+}
+
 void Game::settingsSlot()
 {
 	settingsClicked(m_mainMenu->scene);
@@ -329,4 +333,9 @@ void Game::showMainMenu() {
 
 void Game::saveGameSlot() {
 	saveGame("savegame.json");
+}
+
+void Game::startLoadedGameSlot() {
+	loadGame("savegame.json");
+	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(), m_board, true);
 }
