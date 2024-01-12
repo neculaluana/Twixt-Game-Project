@@ -33,6 +33,7 @@ public:
 	void deserialize(const json& j);
 	bool getfirstMoveMade();
 	void setfirstMoveMade(bool moveMade);
+	void popFirstPoint();
 
 	uint8_t getPointsSize();
 	uint8_t getBridgesSize();

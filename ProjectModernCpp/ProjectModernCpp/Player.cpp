@@ -208,6 +208,11 @@ void Player::setfirstMoveMade(bool moveMade)
 	m_firstMoveMade = moveMade;
 }
 
+void Player::popFirstPoint()
+{
+	m_points.pop_back();
+}
+
 
 
 std::ostream& operator<<(std::ostream& os, const Player& player) {

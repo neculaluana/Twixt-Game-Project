@@ -336,8 +336,13 @@ void Game::saveGameSlot() {
 
 void Game::handleChangeCurrentPlayer()
 {
+	
+	Point initalPoint = m_playerRed.getPoints()[0];
+	m_playerRed.popFirstPoint();
+	initalPoint.setColor(Point::Color::Black);
+	m_currentPlayer->addPoint(initalPoint);
     m_currentPlayer->changeColor();
-
+	
 	std::string nameRed = m_playerRed.getName();
 	std::string nameBlack = m_playerBlack.getName();
 
@@ -348,11 +353,12 @@ void Game::handleChangeCurrentPlayer()
 	m_playerBlack = *aux;
 	m_playerRed.setName(nameBlack);
 	m_playerBlack.setName(nameRed);
-
+	
 
 	//changeCurrentPlayer();
 
 	m_currentPlayer->changeColor();
+	m_playerRed.addPoint(initalPoint);
 
 }
 
