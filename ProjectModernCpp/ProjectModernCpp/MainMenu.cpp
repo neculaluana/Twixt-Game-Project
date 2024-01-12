@@ -68,7 +68,7 @@ MainMenu::MainMenu(QWidget* parent) {
     scene->addItem(image);
 }
 
-void MainMenu::newGame() 
+void MainMenu::newGame()
 {
     //scene->clear();
     setIsNewGame(true);
@@ -136,6 +136,8 @@ bool MainMenu::getIsNewGame()
 
 void MainMenu::load()
 {
+
+    emit loadGameStarted();
 }
 
 
@@ -171,6 +173,3 @@ void MainMenu::displayMainMenu() {
 
 
 }
-
-
-
