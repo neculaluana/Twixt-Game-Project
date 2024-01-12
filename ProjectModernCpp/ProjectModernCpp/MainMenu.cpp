@@ -71,8 +71,26 @@ MainMenu::MainMenu(QWidget* parent) {
 void MainMenu::newGame()
 {
     //scene->clear();
-    setIsNewGame(true);
-    emit newGameStarted(playerNameRedInput->text(), playerNameBlackInput->text());
+    std::regex validNameRegex("^[A-Za-z0-9_]+$");
+
+    QString playerRedName = playerNameRedInput->text();
+    QString playerBlackName = playerNameBlackInput->text();
+
+    if (std::regex_match(playerRedName.toStdString(), validNameRegex) &&
+        std::regex_match(playerBlackName.toStdString(), validNameRegex))
+    {
+        // Numele sunt valide, continuați cu crearea unui joc nou
+        setIsNewGame(true);
+        emit newGameStarted(playerRedName, playerBlackName);
+    }
+    else
+    {
+        QMessageBox::warning(this, "Invalid Names", "Player names can only contain letters.");
+
+    }
+
+    /*setIsNewGame(true);
+    emit newGameStarted(playerNameRedInput->text(), playerNameBlackInput->text());*/
 
 }
 
