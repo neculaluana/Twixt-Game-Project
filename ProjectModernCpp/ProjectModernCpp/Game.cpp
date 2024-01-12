@@ -92,8 +92,6 @@ void Game::startNewGame() {
 void Game::initializeGame()
 {
 	m_mainMenu = new MainMenu();
-	m_playerRed.setName("Vasile");
-	m_playerBlack.setName("Ion");
 	m_mainMenu->show();
 	//m_mainMenu->displayMainMenu();
 
@@ -103,40 +101,39 @@ void Game::startNewGameSlot(const QString& name1, const QString& name2)
 	m_playerRed.setName(name1.toStdString());
 	m_playerBlack.setName(name2.toStdString());
 	startNewGame();
-
 }
+void Game::saveGame(const std::string& filename) {
+	json j;
 
+	m_playerRed.serialize(j["playerRed"]);
+	m_playerBlack.serialize(j["playerBlack"]);
+	m_board.serialize(j["board"]);
 
-
-void Game::saveGame(const std::string& filename)
-{
-	std::ofstream file(filename, std::ios::out | std::ios::binary);
-	if (!file) {
-		std::cerr << "Unable to open file for saving game state." << std::endl;
-		return;
+	std::ofstream file(filename);
+	if (file.is_open()) {
+		file << j.dump(4); 
+		file.close();
 	}
-
-	file << m_board;
-	file << m_playerRed;
-	file << m_playerBlack;
-	//file << m_currentPlayer->getColor();
-
-	file.close();
-
+	else {
+		std::cerr << "Eroare la deschiderea fi?ierului de salvare." << std::endl;
+	}
 }
 void Game::loadGame(const std::string& filename) {
-	std::ofstream file(filename, std::ios::in | std::ios::binary);
-	if (!file) {
-		std::cerr << "Unable to open file for loading game state." << std::endl;
-		return;
+	std::ifstream file(filename);
+	if (file.is_open()) {
+		std::string file_contents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+		json j = json::parse(file_contents);
+
+		m_playerRed.deserialize(j["playerRed"]);
+		m_playerBlack.deserialize(j["playerBlack"]);
+		m_board.deserialize(j["board"]);
+
+		file.close();
 	}
-
-	//file >> m_board;
-	//file >> m_playerRed;
-	//file >> m_playerBlack;
-	//file >> m_currentPlayer->getColor();
-
-	file.close();
+	else {
+		std::cerr << "Eroare la deschiderea fi?ierului de încãrcare." << std::endl;
+	}
 }
 void Game::makePoint() {
 	std::pair<uint8_t, uint8_t> coord;
@@ -325,6 +322,8 @@ void Game::showMainMenu() {
 	}
 }
 
+void Game::saveGameSlot() {
+	saveGame("savegame.json");
 void Game::handleChangeCurrentPlayer()
 {
     m_currentPlayer->changeColor();

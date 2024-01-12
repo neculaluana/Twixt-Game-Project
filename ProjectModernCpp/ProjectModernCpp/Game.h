@@ -49,6 +49,7 @@ public slots:
 	void onPointAdded(int x, int y, CircleButton* button);
 	void updateSettings(int boardSize, int numberOfBridges, int numberOfPoints);
 	void showMainMenu();
+	void saveGameSlot();
 	void handleChangeCurrentPlayer();
 signals:
 	void boardUpdated();

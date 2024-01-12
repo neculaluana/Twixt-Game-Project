@@ -71,6 +71,58 @@ void Player::setName(std::string name)
 {
 	m_name = name;
 }
+void Player::serialize(json& j) const {
+	j["m_color"] = static_cast<int>(m_color);
+	j["m_points"] = json::array();
+	for (const Point& point : m_points) {
+		json pointJson;
+		pointJson=point.serialize();
+		j["m_points"].push_back(pointJson);
+	}
+	j["m_bridges"] = json::array();
+	for (const Bridge& bridge : m_bridges) {
+		json bridgeJson;
+		bridge.serialize(bridgeJson);
+		j["m_bridges"].push_back(bridgeJson);
+	}
+	j["m_name"] = m_name;
+	j["m_playerTurn"] = m_playerTurn;
+	j["m_maxPointsCount"] = m_maxPointsCount;
+	j["m_maxBridgesCount"] = m_maxBridgesCount;
+}
+void Player::deserialize(const json& j) {
+	if (j.contains("m_color")) {
+		m_color = static_cast<Point::Color>(j["m_color"].get<int>());
+	}
+	if (j.contains("m_points") && j["m_points"].is_array()) {
+		m_points.clear();
+		for (const json& pointJson : j["m_points"]) {
+			Point point;
+			point.deserialize(pointJson);
+			m_points.push_back(point);
+		}
+	}
+	if (j.contains("m_bridges") && j["m_bridges"].is_array()) {
+		m_bridges.clear();
+		for (const json& bridgeJson : j["m_bridges"]) {
+			Bridge bridge;
+			bridge.deserialize(bridgeJson);
+			m_bridges.push_back(bridge);
+		}
+	}
+	if (j.contains("m_name")) {
+		m_name = j["m_name"].get<std::string>();
+	}
+	if (j.contains("m_playerTurn")) {
+		m_playerTurn = j["m_playerTurn"].get<bool>();
+	}
+	if (j.contains("m_maxPointsCount")) {
+		m_maxPointsCount = j["m_maxPointsCount"].get<size_t>();
+	}
+	if (j.contains("m_maxBridgesCount")) {
+		m_maxBridgesCount = j["m_maxBridgesCount"].get<size_t>();
+	}
+}
 
 uint8_t Player::getPointsSize()
 {

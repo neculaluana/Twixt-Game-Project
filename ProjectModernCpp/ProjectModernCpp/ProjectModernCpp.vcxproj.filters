@@ -96,6 +96,9 @@
     <ClInclude Include="BaseLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MenuButton.h">
@@ -116,5 +119,8 @@
     <QtMoc Include="SettingsWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="savegame.json" />
   </ItemGroup>
 </Project>

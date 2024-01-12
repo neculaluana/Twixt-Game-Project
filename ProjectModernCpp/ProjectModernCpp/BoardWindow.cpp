@@ -44,6 +44,14 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
     m_currentPlayerBridgesText->setPos(550, 25);
     scene->addItem(m_currentPlayerBridgesText);
 
+    saveButton = new QPushButton("Save Game", nullptr);
+    int buttonWidth = 100;
+    int buttonHeight = 30;
+    int margin = 10;
+    saveButton->setGeometry(width - buttonWidth - margin, margin, buttonWidth, buttonHeight);
+    scene->addWidget(saveButton);
+    connect(saveButton, &QPushButton::clicked, this, &BoardWindow::onSaveGameClicked);
+
     for (int i = 0; i < boardSize; ++i) {
 
         for (int j = 0; j < boardSize; ++j) {
