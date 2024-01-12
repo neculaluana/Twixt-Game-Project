@@ -1,12 +1,15 @@
 #include "BridgeLine.h"
 
 BridgeLine::BridgeLine(CircleButton* startButton, CircleButton* endButton,QColor color, QGraphicsItem* parent)
-    : QGraphicsLineItem(parent), startButton(startButton), endButton(endButton)
+    : QGraphicsLineItem(parent), startButton(startButton), endButton(endButton), m_color{color}
 {
     QPen pen(color, 2); 
     setPen(pen);
     updatePosition();
     updatePen();
+
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
 void BridgeLine::updatePosition()
@@ -42,6 +45,25 @@ CircleButton* BridgeLine::getStartButton()
 CircleButton* BridgeLine::getEndButton()
 {
     return endButton;
+}
+
+bool BridgeLine::getIsClicked()
+{
+    return m_isClicked;
+}
+
+
+QColor BridgeLine::getColor()
+{
+    return m_color;
+}
+
+void BridgeLine::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+    if (!startButton || !endButton) return;
+
+    m_isClicked = true;
+    emit bridgeClicked(this);
+   
 }
 
 

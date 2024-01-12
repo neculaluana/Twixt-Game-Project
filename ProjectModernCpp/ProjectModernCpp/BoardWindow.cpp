@@ -195,7 +195,13 @@ void BoardWindow::drawLines(QGraphicsScene* scene)
 
                     if (point2 && point2->getLine() == bridge.getEndPoint().getCoordinates().first &&
                         point2->getColumn() == bridge.getEndPoint().getCoordinates().second) {
-                            BridgeLine* line = new BridgeLine(point1, point2);
+                        QColor currentPlayerColor;
+                        if (m_currentPlayer->getColor() == Point::Color::Red)
+                            currentPlayerColor = Qt::red;
+                        else
+                            currentPlayerColor = Qt::black;
+                            BridgeLine* line = new BridgeLine(point1, point2, currentPlayerColor);
+                            connect(line, &BridgeLine::bridgeClicked, this, &BoardWindow::handleBridgeLineClicked);
                             scene->addItem(line);
                             m_lines.push_back(line);
                     }
@@ -258,6 +264,7 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
     drawLines(s);
 
 
+
     if (m_currentPlayer->getColor() == Point::Color::Red)
     {
         m_currentPlayerText->setPlainText("It is Red's turn: " + QString::fromStdString(m_currentPlayer->getName()));
@@ -293,19 +300,28 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 
 }
 
-//void BoardWindow::showNameInputMessage() {
-//    bool ok1, ok2;
-//    m_playerNameRed = QInputDialog::getText(this, tr("Nume jucător roșu"), tr("Introduceți numele jucătorului roșu:"), QLineEdit::Normal, "", &ok1);
-//    m_playerNameBlack = QInputDialog::getText(this, tr("Nume jucător negru"), tr("Introduceți numele jucătorului negru:"), QLineEdit::Normal, "", &ok2);
-//
-//    if (!ok1 || m_playerNameRed.isEmpty()) {
-//        m_playerNameRed = "Player Red";
-//    }
-//
-//    if (!ok2 || m_playerNameBlack.isEmpty()) {
-//        m_playerNameBlack = "Player Black";
-//    }
-//
-//    // Actualizarea textului pentru a reflecta numele jucătorilor
-//    m_currentPlayerText->setPlainText("Este rândul lui " + m_playerNameRed + ".");
-//}
+void BoardWindow::handleBridgeLineClicked(BridgeLine* line) {
+    if (!line) return;
+
+    QColor currentPlayerColor;
+
+    if (m_currentPlayer->getColor() == Point::Color::Red)
+        currentPlayerColor = Qt::red;
+    else
+        currentPlayerColor = Qt::black;
+
+    if (line->getIsClicked() && currentPlayerColor == line->getColor()) {
+        s->removeItem(line);
+        m_lines.erase(std::remove(m_lines.begin(), m_lines.end(), line), m_lines.end());
+
+        std::vector<Bridge> bridges = m_currentPlayer->getBridges();
+        for (const auto& bridge : bridges)
+        {
+            if (bridge.getStartPoint().getCoordinates().first == line->getStartButton()->getLine() && bridge.getStartPoint().getCoordinates().second == line->getStartButton()->getColumn() &&
+                bridge.getEndPoint().getCoordinates().first == line->getEndButton()->getLine() && bridge.getEndPoint().getCoordinates().second == line->getEndButton()->getColumn())
+                m_currentPlayer->removeBridge(bridge);
+        }
+
+        delete line;
+    }
+}

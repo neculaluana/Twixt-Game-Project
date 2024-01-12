@@ -235,7 +235,6 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 		(*m_currentPlayer).addPoint(newPoint);
 
-		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
 		emit boardUpdated();
 
@@ -265,7 +264,6 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 			(*m_currentPlayer).addPoint(newPoint);
 
-			m_board.makeBridges(newPoint, *m_currentPlayer);
 			changeCurrentPlayer();
 
 			emit boardUpdated();
@@ -281,7 +279,6 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 			(*m_currentPlayer).addPoint(newPoint);
 
-			m_board.makeBridges(newPoint, *m_currentPlayer);
 			changeCurrentPlayer();
 			emit boardUpdated();
 			m_playersTurn.first++;

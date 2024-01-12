@@ -22,7 +22,7 @@ public:
 	void changeColor();
 	void addPoint(const Point& p);
 	void addBridge(const Bridge& bridge);
-	void removePoint(const Point& p);
+	void removeBridge(const Bridge& p);
 	bool getPlayerTurn();
 	void setPlayerTurn(bool turn);
 	std::vector<Point> getPoints()const;
