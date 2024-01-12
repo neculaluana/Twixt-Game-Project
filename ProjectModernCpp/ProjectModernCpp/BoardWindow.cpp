@@ -86,7 +86,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
 
 
 
-BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b, Player* currentPlayer, bool loadFromFile)
+BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b, Player* currentPlayer, bool loadFromFile, Player* otherPlayer)
     : m_board{ b }, m_currentPlayer{ currentPlayer }
 {
 
@@ -98,8 +98,18 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
     int cellWidth = 630 / boardSize;
     int cellHeight = 630 / boardSize;
     m_currentPlayerText = new QGraphicsTextItem();
-    m_currentPlayerText->setPlainText("It is Red's turn");
-    m_currentPlayerText->setDefaultTextColor(Qt::red);
+    if (m_currentPlayer->getColor() == Point::Color::Red)
+    {
+        m_currentPlayerText->setPlainText("It is Red's turn: " + QString::fromStdString(m_currentPlayer->getName()));
+        m_currentPlayerText->setDefaultTextColor(Qt::red);
+
+    }
+    else
+    {
+        m_currentPlayerText->setPlainText("It is Black's turn: " + QString::fromStdString(m_currentPlayer->getName()));
+        m_currentPlayerText->setDefaultTextColor(Qt::black);
+
+    }
     QFont font("Helvetica", 12);
     QFont font2("Helvetica", 11);
     font.setBold(true);
@@ -110,20 +120,38 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
     scene->addItem(m_currentPlayerText);
 
     m_currentPlayerPointsText = new QGraphicsTextItem();
-    QString pointsLeft = QString::number(m_currentPlayer->getMaxPointsCount());
-    m_currentPlayerPointsText->setPlainText("Points left:   " + pointsLeft);
-    m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
+    int pointsSize = m_currentPlayer->getPointsSize();
+    int maxPoints = m_currentPlayer->getMaxPointsCount();
+    m_currentPlayerPointsText->setPlainText("Points left: " + QString::number(maxPoints - pointsSize));
+    if (m_currentPlayer->getColor() == Point::Color::Red)
+    {
+        m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
+    }
+    if (m_currentPlayer->getColor() == Point::Color::Black)
+    {
+        m_currentPlayerPointsText->setDefaultTextColor(Qt::black);
+    }
     m_currentPlayerPointsText->setFont(font2);
     m_currentPlayerPointsText->setPos(550, 4);
     scene->addItem(m_currentPlayerPointsText);
 
     m_currentPlayerBridgesText = new QGraphicsTextItem();
-    QString bridgesLeft = QString::number(m_currentPlayer->getMaxBridgesCount());
-    m_currentPlayerBridgesText->setPlainText("Bridges left: " + bridgesLeft);
-    m_currentPlayerBridgesText->setDefaultTextColor(Qt::red);
+    int bridgesSize = m_currentPlayer->getBridgesSize();
+    int maxBridges = m_currentPlayer->getMaxBridgesCount();
+    m_currentPlayerBridgesText->setPlainText("Bridges left: " + QString::number(maxBridges - bridgesSize)); 
+    if (m_currentPlayer->getColor() == Point::Color::Red)
+    {
+        m_currentPlayerBridgesText->setDefaultTextColor(Qt::red);
+    }
+    if (m_currentPlayer->getColor() == Point::Color::Black)
+    {
+        m_currentPlayerBridgesText->setDefaultTextColor(Qt::black);
+    }
     m_currentPlayerBridgesText->setFont(font2);
     m_currentPlayerBridgesText->setPos(550, 25);
     scene->addItem(m_currentPlayerBridgesText);
+
+
 
     saveButton = new QPushButton("Save game", nullptr);
     int buttonWidth = 100;
@@ -149,6 +177,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
             int y = height / 13 + j * cellHeight + cellHeight / 2;
 
             CircleButton* button = new CircleButton(x, y, i, j, 8, nullptr, currentPlayer);
+            button->setIsClicked(true);
             scene->addItem(button);
             m_points.push_back(button);
 
@@ -169,6 +198,12 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
     }
     s = scene;
     drawBaseLines(scene);
+    drawLines(scene);
+
+    m_currentPlayer = otherPlayer;
+    drawLines(scene);
+
+    m_currentPlayer = currentPlayer;
 }
 
 
@@ -250,7 +285,7 @@ void BoardWindow::showMessage()
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
-    if (!m_currentPlayer->getfirstMoveMade() && m_currentPlayer->getColor() == Point::Color::Red) {
+    if (!m_currentPlayer->getfirstMoveMade() && m_currentPlayer->getColor() == Point::Color::Red&&m_currentPlayer->getPoints().size()<2) {
         QTimer::singleShot(500, this, &BoardWindow::showMessage);
 
 
