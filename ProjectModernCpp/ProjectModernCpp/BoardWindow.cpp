@@ -17,7 +17,7 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
     int cellHeight = 630 / boardSize;
 
     m_currentPlayerText = new QGraphicsTextItem();
-    m_currentPlayerText->setPlainText("It is Red's turn" + QString::fromStdString(m_currentPlayer->getName()));
+    m_currentPlayerText->setPlainText("It is Red's turn: " + QString::fromStdString(m_currentPlayer->getName()));
     m_currentPlayerText->setDefaultTextColor(Qt::red);
     QFont font("Helvetica", 12);
     QFont font2("Helvetica", 11);
@@ -295,8 +295,8 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
 void BoardWindow::showMessage()
 {
     QMessageBox msgBox;
-    msgBox.setWindowTitle("Schimbă Piesele");
-    msgBox.setText("Al doilea jucător, dorești să preiei piesele roșii?");
+    msgBox.setWindowTitle("Switch sides");
+    msgBox.setText("Player Black, do you wish to take over the pieces of Player Red?");
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     int result = msgBox.exec();
 
@@ -309,7 +309,7 @@ void BoardWindow::showMessage()
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
     if (!m_currentPlayer->getfirstMoveMade() && m_currentPlayer->getColor() == Point::Color::Red) {
-        QTimer::singleShot(1000, this, &BoardWindow::showMessage);
+        QTimer::singleShot(500, this, &BoardWindow::showMessage);
 
 
         m_currentPlayer->setfirstMoveMade(true);
@@ -324,7 +324,7 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 
     if (m_currentPlayer->getColor() == Point::Color::Red)
     {
-        m_currentPlayerText->setPlainText("It is Red's turn" + QString::fromStdString(m_currentPlayer->getName()));
+        m_currentPlayerText->setPlainText("It is Red's turn: " + QString::fromStdString(m_currentPlayer->getName()));
 
         m_currentPlayerText->setDefaultTextColor(Qt::red);
         m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
@@ -339,7 +339,7 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
     }
     else
     {
-        m_currentPlayerText->setPlainText("It is Black's turn" + QString::fromStdString(m_currentPlayer->getName()));
+        m_currentPlayerText->setPlainText("It is Black's turn: " + QString::fromStdString(m_currentPlayer->getName()));
 
         m_currentPlayerText->setDefaultTextColor(Qt::black);
 

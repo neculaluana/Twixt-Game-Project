@@ -71,5 +71,6 @@ private:
 	size_t m_boardSize;
 	std::pair<uint8_t, uint8_t>m_playersTurn;
 	bool isRed;
+	
 
 };
