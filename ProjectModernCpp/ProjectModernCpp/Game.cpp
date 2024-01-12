@@ -324,6 +324,7 @@ void Game::showMainMenu() {
 
 void Game::saveGameSlot() {
 	saveGame("savegame.json");
+}
 void Game::handleChangeCurrentPlayer()
 {
     m_currentPlayer->changeColor();

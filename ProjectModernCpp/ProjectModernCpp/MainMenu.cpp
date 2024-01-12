@@ -68,8 +68,6 @@ MainMenu::MainMenu(QWidget* parent) {
 void MainMenu::newGame() 
 {
     //scene->clear();
-    playerNameRedInput->hide();
-    playerNameBlackInput->hide();
     setIsNewGame(true);
     emit newGameStarted(playerNameRedInput->text(), playerNameBlackInput->text());
 
@@ -116,6 +114,8 @@ void MainMenu::removeAllItems()
     settingsButton->setFlag(QGraphicsItem::ItemIsSelectable, false);
     settingsButton->setFlag(QGraphicsItem::ItemIsFocusable, false);
 
+    playerNameRedInput->hide();
+    playerNameBlackInput->hide();
 
     image->hide();
 }
