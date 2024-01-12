@@ -266,15 +266,6 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 			emit boardUpdated();
 			return;
 		}
-
-		else if (m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
-		{
-			Point newPoint(x, y, (*m_currentPlayer).getColor());
-
-			button->updateColor(Point::Color::Black);
-			m_board.addPoint(newPoint);
-			m_board.makeBridges(newPoint, *m_currentPlayer);
-		}
 	else if(m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
 	{
 		Point newPoint(x, y, (*m_currentPlayer).getColor());
