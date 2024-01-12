@@ -138,10 +138,6 @@ void Board::makeBridges(const Point& point, Player& player)
 	}
 }
 
-			player.addBridge(bridge);
-		}
-	}
-}
 
 void Board::setBoardSize(size_t boardSize)
 {
@@ -186,10 +182,8 @@ void Board::deserialize(const json& j) {
 
 bool Board::isBridgesIntersection(const Bridge& existingBridge, const Bridge& newBridge) {
 	auto onSegment = [](const Point& p, const Point& q, const Point& r) -> bool {
-		// If q is the same as p or r, it is considered on segment but not necessarily crossing.
 		if (q.getCoordinates() == p.getCoordinates() || q.getCoordinates() == r.getCoordinates()) return false;
 
-		// Check if q lies on segment pr.
 		return q.getCoordinates().first <= std::max(p.getCoordinates().first, r.getCoordinates().first) &&
 			q.getCoordinates().first >= std::min(p.getCoordinates().first, r.getCoordinates().first) &&
 			q.getCoordinates().second <= std::max(p.getCoordinates().second, r.getCoordinates().second) &&
@@ -197,11 +191,6 @@ bool Board::isBridgesIntersection(const Bridge& existingBridge, const Bridge& ne
 		};
 
 	auto orientation = [](const Point& p, const Point& q, const Point& r) -> int {
-		// ... orientation logic as previously defined// Determine the orientation of the triplet (p, q, r)
-        // The function returns the following values:
-        // 0 --> p, q, and r are collinear
-        // 1 --> Clockwise
-        // 2 --> Counterclockwise
 		int val = (q.getCoordinates().second - p.getCoordinates().second) * (r.getCoordinates().first - q.getCoordinates().first) -
 			(q.getCoordinates().first - p.getCoordinates().first) * (r.getCoordinates().second - q.getCoordinates().second);
 		if (val == 0) return 0;  // Collinear
@@ -209,7 +198,6 @@ bool Board::isBridgesIntersection(const Bridge& existingBridge, const Bridge& ne
 		};
 
 
-	// Start and end points of the existing and new bridges
 	Point p1 = existingBridge.getStartPoint();
 	Point q1 = existingBridge.getEndPoint();
 	Point p2 = newBridge.getStartPoint();
@@ -228,7 +216,7 @@ bool Board::isBridgesIntersection(const Bridge& existingBridge, const Bridge& ne
 	int o4 = orientation(p2, q2, q1);
 
 	if ((o1 != o2 && o3 != o4) && !(p1 == q1 || p1 == q2 || p2 == q1 || p2 == q2))
-		return true; // The new bridge crosses the existing bridge.
+		return true;
 	
 
 	// Collinear cases
