@@ -47,6 +47,9 @@ public:
 	void setBoardSize(size_t boardSize);
 	void serialize(json& j) const;
 	void deserialize(const json& j);
+	bool isBridgesIntersection(const Bridge& existingBridge, const Bridge& futureBridge);
+
+
 	friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	friend std::istream& operator>>(std::istream& is, Board& board);
 
@@ -54,5 +57,5 @@ public:
 private:
 	 size_t m_boardSize;
 	std::vector<std::vector < Status >> m_board;
-
+	std::vector<Bridge> m_bridges;
 };

@@ -43,6 +43,7 @@ public:
 
 
 	~Game();
+	~Game() = default;
 
 public slots:
 	void startNewGameSlot(const QString& name1, const QString& name2);

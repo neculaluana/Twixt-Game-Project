@@ -23,7 +23,12 @@ public:
 	BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer);
 	BoardWindow(QGraphicsScene* scene, int width, int height, Board& b, Player* currentPlayer, bool loadFromFile);
 	void setCurrentPlayer(Player* current);
+	//CircleButton* findPoint(const Point& bridgePoint);
+	bool isBridgesIntersection(CircleButton* existingBridgeStart, CircleButton* existingBridgeEnd, CircleButton* futurePoint1, CircleButton* futurePoint2);
 	void drawLines(QGraphicsScene* scene);
+	CircleButton* findPointButton(const Point& point);
+
+	bool isBridgeAlreadyDrawn(CircleButton* startPoint, CircleButton* endPoint);
 	void drawBaseLines(QGraphicsScene* scene);
 	void showMessage();
 
