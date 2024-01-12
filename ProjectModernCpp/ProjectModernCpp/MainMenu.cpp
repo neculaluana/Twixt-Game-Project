@@ -26,13 +26,16 @@ MainMenu::MainMenu(QWidget* parent) {
 
     playerNameRedInput = new QLineEdit();
     playerNameRedInput->setPlaceholderText("Enter Red Player's Name");
-    playerNameRedInput->setGeometry(QRect(bxPos, startY -100, 200, 30));
+    playerNameRedInput->setGeometry(QRect(bxPos, startY - 100, 200, 30));
+    playerNameRedInput->setStyleSheet("border: 2px solid darkcyan;"); 
     scene->addWidget(playerNameRedInput);
 
     playerNameBlackInput = new QLineEdit();
     playerNameBlackInput->setPlaceholderText("Enter Black Player's Name");
-    playerNameBlackInput->setGeometry(QRect(bxPos, startY - 50, 200, 30)); 
+    playerNameBlackInput->setGeometry(QRect(bxPos, startY - 55, 200, 30));
+    playerNameBlackInput->setStyleSheet("border: 2px solid darkcyan;"); 
     scene->addWidget(playerNameBlackInput);
+
 
     // Butonul "Load game"
     loadButton = new MenuButton(QString("Load game"));

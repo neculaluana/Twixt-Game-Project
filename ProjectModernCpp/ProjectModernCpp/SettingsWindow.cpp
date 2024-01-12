@@ -22,7 +22,7 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
 
     numberOfPoints = new QSpinBox(this);
     numberOfPoints->setRange(1, 100);
-    numberOfPoints->setValue(10);
+    numberOfPoints->setValue(50);
     numberOfPoints->setFont(widgetFont);
     numberOfPoints->setFixedSize(150, 50);
 
