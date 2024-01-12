@@ -4,6 +4,7 @@
 #include "MainMenu.h"
 #include "BoardWindow.h"
 #include <QObject>
+
 #include <QtCore>
 #include <QApplication>
 #include <QGraphicsScene>
@@ -39,12 +40,11 @@ public:
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
 	void settingsClicked(QGraphicsScene* s);
 
-
 	
 	~Game() ;
 
 public slots:
-	void startNewGameSlot();
+	void startNewGameSlot(const QString& name1, const QString& name2);
 	void settingsSlot();
 	void onPointAdded(int x, int y, CircleButton* button);
 	void updateSettings(int boardSize, int numberOfBridges, int numberOfPoints);

@@ -12,8 +12,10 @@ Game::Game(std::string name1, std::string name2)
 {
 	initializeGame();
 	m_playerBlack.setfirstMoveMade(true);
-	connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
+	//connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
+	connect(m_mainMenu, &MainMenu::newGameStarted, this, &Game::startNewGameSlot);
 	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
+
 }
 
 Game::Game(const Game& other)
@@ -90,15 +92,18 @@ void Game::startNewGame() {
 void Game::initializeGame()
 {
 	m_mainMenu = new MainMenu();
-	m_playerRed.setName("Ion");
-	m_playerBlack.setName("Vasile");
+	m_playerRed.setName("Vasile");
+	m_playerBlack.setName("Ion");
 	m_mainMenu->show();
 	//m_mainMenu->displayMainMenu();
 
 }
-void Game::startNewGameSlot()
+void Game::startNewGameSlot(const QString& name1, const QString& name2)
 {
+	m_playerRed.setName(name1.toStdString());
+	m_playerBlack.setName(name2.toStdString());
 	startNewGame();
+
 }
 
 
@@ -164,6 +169,8 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
 	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
+	
+	
 	connect(m_boardWindow, &BoardWindow::requestPlayerChange, this, &Game::handleChangeCurrentPlayer);
 }
 
@@ -336,11 +343,36 @@ void Game::showMainMenu() {
 
 void Game::handleChangeCurrentPlayer()
 {
-	m_currentPlayer->changeColor();
-	
-	changeCurrentPlayer();
+    m_currentPlayer->changeColor();
+
+	std::string nameRed = m_playerRed.getName();
+	std::string nameBlack = m_playerBlack.getName();
+
+
+	Player* aux = &m_playerRed;
+	m_playerRed = m_playerBlack;
+
+	m_playerBlack = *aux;
+	m_playerRed.setName(nameBlack);
+	m_playerBlack.setName(nameRed);
+
+
+	//changeCurrentPlayer();
 
 	m_currentPlayer->changeColor();
+
+	//m_currentPlayer->setPlayerTurn(false);
+
+	//if (m_currentPlayer == &m_playerRed)
+	//	m_currentPlayer = &m_playerBlack;
+	//else
+	//	m_currentPlayer = &m_playerRed;
+
+	//m_currentPlayer->setPlayerTurn(true);
+
+	//if (m_boardWindow) {
+	//	m_boardWindow->setCurrentPlayer(m_currentPlayer);
+	//}*
 
 
 }

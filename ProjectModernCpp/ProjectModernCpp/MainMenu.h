@@ -27,8 +27,9 @@ public:
 	QGraphicsScene* scene;
 	void removeAllItems();
 signals:
-	void newGameStarted();
+	void newGameStarted(const QString& playerRedName, const QString& playerBlackName);
 	void SettingsClicked();
+
 public slots:
 
 	void newGame();
@@ -42,6 +43,8 @@ private:
 	MenuButton* settingsButton;
 	MenuButton* quitButton;
 	QGraphicsPixmapItem* image;
+	QLineEdit* playerNameRedInput;
+	QLineEdit* playerNameBlackInput;
 
 };
 

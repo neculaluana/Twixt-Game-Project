@@ -1,4 +1,4 @@
-#include "MainMenu.h"
+﻿#include "MainMenu.h"
 
 
 MainMenu::MainMenu(QWidget* parent) {
@@ -16,12 +16,24 @@ MainMenu::MainMenu(QWidget* parent) {
     int startY = 375;
     int buttonInterval = 75;
 
+ 
+
     // Butonul "New game"
     playButton = new MenuButton(QString("New game"));
     int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
     playButton->setPos(bxPos, startY);
     connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
     scene->addItem(playButton);
+
+    playerNameRedInput = new QLineEdit();
+    playerNameRedInput->setPlaceholderText("Enter Red Player's Name");
+    playerNameRedInput->setGeometry(QRect(bxPos, startY -100, 200, 30));
+    scene->addWidget(playerNameRedInput);
+
+    playerNameBlackInput = new QLineEdit();
+    playerNameBlackInput->setPlaceholderText("Enter Black Player's Name");
+    playerNameBlackInput->setGeometry(QRect(bxPos, startY - 50, 200, 30)); 
+    scene->addWidget(playerNameBlackInput);
 
     // Butonul "Load game"
     loadButton = new MenuButton(QString("Load game"));
@@ -47,10 +59,9 @@ MainMenu::MainMenu(QWidget* parent) {
 
     QImage imageFile("Resources/twixt.jpg");
     int imxPos = this->width() / 2 - imageFile.width() / 4;
-    int imyPos = 150;
+    int imyPos = 80;
     image = new QGraphicsPixmapItem(QPixmap::fromImage(imageFile));
     image->setScale(0.5);
-    image->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
     image->setPos(imxPos, imyPos);
     scene->addItem(image);
 }
@@ -58,8 +69,10 @@ MainMenu::MainMenu(QWidget* parent) {
 void MainMenu::newGame() 
 {
     //scene->clear();
+    playerNameRedInput->hide();
+    playerNameBlackInput->hide();
     setIsNewGame(true);
-    emit newGameStarted();
+    emit newGameStarted(playerNameRedInput->text(), playerNameBlackInput->text());
 
 }
 
@@ -116,6 +129,8 @@ void MainMenu::displayMainMenu() {
     //int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
     //playButton->setPos(bxPos, startY);
     //connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
+    playerNameRedInput->show();
+    playerNameBlackInput->show();
     scene->addItem(playButton);
 
     //// Butonul "Load game"
@@ -148,6 +163,7 @@ void MainMenu::displayMainMenu() {
     //item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
     //item->setPos(imxPos, imyPos);
     scene->addItem(image);
+
 
 }
 

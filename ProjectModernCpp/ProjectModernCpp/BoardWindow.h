@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QTimer>
+#include <qinputdialog.h>
 #include <QGraphicsRectItem>
 #include <qmessagebox.h>
 #include <QGraphicsEllipseItem>
@@ -24,6 +25,8 @@ public:
 	void drawLines(QGraphicsScene* scene);
 	void drawBaseLines(QGraphicsScene* scene);
 	void showMessage();
+
+
 public slots:
 	//void onButtonClicked();
 	void onButtonClicked(int x, int y, CircleButton* button);
@@ -31,6 +34,7 @@ public slots:
 signals:
 	void pointAdded(int x, int y, CircleButton* button);
 	void requestPlayerChange();
+
 
 private:
 	Board& m_board;
@@ -41,7 +45,8 @@ private:
 	QGraphicsTextItem* m_currentPlayerText;
 	QGraphicsTextItem* m_currentPlayerPointsText;
 	QGraphicsTextItem* m_currentPlayerBridgesText;
-
+	QString m_playerNameRed;
+	QString m_playerNameBlack;
 };
 
 #endif //BOARDWINDOW_H
