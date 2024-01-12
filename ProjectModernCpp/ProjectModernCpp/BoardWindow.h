@@ -36,6 +36,7 @@ public slots:
 	{
 		emit saveGameRequested();
 	}
+	void handleBridgeLineClicked(BridgeLine* line);
 signals:
 	void pointAdded(int x, int y, CircleButton* button);
 	void saveGameRequested();

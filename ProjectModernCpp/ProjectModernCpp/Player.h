@@ -22,7 +22,7 @@ public:
 	void changeColor();
 	void addPoint(const Point& p);
 	void addBridge(const Bridge& bridge);
-	void removePoint(const Point& p);
+	void removeBridge(const Bridge& p);
 	bool getPlayerTurn();
 	void setPlayerTurn(bool turn);
 	std::vector<Point> getPoints()const;
@@ -33,6 +33,7 @@ public:
 	void deserialize(const json& j);
 	bool getfirstMoveMade();
 	void setfirstMoveMade(bool moveMade);
+	void popFirstPoint();
 
 	uint8_t getPointsSize();
 	uint8_t getBridgesSize();

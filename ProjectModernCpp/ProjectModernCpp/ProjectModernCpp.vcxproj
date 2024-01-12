@@ -117,7 +117,7 @@
     <QtMoc Include="Game.h" />
     <QtMoc Include="MainMenu.h" />
     <QtMoc Include="CircleButton.h" />
-    <ClInclude Include="BridgeLine.h" />
+    <QtMoc Include="BridgeLine.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />

@@ -173,13 +173,13 @@ void Player::addBridge(const Bridge& bridge)
 	m_bridges.push_back(bridge);
 }
 
-void Player::removePoint(const Point& p)
+void Player::removeBridge(const Bridge& b)
 {
-	for (std::vector<Point>::iterator it = m_points.begin(); it != m_points.end();)
+	for (std::vector<Bridge>::iterator it = m_bridges.begin(); it != m_bridges.end();)
 	{
-		if (it->getCoordinates().first == p.getCoordinates().first && it->getCoordinates().second == p.getCoordinates().second)
+		if (it->getStartPoint() == b.getStartPoint() && it->getEndPoint() == b.getEndPoint())
 		{
-			it = m_points.erase(it);
+			it = m_bridges.erase(it);
 		}
 		else
 		{
@@ -206,6 +206,11 @@ bool Player::getfirstMoveMade()
 void Player::setfirstMoveMade(bool moveMade)
 {
 	m_firstMoveMade = moveMade;
+}
+
+void Player::popFirstPoint()
+{
+	m_points.pop_back();
 }
 
 
