@@ -29,7 +29,7 @@ public:
 signals:
 	void newGameStarted(const QString& playerRedName, const QString& playerBlackName);
 	void SettingsClicked();
-
+	void loadGameStarted();
 public slots:
 
 	void newGame();
@@ -39,7 +39,7 @@ private:
 	bool isNewGame;
 	bool settingsClicked;
 	MenuButton* playButton;
-	MenuButton* loadButton; 
+	MenuButton* loadButton;
 	MenuButton* settingsButton;
 	MenuButton* quitButton;
 	QGraphicsPixmapItem* image;
