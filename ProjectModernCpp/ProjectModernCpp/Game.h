@@ -4,6 +4,7 @@
 #include "MainMenu.h"
 #include "BoardWindow.h"
 #include <QObject>
+
 #include <QtCore>
 #include <QApplication>
 #include <QGraphicsScene>
@@ -38,17 +39,17 @@ public:
 	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b);
 	void settingsClicked(QGraphicsScene* s);
-	
 
 	
 	~Game() ;
 
 public slots:
-	void startNewGameSlot();
+	void startNewGameSlot(const QString& name1, const QString& name2);
 	void settingsSlot();
 	void onPointAdded(int x, int y, CircleButton* button);
 	void updateSettings(int boardSize, int numberOfBridges, int numberOfPoints);
 	void showMainMenu();
+	void handleChangeCurrentPlayer();
 signals:
 	void boardUpdated();
 
@@ -67,5 +68,6 @@ private:
 	size_t m_boardSize;
 	std::pair<uint8_t,uint8_t>m_playersTurn;
 	bool isRed;
+
 
 };

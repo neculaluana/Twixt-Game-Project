@@ -107,8 +107,8 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
 }
 void SettingsWindow::removeAllItems()
 {
-    scene->removeItem(proxyContainer);
-    scene->removeItem(background);
+    proxyContainer->hide();
+    background->hide();
 }
 //connect(settingsButton, SIGNAL(clicked()), this, SLOT(settings()));
 

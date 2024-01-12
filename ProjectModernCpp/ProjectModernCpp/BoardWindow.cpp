@@ -15,8 +15,9 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b
 
     int cellWidth = 630 / boardSize;
     int cellHeight = 630 / boardSize;
+
     m_currentPlayerText = new QGraphicsTextItem();
-    m_currentPlayerText->setPlainText("It is Red's turn");
+    m_currentPlayerText->setPlainText("It is Red's turn" + QString::fromStdString(m_currentPlayer->getName()));
     m_currentPlayerText->setDefaultTextColor(Qt::red);
     QFont font("Helvetica", 12);
     QFont font2("Helvetica", 11);
@@ -195,24 +196,45 @@ void BoardWindow::drawBaseLines(QGraphicsScene* scene)
     
 }
 
+void BoardWindow::showMessage()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Schimbă Piesele");
+    msgBox.setText("Al doilea jucător, dorești să preiei piesele roșii?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    int result = msgBox.exec();
 
+    if (result == QMessageBox::Yes) {
+        emit requestPlayerChange();
+    }
+}
 
 
 void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
 {
-    emit pointAdded(x, y,button);
+    if (!m_currentPlayer->getfirstMoveMade() && m_currentPlayer->getColor() == Point::Color::Red) {
+        QTimer::singleShot(1000, this, &BoardWindow::showMessage);
+
+
+        m_currentPlayer->setfirstMoveMade(true);
+    }
+    else if (m_currentPlayer->getColor() == Point::Color::Black && m_currentPlayer->getfirstMoveMade() == false)
+    {
+        m_currentPlayer->setfirstMoveMade(true);
+    }
+    emit pointAdded(x, y, button);
     drawLines(s);
 
-   
+
     if (m_currentPlayer->getColor() == Point::Color::Red)
     {
-        m_currentPlayerText->setPlainText("It is Red's turn");
+        m_currentPlayerText->setPlainText("It is Red's turn" + QString::fromStdString(m_currentPlayer->getName()));
 
         m_currentPlayerText->setDefaultTextColor(Qt::red);
         m_currentPlayerPointsText->setDefaultTextColor(Qt::red);
         int pointsSize = m_currentPlayer->getPointsSize();
         int maxPoints = m_currentPlayer->getMaxPointsCount();
-        m_currentPlayerPointsText->setPlainText("Points left: " + QString::number(maxPoints-pointsSize));
+        m_currentPlayerPointsText->setPlainText("Points left: " + QString::number(maxPoints - pointsSize));
 
         m_currentPlayerBridgesText->setDefaultTextColor(Qt::red);
         int bridgesSize = m_currentPlayer->getBridgesSize();
@@ -221,7 +243,7 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
     }
     else
     {
-        m_currentPlayerText->setPlainText("It is Black's turn");
+        m_currentPlayerText->setPlainText("It is Black's turn" + QString::fromStdString(m_currentPlayer->getName()));
 
         m_currentPlayerText->setDefaultTextColor(Qt::black);
 
@@ -236,7 +258,22 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
         m_currentPlayerBridgesText->setPlainText("Bridges left: " + QString::number(maxBridges - bridgesSize));
 
     }
-    
-
 
 }
+
+//void BoardWindow::showNameInputMessage() {
+//    bool ok1, ok2;
+//    m_playerNameRed = QInputDialog::getText(this, tr("Nume jucător roșu"), tr("Introduceți numele jucătorului roșu:"), QLineEdit::Normal, "", &ok1);
+//    m_playerNameBlack = QInputDialog::getText(this, tr("Nume jucător negru"), tr("Introduceți numele jucătorului negru:"), QLineEdit::Normal, "", &ok2);
+//
+//    if (!ok1 || m_playerNameRed.isEmpty()) {
+//        m_playerNameRed = "Player Red";
+//    }
+//
+//    if (!ok2 || m_playerNameBlack.isEmpty()) {
+//        m_playerNameBlack = "Player Black";
+//    }
+//
+//    // Actualizarea textului pentru a reflecta numele jucătorilor
+//    m_currentPlayerText->setPlainText("Este rândul lui " + m_playerNameRed + ".");
+//}

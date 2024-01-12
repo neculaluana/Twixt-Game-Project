@@ -11,8 +11,11 @@ Game::Game(std::string name1, std::string name2)
 	, m_settingsWindow(nullptr)
 {
 	initializeGame();
-	connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
+	m_playerBlack.setfirstMoveMade(true);
+	//connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
+	connect(m_mainMenu, &MainMenu::newGameStarted, this, &Game::startNewGameSlot);
 	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
+
 }
 
 Game::Game(const Game& other)
@@ -89,13 +92,18 @@ void Game::startNewGame() {
 void Game::initializeGame()
 {
 	m_mainMenu = new MainMenu();
+	m_playerRed.setName("Vasile");
+	m_playerBlack.setName("Ion");
 	m_mainMenu->show();
 	//m_mainMenu->displayMainMenu();
 
 }
-void Game::startNewGameSlot()
+void Game::startNewGameSlot(const QString& name1, const QString& name2)
 {
+	m_playerRed.setName(name1.toStdString());
+	m_playerBlack.setName(name2.toStdString());
 	startNewGame();
+
 }
 
 
@@ -147,7 +155,7 @@ void Game::makePoint() {
 void Game::changeCurrentPlayer() {
 	
 	m_currentPlayer->setPlayerTurn(false);
-	if ((*m_currentPlayer).getColor() == m_playerRed.getColor())
+	if (m_currentPlayer == &m_playerRed)
 		m_currentPlayer = &m_playerBlack;
 	else
 		m_currentPlayer = &m_playerRed;
@@ -159,9 +167,16 @@ void Game::changeCurrentPlayer() {
 
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
+	m_mainMenu->removeAllItems();
 	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
+
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
+	
+	
+	connect(m_boardWindow, &BoardWindow::requestPlayerChange, this, &Game::handleChangeCurrentPlayer);
 }
+
+
 void Game::onPointAdded(int x, int y, CircleButton* button)
 {
 	if (!button) return;
@@ -179,6 +194,8 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 		if (isRed == true)
 			qDebug() << "isRed este true";
 	}
+
+	
 	std::pair position = std::make_pair<size_t, size_t>(x, y);
 	if (m_board.getStatus(position) == Board::Status::BaseRed)
 		qDebug() << "baza rosie";
@@ -258,7 +275,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 		changeCurrentPlayer();
-		emit boardUpdated();
+		//emit boardUpdated();
 		m_playersTurn.first++;
 		qDebug() << m_playersTurn.first << '\n';
 
@@ -282,30 +299,14 @@ void Game::settingsClicked(QGraphicsScene* s) {
 		connect(m_settingsWindow, &SettingsWindow::settingsSaved, this, &Game::showMainMenu);
 		connect(m_settingsWindow, &SettingsWindow::settingsChanged, this, &Game::updateSettings);
 		connect(m_settingsWindow, &SettingsWindow::settingsCanceled, this, &Game::showMainMenu);
-		/*
-		if (!success1) {
-			qDebug() << "Connection failed save!";
-		}
-		if (!success1) {
-			qDebug() << "Connection failed cancel!";
-		}
-		if (!success1) {
-			qDebug() << "Connection failed change!";
-		}*/
-		/*connect(m_settingsWindow, &SettingsWindow::finished, [this]() {
-			m_settingsWindow = nullptr;
-			});*/
+		
 	}
-	else {
-		if (m_settingsWindow->isHidden()) {
-			m_settingsWindow->show();
-		}
-		else {
-			m_settingsWindow->raise();
-			m_settingsWindow->activateWindow();
-		}
-	}
+	else
+		m_settingsWindow->removeAllItems();
+	
 }
+
+
 
 void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges) {
 	m_boardSize = boardSize;
@@ -322,5 +323,27 @@ void Game::showMainMenu() {
 	if (m_mainMenu) {
 		m_mainMenu->displayMainMenu();
 	}
+}
+
+void Game::handleChangeCurrentPlayer()
+{
+    m_currentPlayer->changeColor();
+
+	std::string nameRed = m_playerRed.getName();
+	std::string nameBlack = m_playerBlack.getName();
+
+
+	Player* aux = &m_playerRed;
+	m_playerRed = m_playerBlack;
+
+	m_playerBlack = *aux;
+	m_playerRed.setName(nameBlack);
+	m_playerBlack.setName(nameRed);
+
+
+	//changeCurrentPlayer();
+
+	m_currentPlayer->changeColor();
+
 }
 
