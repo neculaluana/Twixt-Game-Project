@@ -55,7 +55,7 @@ public:
 
 
 private:
-	 size_t m_boardSize;
+	size_t m_boardSize;
 	std::vector<std::vector < Status >> m_board;
 	std::vector<Bridge> m_bridges;
 };
