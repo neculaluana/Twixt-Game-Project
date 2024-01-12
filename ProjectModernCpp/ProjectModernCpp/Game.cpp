@@ -274,7 +274,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 			button->updateColor(Point::Color::Black);
 			m_board.addPoint(newPoint);
 			m_board.makeBridges(newPoint, *m_currentPlayer);
-
+		}
 	else if(m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
 	{
 		Point newPoint(x, y, (*m_currentPlayer).getColor());
@@ -292,7 +292,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 			qDebug() << m_playersTurn.first << '\n';
 
 			return;
-		}
+	}
 
 
 
