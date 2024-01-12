@@ -9,6 +9,7 @@
 #include"MenuButton.h"
 #include <QGraphicsTextItem>
 #include <qfiledialog.h>
+#include <regex>
 
 class MainMenu : public QGraphicsView {
 	Q_OBJECT;

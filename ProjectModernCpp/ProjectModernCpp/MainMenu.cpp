@@ -26,13 +26,16 @@ MainMenu::MainMenu(QWidget* parent) {
 
     playerNameRedInput = new QLineEdit();
     playerNameRedInput->setPlaceholderText("Enter Red Player's Name");
-    playerNameRedInput->setGeometry(QRect(bxPos, startY -100, 200, 30));
+    playerNameRedInput->setGeometry(QRect(bxPos, startY - 100, 200, 30));
+    playerNameRedInput->setStyleSheet("border: 2px solid darkcyan;"); 
     scene->addWidget(playerNameRedInput);
 
     playerNameBlackInput = new QLineEdit();
     playerNameBlackInput->setPlaceholderText("Enter Black Player's Name");
-    playerNameBlackInput->setGeometry(QRect(bxPos, startY - 50, 200, 30)); 
+    playerNameBlackInput->setGeometry(QRect(bxPos, startY - 55, 200, 30));
+    playerNameBlackInput->setStyleSheet("border: 2px solid darkcyan;"); 
     scene->addWidget(playerNameBlackInput);
+
 
     // Butonul "Load game"
     loadButton = new MenuButton(QString("Load game"));
@@ -68,8 +71,26 @@ MainMenu::MainMenu(QWidget* parent) {
 void MainMenu::newGame()
 {
     //scene->clear();
-    setIsNewGame(true);
-    emit newGameStarted(playerNameRedInput->text(), playerNameBlackInput->text());
+    std::regex validNameRegex("^[A-Za-z0-9_]+$");
+
+    QString playerRedName = playerNameRedInput->text();
+    QString playerBlackName = playerNameBlackInput->text();
+
+    if (std::regex_match(playerRedName.toStdString(), validNameRegex) &&
+        std::regex_match(playerBlackName.toStdString(), validNameRegex))
+    {
+        // Numele sunt valide, continuați cu crearea unui joc nou
+        setIsNewGame(true);
+        emit newGameStarted(playerRedName, playerBlackName);
+    }
+    else
+    {
+        QMessageBox::warning(this, "Invalid Names", "Player names can only contain letters.");
+
+    }
+
+    /*setIsNewGame(true);
+    emit newGameStarted(playerNameRedInput->text(), playerNameBlackInput->text());*/
 
 }
 
@@ -115,6 +136,7 @@ void MainMenu::removeAllItems()
     settingsButton->setFlag(QGraphicsItem::ItemIsFocusable, false);
 
     playerNameRedInput->hide();
+    settingsButton->setFlag(QGraphicsItem::ItemIsFocusable, false);
     playerNameBlackInput->hide();
 
     image->hide();
@@ -139,49 +161,33 @@ void MainMenu::load()
 
 
 void MainMenu::displayMainMenu() {
-    //scene->clear();
-   /* int startY = 375;
-    int buttonInterval = 75;*/
-
-    //// Butonul "New game"
-    //MenuButton* playButton = new MenuButton(QString("New game"));
-    //int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
-    //playButton->setPos(bxPos, startY);
-    //connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
+    
     playerNameRedInput->show();
     playerNameBlackInput->show();
-    scene->addItem(playButton);
+    playButton->show();
+    playButton->enableButton = true;
+    playButton->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    playButton->setFlag(QGraphicsItem::ItemIsFocusable, true);
 
-    //// Butonul "Load game"
-    //MenuButton* loadButton = new MenuButton(QString("Load game"));
-    //int lxPos = this->width() / 2 - loadButton->boundingRect().width() / 2;
-    //loadButton->setPos(lxPos, startY + buttonInterval);
-    //connect(loadButton, SIGNAL(clicked()), this, SLOT(load()));
-    scene->addItem(loadButton);
+    
+    loadButton->show();
+    loadButton->enableButton = true;
+    loadButton->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    loadButton->setFlag(QGraphicsItem::ItemIsFocusable, true);
 
-    //// Butonul "Settings"
-    //MenuButton* settingsButton = new MenuButton(QString("Settings"));
-    //int sxPos = this->width() / 2 - settingsButton->boundingRect().width() / 2;
-    //settingsButton->setPos(sxPos, startY + 2 * buttonInterval);
-    //connect(settingsButton, SIGNAL(clicked()), this, SLOT(settings()));
-    scene->addItem(settingsButton);
+    settingsButton->show();
+    settingsButton->enableButton = true;
+    settingsButton->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    settingsButton->setFlag(QGraphicsItem::ItemIsFocusable, true);
 
-    // Butonul "Quit"
-    //MenuButton* quitButton = new MenuButton(QString("Quit"));
-    //int qxPos = this->width() / 2 - quitButton->boundingRect().width() / 2;
-    //quitButton->setPos(qxPos, startY + 3 * buttonInterval);
-    //connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
-    scene->addItem(quitButton);
+    quitButton->show();
+    quitButton->enableButton = true;
+    quitButton->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    quitButton->setFlag(QGraphicsItem::ItemIsFocusable, true);
 
-
-    //QImage image("Resources/twixt.jpg");
-    //int imxPos = this->width() / 2 - image.width() / 4;
-    //int imyPos = 150;
-    //QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
-    //item->setScale(0.5);
-    //item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-    //item->setPos(imxPos, imyPos);
-    scene->addItem(image);
+    image->show();
+    image->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    image->setFlag(QGraphicsItem::ItemIsFocusable, true);
 
 
 }

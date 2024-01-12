@@ -99,6 +99,12 @@ void Game::initializeGame()
 }
 void Game::startNewGameSlot(const QString& name1, const QString& name2)
 {
+	//isNewGame = true;
+	m_board.setBoardSize(m_boardSize);
+	m_playerRed.setMaxPointsCount(m_maxPointNumber);
+	m_playerBlack.setMaxPointsCount(m_maxPointNumber);
+	m_playerRed.setMaxBridgesCount(m_maxBridgeNumber);
+	m_playerBlack.setMaxBridgesCount(m_maxBridgeNumber);
 	m_playerRed.setName(name1.toStdString());
 	m_playerBlack.setName(name2.toStdString());
 	startNewGame();
@@ -274,7 +280,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 			button->updateColor(Point::Color::Black);
 			m_board.addPoint(newPoint);
 			m_board.makeBridges(newPoint, *m_currentPlayer);
-
+		}
 	else if(m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
 	{
 		Point newPoint(x, y, (*m_currentPlayer).getColor());
@@ -292,7 +298,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 			qDebug() << m_playersTurn.first << '\n';
 
 			return;
-		}
+	}
 
 
 
@@ -321,14 +327,12 @@ void Game::settingsClicked(QGraphicsScene* s) {
 
 
 void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges) {
-	m_boardSize = boardSize;
-	m_maxPointNumber = numberOfPoints;
-	m_maxBridgeNumber = numberOfBridges;
-	m_board.setBoardSize(boardSize);
-	m_playerRed.setMaxPointsCount(numberOfPoints);
-	m_playerBlack.setMaxPointsCount(numberOfPoints);
-	m_playerRed.setMaxBridgesCount(numberOfBridges);
-	m_playerBlack.setMaxBridgesCount(numberOfBridges);
+	//if (isNewGame == true) {
+		m_boardSize = boardSize;
+		m_maxPointNumber = numberOfPoints;
+		m_maxBridgeNumber = numberOfBridges;
+		
+	//}
 }
 
 void Game::showMainMenu() {
@@ -366,6 +370,7 @@ void Game::handleChangeCurrentPlayer()
 
 
 void Game::startLoadedGameSlot() {
+	//isNewGame = false;
 	loadGame("savegame.json");
 	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(), m_board, true);
 }

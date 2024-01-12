@@ -66,10 +66,11 @@ private:
 	Player* m_currentPlayer;
 	Board m_board;
 	std::function<void()> guiUpdateCallback;
-	size_t m_maxPointNumber;
-	size_t m_maxBridgeNumber;
-	size_t m_boardSize;
+	size_t m_maxPointNumber=50;
+	size_t m_maxBridgeNumber=50;
+	size_t m_boardSize=24;
 	std::pair<uint8_t, uint8_t>m_playersTurn;
 	bool isRed;
+	//bool isNewGame=false;
 
 };
