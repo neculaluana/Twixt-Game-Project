@@ -12,11 +12,13 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+    bool enableButton;
 signals:
     void clicked();
 
 private:
     QGraphicsTextItem* text;
+    
 };
 
 #endif // MENUBUTTON_H

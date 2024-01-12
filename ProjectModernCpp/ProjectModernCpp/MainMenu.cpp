@@ -16,14 +16,13 @@ MainMenu::MainMenu(QWidget* parent) {
     int startY = 375;
     int buttonInterval = 75;
 
- 
-
     // Butonul "New game"
     playButton = new MenuButton(QString("New game"));
     int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
     playButton->setPos(bxPos, startY);
     connect(playButton, SIGNAL(clicked()), this, SLOT(newGame()));
     scene->addItem(playButton);
+
 
     playerNameRedInput = new QLineEdit();
     playerNameRedInput->setPlaceholderText("Enter Red Player's Name");
@@ -96,11 +95,29 @@ bool MainMenu::getSettingsClicked()
 
 void MainMenu::removeAllItems()
 {
-    scene->removeItem(playButton);
-    scene->removeItem(loadButton);
-    scene->removeItem(quitButton);
-    scene->removeItem(settingsButton);
-    scene->removeItem(image);
+  
+    playButton->enableButton = false;
+    playButton->hide();
+    playButton->setFlag(QGraphicsItem::ItemIsSelectable, false);
+    playButton->setFlag(QGraphicsItem::ItemIsFocusable, false);
+
+    loadButton->enableButton = false;
+    loadButton->hide();
+    loadButton->setFlag(QGraphicsItem::ItemIsSelectable, false);
+    loadButton->setFlag(QGraphicsItem::ItemIsFocusable, false);
+
+    quitButton->enableButton = false;
+    quitButton->hide();
+    quitButton->setFlag(QGraphicsItem::ItemIsSelectable, false);
+    quitButton->setFlag(QGraphicsItem::ItemIsFocusable, false);
+
+    settingsButton->enableButton = false;
+    settingsButton->hide();
+    settingsButton->setFlag(QGraphicsItem::ItemIsSelectable, false);
+    settingsButton->setFlag(QGraphicsItem::ItemIsFocusable, false);
+
+
+    image->hide();
 }
 
 void MainMenu::setIsNewGame(bool a)

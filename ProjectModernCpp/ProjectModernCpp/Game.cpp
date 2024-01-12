@@ -167,7 +167,9 @@ void Game::changeCurrentPlayer() {
 
 void Game::showBoard(QGraphicsScene* s, int width, int height, Board b)
 {
+	m_mainMenu->removeAllItems();
 	m_boardWindow = new BoardWindow(s, width, height,b, m_currentPlayer);
+
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
 	
 	
@@ -297,29 +299,11 @@ void Game::settingsClicked(QGraphicsScene* s) {
 		connect(m_settingsWindow, &SettingsWindow::settingsSaved, this, &Game::showMainMenu);
 		connect(m_settingsWindow, &SettingsWindow::settingsChanged, this, &Game::updateSettings);
 		connect(m_settingsWindow, &SettingsWindow::settingsCanceled, this, &Game::showMainMenu);
-		/*
-		if (!success1) {
-			qDebug() << "Connection failed save!";
-		}
-		if (!success1) {
-			qDebug() << "Connection failed cancel!";
-		}
-		if (!success1) {
-			qDebug() << "Connection failed change!";
-		}*/
-		/*connect(m_settingsWindow, &SettingsWindow::finished, [this]() {
-			m_settingsWindow = nullptr;
-			});*/
+		
 	}
-	else {
-		if (m_settingsWindow->isHidden()) {
-			m_settingsWindow->show();
-		}
-		else {
-			m_settingsWindow->raise();
-			m_settingsWindow->activateWindow();
-		}
-	}
+	else
+		m_settingsWindow->removeAllItems();
+	
 }
 
 
@@ -360,20 +344,6 @@ void Game::handleChangeCurrentPlayer()
 	//changeCurrentPlayer();
 
 	m_currentPlayer->changeColor();
-
-	//m_currentPlayer->setPlayerTurn(false);
-
-	//if (m_currentPlayer == &m_playerRed)
-	//	m_currentPlayer = &m_playerBlack;
-	//else
-	//	m_currentPlayer = &m_playerRed;
-
-	//m_currentPlayer->setPlayerTurn(true);
-
-	//if (m_boardWindow) {
-	//	m_boardWindow->setCurrentPlayer(m_currentPlayer);
-	//}*
-
 
 }
 

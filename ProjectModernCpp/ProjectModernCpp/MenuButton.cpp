@@ -5,6 +5,7 @@
 
 MenuButton::MenuButton(QString name, QGraphicsItem* parent) : QGraphicsRectItem(parent) {
     
+    enableButton = true;
     setRect(0, 0, 200, 50);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
@@ -18,6 +19,7 @@ MenuButton::MenuButton(QString name, QGraphicsItem* parent) : QGraphicsRectItem(
 }
 
 void MenuButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+    if(enableButton)
     emit clicked();
 }
 
