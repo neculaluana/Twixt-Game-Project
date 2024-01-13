@@ -19,6 +19,7 @@ public:
 
 	SettingsWindow(QGraphicsScene* scene,QWidget* parent = nullptr);
 	void removeAllItems();
+	void showAllItems();
 
 public slots:
 	void saveButtonClicked(int boardSize, int numberOfPoints, int numberOfBridges);

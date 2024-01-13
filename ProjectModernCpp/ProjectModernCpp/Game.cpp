@@ -328,7 +328,11 @@ void Game::settingsClicked(QGraphicsScene* s) {
 		
 	}
 	else
-		m_settingsWindow->removeAllItems();
+	{
+		m_mainMenu->removeAllItems();
+		m_settingsWindow->showAllItems();
+	}
+
 	
 }
 

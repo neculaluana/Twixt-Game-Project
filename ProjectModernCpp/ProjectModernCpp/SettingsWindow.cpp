@@ -105,6 +105,13 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
     connect(cancelButton, &QPushButton::clicked, this, &SettingsWindow::cancelButtonClicked);
 
 }
+
+void SettingsWindow::showAllItems()
+{
+    proxyContainer->show();
+    background->show();
+}
+
 void SettingsWindow::removeAllItems()
 {
     proxyContainer->hide();
