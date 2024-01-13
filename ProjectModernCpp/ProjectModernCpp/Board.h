@@ -1,10 +1,5 @@
 #pragma once
-#include <vector>
-#include <iostream>
 
-
-#include "Point.h"
-#include "Bridge.h"
 #include "Player.h"
 
 

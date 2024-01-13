@@ -1,13 +1,10 @@
 #ifndef  MAINMENU_H
 #define MAINMENU_H
 
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include "ProjectModernCpp.h"
+
 #include "BoardWindow.h"
 #include "SettingsWindow.h"
 #include"MenuButton.h"
-#include <QGraphicsTextItem>
 #include <qfiledialog.h>
 #include <regex>
 

@@ -1,9 +1,7 @@
 #pragma once
 #include<vector>
-#include<iostream>
 #include<cstdint>
 #include<string>
-#include"Point.h"
 #include"Bridge.h"
 
 class Player

@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "Board.h"
 #include "MainMenu.h"
-#include "BoardWindow.h"
 #include <QObject>
 
 #include <QtCore>
@@ -10,8 +9,6 @@
 #include <QGraphicsScene>
 #include <QWidget>
 #include <QMessageBox>
-#include "SettingsWindow.h"
-#include <cstdint>
 #include <set>
 
 class Game : public QObject {

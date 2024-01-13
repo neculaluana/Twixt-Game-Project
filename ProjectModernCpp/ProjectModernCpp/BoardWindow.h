@@ -7,8 +7,6 @@
 #include <qinputdialog.h>
 #include <QGraphicsRectItem>
 #include <QMessageBox>
-#include <QGraphicsEllipseItem>
-#include <vector>
 #include <QPushButton>
 #include "CircleButton.h"
 #include "BridgeLine.h"

@@ -29,12 +29,6 @@
     <QtUic Include="ProjectModernCpp.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="ProjectModernCpp.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="ProjectModernCpp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

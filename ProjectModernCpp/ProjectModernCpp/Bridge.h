@@ -1,6 +1,5 @@
 #pragma once
-#include "Point.h" 
-#include <iostream>
+#include "../GameLogic/Point.h" 
 class Bridge
 {
 public:

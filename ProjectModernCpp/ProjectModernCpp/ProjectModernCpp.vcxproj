@@ -92,7 +92,6 @@
     <ClCompile Include="SettingsWindow.cpp" />
     <QtRcc Include="ProjectModernCpp.qrc" />
     <QtUic Include="ProjectModernCpp.ui" />
-    <QtMoc Include="ProjectModernCpp.h" />
     <ClCompile Include="BaseLine.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardWindow.cpp" />
@@ -104,7 +103,6 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
-    <ClCompile Include="ProjectModernCpp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +122,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="savegame.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameLogic\GameLogic.vcxproj">
+      <Project>{ee7f1476-72c1-405d-9838-e44dc0a38b59}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
