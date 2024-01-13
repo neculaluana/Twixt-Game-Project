@@ -4,7 +4,7 @@
 #include <QGraphicsEllipseItem>
 #include <QGraphicsTextItem>
 #include <QBrush>
-#include "Player.h"
+#include "../GameLogic/Player.h"
 
 class CircleButton : public QObject, public QGraphicsEllipseItem {
     Q_OBJECT

@@ -1,6 +1,6 @@
 #pragma once
-#include "Player.h"
-#include "Board.h"
+#include "../GameLogic/Player.h"
+#include "../GameLogic/Board.h"
 #include "MainMenu.h"
 #include <QObject>
 

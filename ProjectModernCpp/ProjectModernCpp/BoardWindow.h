@@ -11,7 +11,7 @@
 #include "CircleButton.h"
 #include "BridgeLine.h"
 #include "BaseLine.h"
-#include "Board.h"
+#include "../GameLogic/Board.h"
 
 
 class BoardWindow : public QObject
