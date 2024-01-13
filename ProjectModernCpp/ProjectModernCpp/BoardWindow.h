@@ -2,10 +2,11 @@
 #define BOARDWINDOW_H
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QApplication>
 #include <QTimer>
 #include <qinputdialog.h>
 #include <QGraphicsRectItem>
-#include <qmessagebox.h>
+#include <QMessageBox>
 #include <QGraphicsEllipseItem>
 #include <vector>
 #include <QPushButton>
@@ -41,6 +42,7 @@ signals:
 	void pointAdded(int x, int y, CircleButton* button);
 	void saveGameRequested();
 	void requestPlayerChange();
+	void gameEnded();
 private:
 	Board& m_board;
 	std::vector<CircleButton*> m_points;

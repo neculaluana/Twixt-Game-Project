@@ -17,6 +17,9 @@ Game::Game(std::string name1, std::string name2)
 	connect(m_mainMenu, &MainMenu::newGameStarted, this, &Game::startNewGameSlot);
 	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
 	connect(m_mainMenu, SIGNAL(loadGameStarted()), SLOT(startLoadedGameSlot()));
+	//connect(m_boardWindow, &BoardWindow::gameEnded, this,);
+
+
 
 }
 
@@ -136,6 +139,14 @@ void Game::loadGame(const std::string& filename) {
 		m_playerRed.deserialize(j["playerRed"]);
 		m_playerBlack.deserialize(j["playerBlack"]);
 		m_board.deserialize(j["board"]);
+		for (const auto& redb : m_playerRed.getBridges())
+		{
+			m_board.pushBackBridge(redb);
+		}
+		for (const auto& blackb : m_playerBlack.getBridges())
+		{
+			m_board.pushBackBridge(blackb);
+		}
 		if (m_playerRed.getPlayerTurn())
 			m_currentPlayer = &m_playerRed;
 		else
