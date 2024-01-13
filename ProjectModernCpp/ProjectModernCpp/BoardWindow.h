@@ -29,7 +29,6 @@ public:
 
 
 public slots:
-	//void onButtonClicked();
 	void onButtonClicked(int x, int y, CircleButton* button);
 	void onSaveGameClicked() 
 	{

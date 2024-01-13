@@ -33,8 +33,6 @@ public:
 	void saveGame(const std::string& filename);
 	void loadGame(const std::string& filename);
 	void changeCurrentPlayer();
-	bool wonGame() const;
-	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b, bool loadFromFile = false);
 	void settingsClicked(QGraphicsScene* s);
 
@@ -71,6 +69,5 @@ private:
 	size_t m_boardSize=24;
 	std::pair<uint8_t, uint8_t>m_playersTurn;
 	bool isRed;
-	//bool isNewGame=false;
 
 };

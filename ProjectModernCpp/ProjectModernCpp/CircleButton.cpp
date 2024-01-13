@@ -19,24 +19,8 @@ CircleButton::CircleButton(int x, int y, int line, int column, int diameter, QGr
 void CircleButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     emit clicked();
     isClicked = true;
-    /*QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(m_color);
-    setBrush(brush);
-    update();*/
 }
 
-void CircleButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
-
-    //if(!isClicked)
-    //{
-    //  /*  QBrush brush;
-    //    brush.setStyle(Qt::SolidPattern);
-    //    brush.setColor(m_color);
-    //    setBrush(brush);*/
-    //}
-    //update();
-}
 
 void CircleButton::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
     if (!isClicked)

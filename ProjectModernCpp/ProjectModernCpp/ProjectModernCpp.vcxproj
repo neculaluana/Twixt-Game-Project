@@ -93,32 +93,23 @@
     <QtRcc Include="ProjectModernCpp.qrc" />
     <QtUic Include="ProjectModernCpp.ui" />
     <ClCompile Include="BaseLine.cpp" />
-    <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardWindow.cpp" />
-    <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="BridgeLine.cpp" />
     <ClCompile Include="CircleButton.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Point.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseLine.h" />
-    <ClInclude Include="Board.h" />
     <QtMoc Include="SettingsWindow.h" />
     <QtMoc Include="BoardWindow.h" />
-    <ClInclude Include="Bridge.h" />
     <QtMoc Include="MenuButton.h" />
     <QtMoc Include="Game.h" />
     <QtMoc Include="MainMenu.h" />
     <QtMoc Include="CircleButton.h" />
     <QtMoc Include="BridgeLine.h" />
-    <ClInclude Include="json.hpp" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Point.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="savegame.json" />

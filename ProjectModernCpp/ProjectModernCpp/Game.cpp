@@ -13,11 +13,9 @@ Game::Game(std::string name1, std::string name2)
 	
 	initializeGame();
 	m_playerBlack.setfirstMoveMade(true);
-	//connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
 	connect(m_mainMenu, &MainMenu::newGameStarted, this, &Game::startNewGameSlot);
 	connect(m_mainMenu, SIGNAL(SettingsClicked()), SLOT(settingsSlot()));
 	connect(m_mainMenu, SIGNAL(loadGameStarted()), SLOT(startLoadedGameSlot()));
-	//connect(m_boardWindow, &BoardWindow::gameEnded, this,);
 
 
 
@@ -98,12 +96,10 @@ void Game::initializeGame()
 {
 	m_mainMenu = new MainMenu();
 	m_mainMenu->show();
-	//m_mainMenu->displayMainMenu();
 
 }
 void Game::startNewGameSlot(const QString& name1, const QString& name2)
 {
-	//isNewGame = true;
 	m_board.setBoardSize(m_boardSize);
 	m_playerRed.setMaxPointsCount(m_maxPointNumber);
 	m_playerBlack.setMaxPointsCount(m_maxPointNumber);
@@ -339,12 +335,10 @@ void Game::settingsClicked(QGraphicsScene* s) {
 
 
 void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges) {
-	//if (isNewGame == true) {
-		m_boardSize = boardSize;
-		m_maxPointNumber = numberOfPoints;
-		m_maxBridgeNumber = numberOfBridges;
+	m_boardSize = boardSize;
+	m_maxPointNumber = numberOfPoints;
+	m_maxBridgeNumber = numberOfBridges;
 		
-	//}
 }
 
 void Game::showMainMenu() {
@@ -382,7 +376,6 @@ void Game::handleChangeCurrentPlayer()
 
 
 void Game::startLoadedGameSlot() {
-	//isNewGame = false;
 	loadGame("savegame.json");
 	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(), m_board, true);
 }

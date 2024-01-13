@@ -26,7 +26,6 @@ void BaseLine::updatePositionTL()
         endPoint.setY(endPoint.y() - 10);
         QLineF newLine(startPoint, endPoint);
 
-        //QLineF newLine(startButton->pos(), endButton->pos());
         setLine(newLine);
     }
     update();
@@ -44,7 +43,6 @@ void BaseLine::updatePositionRB()
         endPoint.setY(endPoint.y() + 16);
         QLineF newLine(startPoint, endPoint);
 
-        //QLineF newLine(startButton->pos(), endButton->pos());
         setLine(newLine);
     }
     update();

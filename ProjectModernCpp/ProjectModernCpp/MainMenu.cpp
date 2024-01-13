@@ -73,7 +73,6 @@ MainMenu::MainMenu(QWidget* parent) {
 
 void MainMenu::newGame()
 {
-    //scene->clear();
     std::regex validNameRegex("^[A-Za-z0-9_]+$");
 
     QString playerRedName = playerNameRedInput->text();
@@ -96,14 +95,11 @@ void MainMenu::newGame()
 
     }
 
-    /*setIsNewGame(true);
-    emit newGameStarted(playerNameRedInput->text(), playerNameBlackInput->text());*/
 
 }
 
 void MainMenu::settings()
 {
-    //scene->clear();
     setSettings(true);
     emit SettingsClicked();
 

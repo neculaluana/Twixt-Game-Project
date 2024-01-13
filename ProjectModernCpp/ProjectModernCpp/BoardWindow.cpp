@@ -10,7 +10,6 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
     scene->addItem(board);
 
     size_t boardSize = b.getBoardSize();
-    //m_points.resize(boardSize);
 
 
     int cellWidth = 630 / boardSize;

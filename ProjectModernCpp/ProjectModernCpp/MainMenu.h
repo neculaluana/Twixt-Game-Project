@@ -17,7 +17,6 @@ public:
 
 	void displayMainMenu();
 
-	//ProjectModernCpp* w;
 	void setIsNewGame(bool a);
 	void setSettings(bool b);
 	bool getIsNewGame();

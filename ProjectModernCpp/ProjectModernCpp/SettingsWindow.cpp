@@ -117,7 +117,6 @@ void SettingsWindow::removeAllItems()
     proxyContainer->hide();
     background->hide();
 }
-//connect(settingsButton, SIGNAL(clicked()), this, SLOT(settings()));
 
 void SettingsWindow::saveButtonClicked(int boardSize, int numberOfPoints, int numberOfBridges) {
     emit settingsChanged(boardSize, numberOfPoints, numberOfBridges);
