@@ -9,8 +9,10 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QWidget>
+#include <QMessageBox>
 #include "SettingsWindow.h"
 #include <cstdint>
+#include <set>
 
 class Game : public QObject {
 	Q_OBJECT;
@@ -33,14 +35,14 @@ public:
 	void initializeGame();
 	void saveGame(const std::string& filename);
 	void loadGame(const std::string& filename);
-	void makePoint();
 	void changeCurrentPlayer();
 	bool wonGame() const;
 	bool drawGame() const;
 	void showBoard(QGraphicsScene* s, int width, int height, Board b, bool loadFromFile = false);
 	void settingsClicked(QGraphicsScene* s);
 
-
+	bool isContinuousBridgeLine(const Player& player);
+	bool dfs(const Point& current, const std::set<Point>& allPoints, std::set<Point>& visited, size_t boardSize);
 
 	~Game();
 

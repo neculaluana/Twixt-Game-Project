@@ -30,6 +30,8 @@ public:
 	
 	bool operator==(const Point& p);
 	bool operator!=(const Point& p);
+	bool operator<(const Point& other) const;
+
 	json serialize() const;
 	void deserialize(const json& j);
 private:
