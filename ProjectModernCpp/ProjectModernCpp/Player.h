@@ -17,7 +17,6 @@ public:
 	Player(Player&& other) noexcept;
 	Player& operator=(Player&& other) noexcept;
 
-
 	Point::Color getColor()const;
 	void changeColor();
 	void addPoint(const Point& p);
@@ -27,7 +26,7 @@ public:
 	void setPlayerTurn(bool turn);
 	std::vector<Point> getPoints()const;
 	std::vector<Bridge> getBridges()const;
-	std::string	getName()const;
+	std::string	getName()const; 
 	void setName(std::string name); 
 	void serialize(json& j) const;
 	void deserialize(const json& j);

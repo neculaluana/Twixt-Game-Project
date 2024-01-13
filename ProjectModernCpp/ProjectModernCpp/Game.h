@@ -66,6 +66,7 @@ private:
 	Player m_playerRed;
 	Player m_playerBlack;
 	Player* m_currentPlayer;
+	Player* m_otherPlayer;
 	Board m_board;
 	std::function<void()> guiUpdateCallback;
 	size_t m_maxPointNumber=50;

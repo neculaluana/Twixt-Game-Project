@@ -21,7 +21,7 @@ class BoardWindow : public QObject
 
 public:
 	BoardWindow(QGraphicsScene* scene, int width, int height,  Board& b, Player* currentPlayer);
-	BoardWindow(QGraphicsScene* scene, int width, int height, Board& b, Player* currentPlayer, bool loadFromFile);
+	BoardWindow(QGraphicsScene* scene, int width, int height, Board& b, Player* currentPlayer, bool loadFromFile, Player* otherPlayer);
 	void setCurrentPlayer(Player* current);
 	void drawLines(QGraphicsScene* scene);
 
@@ -41,8 +41,6 @@ signals:
 	void pointAdded(int x, int y, CircleButton* button);
 	void saveGameRequested();
 	void requestPlayerChange();
-
-
 private:
 	Board& m_board;
 	std::vector<CircleButton*> m_points;

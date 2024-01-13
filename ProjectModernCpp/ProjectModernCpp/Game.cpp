@@ -10,6 +10,7 @@ Game::Game(std::string name1, std::string name2)
 	, m_mainMenu(nullptr)
 	, m_settingsWindow(nullptr)
 {
+	
 	initializeGame();
 	m_playerBlack.setfirstMoveMade(true);
 	//connect(m_mainMenu, SIGNAL(newGameStarted()), SLOT(startNewGameSlot()));
@@ -135,12 +136,16 @@ void Game::loadGame(const std::string& filename) {
 		m_playerRed.deserialize(j["playerRed"]);
 		m_playerBlack.deserialize(j["playerBlack"]);
 		m_board.deserialize(j["board"]);
-
+		if (m_playerRed.getPlayerTurn())
+			m_currentPlayer = &m_playerRed;
+		else
+			m_currentPlayer = &m_playerBlack;
 		file.close();
 	}
 	else {
-		std::cerr << "Eroare la deschiderea fi?ierului de încãrcare." << std::endl;
+		std::cerr << "Eroare la deschiderea fisierului de încãrcare." << std::endl;
 	}
+
 }
 
 void Game::changeCurrentPlayer() {
@@ -161,7 +166,14 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b, bool loa
 
 	m_mainMenu->removeAllItems();
 	if (loadFromFile)
-		m_boardWindow = new BoardWindow(s, width, height, b, m_currentPlayer, loadFromFile);
+	{
+		if (m_currentPlayer == &m_playerRed)
+			m_otherPlayer = &m_playerBlack;
+		else
+			m_otherPlayer = &m_playerRed;
+
+		m_boardWindow = new BoardWindow(s, width, height, b, m_currentPlayer, loadFromFile,m_otherPlayer );
+	}
 	else
 		m_boardWindow = new BoardWindow(s, width, height, b, m_currentPlayer);
 	connect(m_boardWindow, &BoardWindow::pointAdded, this, &Game::onPointAdded);
@@ -397,4 +409,3 @@ bool Game::dfs(const Point& current, const std::set<Point>& allPoints, std::set<
 	}
 
 	return false;
-}

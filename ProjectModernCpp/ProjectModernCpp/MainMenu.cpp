@@ -76,11 +76,15 @@ void MainMenu::newGame()
     QString playerRedName = playerNameRedInput->text();
     QString playerBlackName = playerNameBlackInput->text();
 
+    if(playerRedName.toStdString()== "")
+        playerRedName = "Player1";
+    if (playerBlackName.toStdString() == "")
+        playerBlackName = "Player2";
     if (std::regex_match(playerRedName.toStdString(), validNameRegex) &&
         std::regex_match(playerBlackName.toStdString(), validNameRegex))
     {
         // Numele sunt valide, continuați cu crearea unui joc nou
-        setIsNewGame(true);
+        setIsNewGame(true); 
         emit newGameStarted(playerRedName, playerBlackName);
     }
     else
