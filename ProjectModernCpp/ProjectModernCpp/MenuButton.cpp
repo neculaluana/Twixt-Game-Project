@@ -20,7 +20,13 @@ MenuButton::MenuButton(QString name, QGraphicsItem* parent) : QGraphicsRectItem(
 
 void MenuButton::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     if(enableButton)
-    emit clicked();
+    {
+        QBrush brush;
+        brush.setStyle(Qt::SolidPattern);
+        brush.setColor(Qt::darkCyan);
+        setBrush(brush);
+        emit clicked();
+    }
 }
 
 void MenuButton::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
