@@ -104,3 +104,10 @@ void Point::deserialize(const json& j)
 		throw std::runtime_error("JSON invalid pentru deserializare Point.");
 	}
 }
+
+bool Point::operator<(const Point& other) const {
+	if (m_coordinates.first == other.m_coordinates.first) {
+		return m_coordinates.second < other.m_coordinates.second;
+	}
+	return m_coordinates.first < other.m_coordinates.first;
+}

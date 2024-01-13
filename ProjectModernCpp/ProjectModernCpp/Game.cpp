@@ -142,18 +142,6 @@ void Game::loadGame(const std::string& filename) {
 		std::cerr << "Eroare la deschiderea fi?ierului de încãrcare." << std::endl;
 	}
 }
-void Game::makePoint() {
-	std::pair<uint8_t, uint8_t> coord;
-	std::cout << "x = ";
-	std::cin >> coord.first;
-	std::cout << "y = ";
-	std::cin >> coord.second;
-	if (m_board.isPointPossible(coord)) {
-		Point p(coord.first, coord.second, (*m_currentPlayer).getColor());
-		m_board.addPoint(p);
-		(*m_currentPlayer).addPoint(p);
-	}
-}
 
 void Game::changeCurrentPlayer() {
 
@@ -235,12 +223,11 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 		(*m_currentPlayer).addPoint(newPoint);
 
-		changeCurrentPlayer();
+		
 		emit boardUpdated();
 
 		m_playersTurn.second++;
 		qDebug() << m_playersTurn.second << '\n';
-		return;
 	}
 	else
 		if (m_board.getStatus(position) == Board::Status::Empty) {
@@ -264,10 +251,9 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 			(*m_currentPlayer).addPoint(newPoint);
 
-			changeCurrentPlayer();
+			
 
 			emit boardUpdated();
-			return;
 		}
 		else if (m_board.getStatus(position) == Board::Status::BaseBlack && (*m_currentPlayer).getColor() == Point::Color::Black)
 		{
@@ -279,22 +265,35 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 			(*m_currentPlayer).addPoint(newPoint);
 
-			changeCurrentPlayer();
+			
 			emit boardUpdated();
 			m_playersTurn.first++;
 			qDebug() << m_playersTurn.first << '\n';
 
-			return;
 		}
 
 
+	if (isContinuousBridgeLine(*m_currentPlayer))
+	{
+		QString winnerName = QString::fromStdString(m_currentPlayer->getName());
+		QString message = winnerName + " has won the game!";
+
+		QMessageBox msgBox;
+		msgBox.setWindowTitle("Game Over");
+		msgBox.setText(message);
+		msgBox.addButton("Quit", QMessageBox::AcceptRole);
+
+		if (msgBox.exec() == QMessageBox::AcceptRole) {
+			QApplication::quit(); // This will close the application
+		}
+	}
+	changeCurrentPlayer();
 
 }
 void Game::settingsSlot()
 {
 	settingsClicked(m_mainMenu->scene);
 }
-//connect(settingsButton, SIGNAL(clicked()), this, SLOT(settings()));
 
 void Game::settingsClicked(QGraphicsScene* s) {
 	if (!m_settingsWindow) {
@@ -337,26 +336,20 @@ void Game::handleChangeCurrentPlayer()
 	Point initalPoint = m_playerRed.getPoints()[0];
 	m_playerRed.popFirstPoint();
 	initalPoint.setColor(Point::Color::Black);
-	m_currentPlayer->addPoint(initalPoint);
-    m_currentPlayer->changeColor();
+	
 	
 	std::string nameRed = m_playerRed.getName();
 	std::string nameBlack = m_playerBlack.getName();
-
 
 	Player* aux = &m_playerRed;
 	m_playerRed = m_playerBlack;
 
 	m_playerBlack = *aux;
+	m_playerRed.changeColor();
+
+	m_playerRed.addPoint(initalPoint);
 	m_playerRed.setName(nameBlack);
 	m_playerBlack.setName(nameRed);
-	
-
-	//changeCurrentPlayer();
-
-	m_currentPlayer->changeColor();
-	m_playerRed.addPoint(initalPoint);
-
 }
 
 
@@ -367,3 +360,41 @@ void Game::startLoadedGameSlot() {
 	showBoard(m_mainMenu->scene, m_mainMenu->width(), m_mainMenu->height(), m_board, true);
 }
 
+bool Game::isContinuousBridgeLine(const Player& player) {
+	std::set<Point> allPoints;
+
+	for (const auto& p : player.getPoints())
+		allPoints.insert(p);
+
+	std::set<Point> visited;
+
+	for (const auto& point : allPoints) {
+		if ((player.getColor() == Point::Color::Red && point.getCoordinates().second == 0) ||
+			(player.getColor() == Point::Color::Black && point.getCoordinates().first == 0)) { // Starting from the first row
+			if (dfs(point, allPoints, visited, m_boardSize)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool Game::dfs(const Point& current, const std::set<Point>& allPoints, std::set<Point>& visited, size_t boardSize) {
+	if ((current.getColor() == Point::Color::Red && current.getCoordinates().second == boardSize - 1) ||
+		(current.getColor() == Point::Color::Black && current.getCoordinates().first == boardSize - 1)) {
+		return true;
+	}
+
+	visited.insert(current);
+
+	for (const auto& point : allPoints) {
+		if (visited.find(point) == visited.end() && current.isBridgePossible(current, point)) {
+			if (dfs(point, allPoints, visited, boardSize)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
