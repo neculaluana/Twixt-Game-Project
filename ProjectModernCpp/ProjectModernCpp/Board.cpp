@@ -228,6 +228,11 @@ bool Board::isBridgesIntersection(const Bridge& existingBridge, const Bridge& ne
 	return false;
 }
 
+void Board::pushBackBridge(Bridge bridge)
+{
+	m_bridges.push_back(bridge);
+}
+
 bool Board::isPointPossible(const Position& coordinate) const
 {
 	if (m_board[coordinate.first][coordinate.second] == Board::Status::Empty)

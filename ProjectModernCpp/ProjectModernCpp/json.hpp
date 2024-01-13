@@ -6457,7 +6457,8 @@ Input adapter for stdio file access. This adapter read only 1 byte and do not us
 
     // Convenience shorthand from container to iterator
     // Enables ADL on begin(container) and end(container)
-    // Encloses the using declarations in namespace for not to leak them to outside scope
+    // En
+    // s the using declarations in namespace for not to leak them to outside scope
 
     namespace container_input_adapter_factory_impl
     {

@@ -66,6 +66,9 @@ MainMenu::MainMenu(QWidget* parent) {
     image->setScale(0.5);
     image->setPos(imxPos, imyPos);
     scene->addItem(image);
+
+
+ 
 }
 
 void MainMenu::newGame()

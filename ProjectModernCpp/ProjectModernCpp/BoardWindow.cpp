@@ -204,6 +204,15 @@ BoardWindow::BoardWindow(QGraphicsScene* scene, int width, int height, Board& b,
     drawLines(scene);
 
     m_currentPlayer = currentPlayer;
+
+    for (auto& p : m_points)
+    {
+        qDebug() <<"point:"<< p->getLine() << " " << p->getColumn();
+    }
+    for (auto& b : m_lines)
+    {
+        qDebug() << "bridge:" << b->getStartButton()->getLine() << " " << b->getStartButton()->getColumn() << " si " << b->getEndButton()->getLine() << " " << b->getEndButton()->getColumn();
+    }
 }
 
 
@@ -331,6 +340,37 @@ void BoardWindow::onButtonClicked(int x, int y, CircleButton* button)
         int maxBridges = m_currentPlayer->getMaxBridgesCount();
         m_currentPlayerBridgesText->setPlainText("Bridges left: " + QString::number(maxBridges - bridgesSize));
 
+    }
+    int pointsSize = m_currentPlayer->getPointsSize();
+    int maxPoints = m_currentPlayer->getMaxPointsCount();
+
+    if (maxPoints - pointsSize == 0)
+    {
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Draw");
+        msgBox.setText("The players have reached the maximum number of points"); 
+        msgBox.addButton("Quit", QMessageBox::AcceptRole);
+
+        if (msgBox.exec() == QMessageBox::AcceptRole) {
+            QApplication::quit(); 
+        }
+    }
+
+    int bridgesSize = m_currentPlayer->getBridgesSize();
+    int maxBridges = m_currentPlayer->getMaxBridgesCount();
+
+    if (maxBridges - bridgesSize == 0)
+    {
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Draw");
+        msgBox.setText("The players have reached the maximum number of bridges");
+        msgBox.addButton("Quit", QMessageBox::AcceptRole);
+
+        if (msgBox.exec() == QMessageBox::AcceptRole) {
+            QApplication::quit();
+        }
     }
 
 }

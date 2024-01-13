@@ -48,7 +48,7 @@ public:
 	void serialize(json& j) const;
 	void deserialize(const json& j);
 	bool isBridgesIntersection(const Bridge& existingBridge, const Bridge& futureBridge);
-
+	void pushBackBridge(Bridge bridge);
 
 	friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	friend std::istream& operator>>(std::istream& is, Board& board);
