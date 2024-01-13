@@ -409,3 +409,4 @@ bool Game::dfs(const Point& current, const std::set<Point>& allPoints, std::set<
 	}
 
 	return false;
+}
