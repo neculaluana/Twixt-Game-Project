@@ -1,6 +1,6 @@
 # Twixt - Strategy Game for Two
-![Logo](ProjectModernCpp/ProjectModernCpp/Resources/twixt.jpg)
-## Team Members
+![Logo](ProjectModernCpp/ProjectModernCpp/Resources/logo.jpg)
+## "Hugs for Bugs" Team Members
 - Marin Alexandra
 - Mihai Luciana
 - Necula Luana
