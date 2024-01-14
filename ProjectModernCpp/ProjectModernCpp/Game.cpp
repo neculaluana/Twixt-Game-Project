@@ -195,6 +195,7 @@ void Game::showBoard(QGraphicsScene* s, int width, int height, Board b, bool loa
 
 void Game::onPointAdded(int x, int y, CircleButton* button)
 {
+	bool pointAdded = false;
 	if (!button) return;
 	if ((*m_currentPlayer).getColor() == Point::Color::Black)
 	{
@@ -238,6 +239,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 		button->updateColor(Point::Color::Red);
 		m_board.addPoint(newPoint);
+		pointAdded = true;
 		m_board.makeBridges(newPoint, *m_currentPlayer);
 
 		(*m_currentPlayer).addPoint(newPoint);
@@ -266,6 +268,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 					qDebug() << m_playersTurn.second << '\n';
 				}
 			m_board.addPoint(newPoint);
+			pointAdded = true;
 			m_board.makeBridges(newPoint, *m_currentPlayer);
 
 			(*m_currentPlayer).addPoint(newPoint);
@@ -280,6 +283,8 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 
 			button->updateColor(Point::Color::Black);
 			m_board.addPoint(newPoint);
+			pointAdded = true;
+
 			m_board.makeBridges(newPoint, *m_currentPlayer);
 
 			(*m_currentPlayer).addPoint(newPoint);
@@ -306,7 +311,10 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 			QApplication::quit(); // This will close the application
 		}
 	}
-	changeCurrentPlayer();
+	if(pointAdded==true)
+	{
+		changeCurrentPlayer();
+	}
 
 }
 void Game::settingsSlot()
