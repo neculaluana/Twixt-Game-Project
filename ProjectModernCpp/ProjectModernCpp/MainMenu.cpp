@@ -91,7 +91,7 @@ void MainMenu::newGame()
     }
     else
     {
-        QMessageBox::warning(this, "Invalid Names", "Player names can only contain letters.");
+        QMessageBox::warning(this, "Invalid Names", "Player names can only contain letters, digits and underscore.");
 
     }
 
