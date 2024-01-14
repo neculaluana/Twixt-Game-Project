@@ -1,5 +1,5 @@
 # Twixt - Strategy Game for Two
-![Logo](ProjectModernCpp/ProjectModernCpp/ProjectModernCpp/Resources/twixt.jpg)
+![Logo](ProjectModernCpp/ProjectModernCpp/Resources/twixt.jpg)
 ## Team Members
 - Marin Alexandra
 - Mihai Luciana
@@ -19,6 +19,7 @@
 4. After restarting, a popup will ask to choose the Qt version. If missed, go to `Extensions > Qt VS Tools > Qt Versions`.
 5. Click `+`, navigate to the Qt installation folder (e.g., `Qt > 6.5.3 > msvc2019_64 > bin`), and select `qmake.exe`.
 
+![Menu](ProjectModernCpp/ProjectModernCpp/Resources/menu.png)
 
 ## Twixt - Basic Rules
 Twixt is a two-player strategy game. The goal is to connect two bases with an unbroken line of bridges. The first player to do this wins.
@@ -36,9 +37,13 @@ Each player has a set of colored pieces (e.g., red for Player 1, black for Playe
 - `Bridges`: Connect the opposing corners of a 1x2 rectangle. Can be built if pylons are at the correct distance without any obstructing bridge.
 - Note: The number of pieces can be configurable.
 
+![game](ProjectModernCpp/ProjectModernCpp/Resources/game.png)
+
 ### Gameplay
 - The red player moves first.
 - At the start, after the first red pillar is placed, the second player can choose to continue with black pieces or switch to red. The game proceeds with the player having red pieces.
 - Players place a pillar on an empty foundation.
 - Players can reconfigure their bridges: add new or remove existing ones.
 - If all pylons are placed without a player connecting their bases, the game is a draw, else the first player who connects its own bases wins.
+
+![Win](ProjectModernCpp/ProjectModernCpp/Resources/win.png)
