@@ -9,19 +9,19 @@ SettingsWindow::SettingsWindow(QGraphicsScene* scene, QWidget* parent) : QDialog
 
     // Spin Boxes
     boardSize = new QSpinBox(this);
-    boardSize->setRange(5, 100);
+    boardSize->setRange(5, 35);
     boardSize->setValue(24);
     boardSize->setFont(widgetFont);
     boardSize->setFixedSize(150, 50);
 
     numberOfBridges = new QSpinBox(this);
-    numberOfBridges->setRange(1, 100);
+    numberOfBridges->setRange(1, 70);
     numberOfBridges->setValue(50);
     numberOfBridges->setFont(widgetFont);
     numberOfBridges->setFixedSize(150, 50);
 
     numberOfPoints = new QSpinBox(this);
-    numberOfPoints->setRange(1, 100);
+    numberOfPoints->setRange(2, 70);
     numberOfPoints->setValue(50);
     numberOfPoints->setFont(widgetFont);
     numberOfPoints->setFixedSize(150, 50);
