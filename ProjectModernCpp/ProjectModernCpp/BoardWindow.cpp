@@ -399,3 +399,13 @@ void BoardWindow::handleBridgeLineClicked(BridgeLine* line) {
         delete line;
     }
 }
+void BoardWindow::onSaveGameClicked()
+{
+    emit saveGameRequested();
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Game saved");
+    msgBox.setText("The game data has been saved!");
+    msgBox.setStandardButtons(QMessageBox::Ok );
+    int result = msgBox.exec();
+
+}

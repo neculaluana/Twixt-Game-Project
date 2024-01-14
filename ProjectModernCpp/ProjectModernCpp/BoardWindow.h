@@ -30,10 +30,7 @@ public:
 
 public slots:
 	void onButtonClicked(int x, int y, CircleButton* button);
-	void onSaveGameClicked() 
-	{
-		emit saveGameRequested();
-	}
+	void onSaveGameClicked();
 	void handleBridgeLineClicked(BridgeLine* line);
 signals:
 	void pointAdded(int x, int y, CircleButton* button);
