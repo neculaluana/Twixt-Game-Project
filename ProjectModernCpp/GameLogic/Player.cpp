@@ -231,7 +231,7 @@ std::istream& operator>>(std::istream& is, Player& player) {
 	is >> numberOfPoints;
 	is.ignore();
 	player.m_points.clear();
-	for (size_t i = 0; i < numberOfPoints; ++i) {
+	for (size_t index = 0; index < numberOfPoints; ++index) {
 		uint8_t x, y;
 		is >> x >> y;
 		Point p(x, y, player.getColor());
