@@ -1,5 +1,5 @@
 # Twixt - Strategy Game for Two
-![Logo](ProjectModernCpp/ProjectModernCpp/ProjectModernCpp/Resources/twixt.jpg)
+![Logo](ProjectModernCpp/ProjectModernCpp/Resources/twixt.jpg)
 ## Team Members
 - Marin Alexandra
 - Mihai Luciana
