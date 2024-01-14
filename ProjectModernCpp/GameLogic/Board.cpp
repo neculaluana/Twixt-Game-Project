@@ -47,11 +47,11 @@ void Board::setBases(size_t boardSize) {
 	/*for (auto& row : m_board)
 		row.clear();
 	m_board.clear();*/
-	for (size_t i = 0; i < boardSize; ++i) {
-		m_board[i][0] = Status::BaseRed;
-		m_board[i][boardSize - 1] = Status::BaseRed;
-		m_board[0][i] = Status::BaseBlack;
-		m_board[boardSize - 1][i] = Status::BaseBlack;
+	for (size_t index = 0; index < boardSize; ++index) {
+		m_board[index][0] = Status::BaseRed;
+		m_board[index][boardSize - 1] = Status::BaseRed;
+		m_board[0][index] = Status::BaseBlack;
+		m_board[boardSize - 1][index] = Status::BaseBlack;
 	}
 }
 
