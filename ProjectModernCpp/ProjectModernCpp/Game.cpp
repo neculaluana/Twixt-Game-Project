@@ -338,7 +338,7 @@ void Game::updateSettings(int boardSize, int numberOfPoints, int numberOfBridges
 	m_boardSize = boardSize;
 	m_maxPointNumber = numberOfPoints;
 	m_maxBridgeNumber = numberOfBridges;
-		
+	m_board.boardResize(boardSize);
 }
 
 void Game::showMainMenu() {
