@@ -6,6 +6,9 @@
 - Necula Luana
 - Popica Stefania
 
+## Demo Video
+https://www.youtube.com/watch?v=Mu-61vU1DTs
+
 ## Requirements
 - Qt 
      - version: `6.5.3`
