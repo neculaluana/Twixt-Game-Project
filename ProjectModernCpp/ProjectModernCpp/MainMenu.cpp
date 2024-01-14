@@ -16,7 +16,7 @@ MainMenu::MainMenu(QWidget* parent) {
     int startY = 375;
     int buttonInterval = 75;
 
-    // Butonul "New game"
+    // "New game" button
     playButton = new MenuButton(QString("New game"));
     int bxPos = this->width() / 2 - playButton->boundingRect().width() / 2;
     playButton->setPos(bxPos, startY);
@@ -37,21 +37,21 @@ MainMenu::MainMenu(QWidget* parent) {
     scene->addWidget(playerNameBlackInput);
 
 
-    // Butonul "Load game"
+    // "Load game" button
     loadButton = new MenuButton(QString("Load game"));
     int lxPos = this->width() / 2 - loadButton->boundingRect().width() / 2;
     loadButton->setPos(lxPos, startY + buttonInterval);
     connect(loadButton, SIGNAL(clicked()), this, SLOT(load()));
     scene->addItem(loadButton);
 
-    // Butonul "Settings"
+    // "Settings" button
     settingsButton = new MenuButton(QString("Settings"));
     int sxPos = this->width() / 2 - settingsButton->boundingRect().width() / 2;
     settingsButton->setPos(sxPos, startY + 2 * buttonInterval);
     connect(settingsButton, SIGNAL(clicked()), this, SLOT(settings()));
     scene->addItem(settingsButton);
 
-    // Butonul "Quit"
+    // "Quit" button
     quitButton = new MenuButton(QString("Quit"));
     int qxPos = this->width() / 2 - quitButton->boundingRect().width() / 2;
     quitButton->setPos(qxPos, startY + 3 * buttonInterval);
@@ -85,7 +85,7 @@ void MainMenu::newGame()
     if (std::regex_match(playerRedName.toStdString(), validNameRegex) &&
         std::regex_match(playerBlackName.toStdString(), validNameRegex))
     {
-        // Numele sunt valide, continuați cu crearea unui joc nou
+        
         setIsNewGame(true); 
         emit newGameStarted(playerRedName, playerBlackName);
     }

@@ -13,7 +13,6 @@
 class PLAYER_API Player
 {
 public:
-	//Player(std::string name, Point::Color color);
 	Player(std::string name, Point::Color color, size_t maxPointsCount = 50, size_t maxBridgesCount = 50);
 	~Player() = default;
 	Player(const Player& other);

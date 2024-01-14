@@ -4,10 +4,7 @@ Player::Player(std::string name, Point::Color color, size_t maxPointsCount, size
 	m_color(color), m_playerTurn(false) {
 }
 
-//Player::Player(std::string name, Point::Color color, size_t maxPointsCount, size_t maxBridgesCount)
-//
-//{
-//}
+
 
 Player::Player(const Player& other)
 	: m_color(other.m_color), m_points(other.m_points), m_bridges(other.m_bridges), m_name(other.m_name), m_playerTurn(other.m_playerTurn) {}

@@ -308,7 +308,7 @@ void Game::onPointAdded(int x, int y, CircleButton* button)
 		msgBox.addButton("Quit", QMessageBox::AcceptRole);
 
 		if (msgBox.exec() == QMessageBox::AcceptRole) {
-			QApplication::quit(); // This will close the application
+			QApplication::quit(); 
 		}
 	}
 	if(pointAdded==true)

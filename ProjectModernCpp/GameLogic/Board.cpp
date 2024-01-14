@@ -43,10 +43,7 @@ Board& Board::operator=(Board&& other)noexcept
 }
 
 void Board::setBases(size_t boardSize) {
-	//boardSize = std::min(boardSize, m_boardSize);
-	/*for (auto& row : m_board)
-		row.clear();
-	m_board.clear();*/
+	
 	for (size_t index = 0; index < boardSize; ++index) {
 		m_board[index][0] = Status::BaseRed;
 		m_board[index][boardSize - 1] = Status::BaseRed;
